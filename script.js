@@ -1,55 +1,61 @@
+// 🔥 VERIFICAR CARGA
+console.log("JS cargado correctamente");
+
 document.addEventListener("DOMContentLoaded", () => {
 
-    const flipCard = document.getElementById("flipCard");
-    const registerText = document.getElementById("registerText");
-    const loginText = document.getElementById("loginText");
+    console.log("DOM listo");
 
-    // 🔁 FLIP
+    const flipCard = document.getElementById("flipCard");
+
+    // 🔁 REGISTRO
+    const registerText = document.getElementById("registerText");
     if(registerText){
         registerText.addEventListener("click", () => {
+            console.log("Click registrarse");
             flipCard.classList.add("active");
         });
     }
 
+    // 🔁 VOLVER
+    const loginText = document.getElementById("loginText");
     if(loginText){
         loginText.addEventListener("click", () => {
+            console.log("Click volver");
             flipCard.classList.remove("active");
         });
     }
 
-    // ℹ️ INFO PANEL
-    const infoBtns = document.querySelectorAll(".infoToggle");
-
-    infoBtns.forEach(btn => {
+    // ℹ️ INFO
+    document.querySelectorAll(".infoToggle").forEach(btn => {
         btn.addEventListener("click", () => {
+            console.log("Click info");
             const panel = document.getElementById("infoPanel");
             panel.classList.toggle("active");
         });
     });
 
-    // 🔘 BOTONES
+    // 🔐 LOGIN
     const btnLogin = document.getElementById("btnLogin");
-    const btnRegistrar = document.getElementById("btnRegistrar");
+    if(btnLogin){
+        btnLogin.addEventListener("click", () => {
+            console.log("Click login");
+            login();
+        });
+    }
 
-    if(btnLogin) btnLogin.addEventListener("click", login);
-    if(btnRegistrar) btnRegistrar.addEventListener("click", registrar);
+    // 📝 REGISTRO
+    const btnRegistrar = document.getElementById("btnRegistrar");
+    if(btnRegistrar){
+        btnRegistrar.addEventListener("click", () => {
+            console.log("Click registrar");
+            registrar();
+        });
+    }
 
 });
 
 
-// 🔔 TOAST
-function showToast(msg, type="success"){
-    const t = document.getElementById("toast");
-    if(!t) return;
-
-    t.innerText = msg;
-    t.className = "show " + type;
-
-    setTimeout(() => t.classList.remove("show"), 2500);
-}
-
-
-// 🔐 LOGIN
+// LOGIN
 function login(){
     const u = document.getElementById("loginUser").value;
     const p = document.getElementById("loginPass").value;
@@ -57,31 +63,27 @@ function login(){
     const saved = JSON.parse(localStorage.getItem("usuario"));
 
     if(!saved){
-        showToast("No hay usuario", "warning");
+        alert("No hay usuario");
         return;
     }
 
     if(saved.user !== u || saved.pass !== p){
-        showToast("Datos incorrectos", "error");
+        alert("Datos incorrectos");
         return;
     }
 
-    showToast("Bienvenido ✔");
-
-    setTimeout(() => {
-        location.href = saved.rol === "docente" ? "docente.html" : "estudiante.html";
-    }, 1000);
+    alert("Bienvenido");
 }
 
 
-// 📝 REGISTRO
+// REGISTRO
 function registrar(){
     const u = document.getElementById("regUser").value;
     const p = document.getElementById("regPass").value;
     const r = document.getElementById("regRol").value;
 
     if(!u || !p || !r){
-        showToast("Completa todo", "warning");
+        alert("Completa todo");
         return;
     }
 
@@ -91,7 +93,5 @@ function registrar(){
         rol: r
     }));
 
-    showToast("Registrado ✔");
-
-    document.getElementById("flipCard").classList.remove("active");
+    alert("Registrado");
 }
