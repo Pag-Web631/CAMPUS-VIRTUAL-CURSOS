@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estudiante - CursosVirtual</title>
+</head>
+<body>
+
+<!-- CARGAR HEADER -->
+<div id="header-container"></div>
+
+<div class="main" style="max-width:1200px;margin:auto;padding:20px;">
+    <h2>Panel Estudiante</h2>
+    <div class="cursos" id="listaCursos"></div>
+</div>
+
+<script>
+// CARGAR HEADER
+fetch('header.html')
+.then(res=>res.text())
+.then(data => document.getElementById("header-container").innerHTML = data);
+
+// Obtener usuario para permisos
+let user = JSON.parse(localStorage.getItem("user")) || {nombre:"", rol:"estudiante"};
+
+// Solo estudiante puede entrar aquí
+if(user.rol!=="estudiante") alert("No tienes permisos de estudiante");
+
+// Cursos
+let cursos = JSON.parse(localStorage.getItem("cursos")) || [];
+let colores = ["color1","color2","color3","color4","color5"];
+
+function renderCursos(){
+    let html = "";
+    cursos.forEach((c,i)=>{
+        html += `<div class="curso-card ${colores[i % colores.length]}" style="padding:15px;border-left:6px solid #34a853;margin-bottom:10px;">
+                    <b>${c.titulo}</b><br>
+                    Profesor: ${c.profesor}<br>
+                    <button onclick="entrarCurso(${i})">Entrar al curso</button>
+                 </div>`;
+    });
+    if(cursos.length===0) html="<p>No tienes cursos asignados</p>";
+    document.getElementById("listaCursos").innerHTML = html;
+}
+renderCursos();
+
+function entrarCurso(i){
+    alert(`Entrando al curso: ${cursos[i].titulo}`);
+    // Aquí puedes redirigir a la página de tareas del curso
+}
+</script>
+</body>
+</html>
