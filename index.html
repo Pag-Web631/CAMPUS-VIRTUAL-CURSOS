@@ -146,7 +146,23 @@ footer {
 </head>
 
 <body>
+<header>
+    <h2>Campus Virtual UTECO</h2>
+    <p>Lic. José Augusto Herrera Castillo</p>
 
+    <nav class="menu">
+        <a href="index.html" class="active">🏠 Inicio</a>
+        <a href="cursos.html">📚 Cursos</a>
+        <a href="#">👤 Área personal</a>
+        <a href="#">📅 Eventos</a>
+
+        <button onclick="modo='estudiante'; render()">👨‍🎓 Estudiante</button>
+        <button onclick="modo='docente'; render()">👨‍🏫 Docente</button>
+
+        <input id="nombre" placeholder="Tu nombre" style="padding:5px; margin-left:5px;">
+        <button onclick="guardarUser()">Guardar</button>
+    </nav>
+</header>
 
 <div class="main">
 
