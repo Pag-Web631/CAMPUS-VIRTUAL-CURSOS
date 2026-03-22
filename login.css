@@ -3,23 +3,22 @@
     box-sizing: border-box;
 }
 
-/* FONDO (SIN ROMPER TODO) */
+/* CENTRAR TODO */
 body {
     margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: #050814;
+    height: 100vh;
 
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: center; /* horizontal */
+    align-items: center;     /* vertical */
 
-    min-height: 100vh;
+    background: #050814;
+    font-family: 'Segoe UI', sans-serif;
 }
 
-/* CONTENEDOR REAL (IMPORTANTE) */
+/* CONTENEDOR */
 .container {
-    width: 100%;
-    max-width: 260px; /* 🔥 AQUI CONTROLAS EL TAMAÑO */
+    width: 260px;   /* tamaño fijo tipo app */
 }
 
 /* TARJETA */
@@ -35,75 +34,18 @@ body {
     width: 100%;
     height: 100%;
 
-    padding: 14px;
+    padding: 15px;
     border-radius: 18px;
 
     background: rgba(20, 25, 60, 0.35);
-    backdrop-filter: blur(14px);
+    backdrop-filter: blur(12px);
 
-    box-shadow:
-        0 0 20px rgba(0,140,255,0.2);
+    box-shadow: 0 0 20px rgba(0,140,255,0.2);
 
     display: none;
 }
 
-/* SOLO UNA SE VE */
+/* ACTIVA */
 .card.active {
     display: block;
-}
-
-/* TITULO */
-.card h2 {
-    text-align: center;
-    font-size: 15px;
-    margin-bottom: 10px;
-    color: #9bbcff;
-}
-
-/* INPUTS */
-input, select {
-    width: 100%;
-    padding: 7px;
-    margin: 5px 0;
-    border-radius: 8px;
-    border: 1px solid rgba(100,120,255,0.2);
-    background: rgba(255,255,255,0.05);
-    color: white;
-    font-size: 12px;
-}
-
-/* BOTONES */
-button {
-    width: 100%;
-    padding: 7px;
-    margin-top: 6px;
-    border-radius: 8px;
-    border: none;
-    background: linear-gradient(45deg,#3b82f6,#6366f1);
-    color: white;
-    font-size: 12px;
-}
-
-/* TEXTO */
-.toggle-text {
-    display: block;
-    text-align: center;
-    margin-top: 6px;
-    font-size: 12px;
-    color: #9bbcff;
-    cursor: pointer;
-}
-
-/* LISTAS */
-.card ul {
-    padding-left: 15px;
-    font-size: 12px;
-}
-
-/* TOAST */
-#toast {
-    position: fixed;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
 }
