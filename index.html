@@ -8,12 +8,13 @@
 <link rel="stylesheet" href="login.css">
 
 <!-- ICONOS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 </head>
 <body>
 
 <div class="container">
-    <div class="flip-card" id="flipCard">
+    <div class="flip-card">
         <div class="flip-card-inner" id="flipInner">
 
             <!-- LOGIN -->
@@ -64,45 +65,41 @@
                 </form>
             </div>
 
-            <!-- <div class="flip-card-back">
-    
-    <div class="info-container">
+            <!-- INFO -->
+            <div class="flip-card-back" id="infoCard" style="display:none;">
+                
+                <div class="info-container">
 
-        <!-- TARJETA 1 -->
-        <div class="mini-card">
-            <h3>📘 Información</h3>
+                    <!-- 1 -->
+                    <div class="mini-card">
+                        <h3>📘 Información</h3>
+                        <p>
+                            Este Campus Virtual permite gestionar cursos, tareas y calificaciones en un entorno digital moderno.
+                        </p>
+                    </div>
 
-            <p>
-                Este Campus Virtual es una plataforma educativa moderna diseñada para facilitar la gestión académica en un entorno digital.
-            </p>
+                    <!-- 2 -->
+                    <div class="mini-card">
+                        <h3>⚙️ Funcionalidades</h3>
+                        <ul>
+                            <li>✔ Cursos</li>
+                            <li>✔ Tareas</li>
+                            <li>✔ Calificaciones</li>
+                            <li>✔ Panel personalizado</li>
+                        </ul>
+                    </div>
 
-            <p>
-                Permite a los estudiantes acceder a sus cursos, enviar tareas y consultar calificaciones en tiempo real.
-            </p>
-        </div>
+                    <!-- 3 -->
+                    <div class="mini-card">
+                        <h3>👤 Sobre mí</h3>
+                        <p><strong>José Augusto Herrera Castillo</strong></p>
+                        <p>Desarrollador enfocado en apps modernas.</p>
+                    </div>
 
-        <!-- TARJETA 2 -->
-        <div class="mini-card">
-            <h3>⚙️ Funcionalidades</h3>
+                </div>
 
-            <ul>
-                <li>✔ Gestión de cursos</li>
-                <li>✔ Entrega de tareas</li>
-                <li>✔ Calificaciones</li>
-                <li>✔ Panel personalizado</li>
-                <li>✔ Acceso seguro</li>
-            </ul>
+                <span class="toggle-text" onclick="goLogin()">Volver</span>
 
-            <p style="font-size: 0.8rem;">
-                Plataforma adaptada a web y móviles.
-            </p>
-        </div>
-
-    </div>
-
-    <span class="toggle-text" onclick="goLogin()">Volver</span>
-
-</div>
             </div>
 
         </div>
