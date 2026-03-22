@@ -1,5 +1,28 @@
 let user = null;
 
+// ESPERAR QUE CARGUE EL DOM (IMPORTANTE)
+document.addEventListener("DOMContentLoaded", () => {
+
+    const flipCard = document.getElementById("flipCard");
+    const registerText = document.getElementById("registerText");
+    const loginText = document.getElementById("loginText");
+
+    // Validar que existan antes de usar
+    if(registerText){
+        registerText.addEventListener("click", () => {
+            flipCard.classList.add("active");
+        });
+    }
+
+    if(loginText){
+        loginText.addEventListener("click", () => {
+            flipCard.classList.remove("active");
+        });
+    }
+
+});
+
+
 // LOGIN
 function login(){
     const userInput = document.getElementById("loginUser").value;
@@ -12,20 +35,14 @@ function login(){
         return;
     }
 
-    if(saved.rol === "docente") location.href = "docente.html";
-    else location.href = "estudiante.html";
+    if(saved.rol === "docente"){
+        location.href = "docente.html";
+    } else {
+        location.href = "estudiante.html";
+    }
 }
-const flipCard = document.getElementById('flipCard');
-    const registerText = document.getElementById('registerText');
-    const loginText = document.getElementById('loginText');
 
-    registerText.addEventListener('click', () => {
-        flipCard.style.transform = 'rotateY(180deg)';
-    });
 
-    loginText.addEventListener('click', () => {
-        flipCard.style.transform = 'rotateY(0deg)';
-    });
 // REGISTRO
 function registrar(){
     const user = document.getElementById("regUser").value;
@@ -44,8 +61,9 @@ function registrar(){
         rol
     }));
 
-    alert("Registrado");
+    alert("Usuario registrado ✔");
 }
+
 
 // PANEL USUARIO
 function cargarUsuario(){
@@ -61,17 +79,14 @@ function cargarUsuario(){
     document.body.classList.add(user.rol);
 
     const b = document.getElementById("bienvenida");
-    if(b) b.innerText = "Bienvenido " + user.nombre;
+    if(b){
+        b.innerText = "Bienvenido " + user.nombre;
+    }
 }
+
 
 // LOGOUT
 function logout(){
     localStorage.removeItem("usuario");
     location.href = "index.html";
-}
-
-// MOSTRAR REGISTRO
-function toggleRegistro(){
-    const reg = document.getElementById("registro");
-    reg.style.display = reg.style.display === "none" ? "block" : "none";
 }
