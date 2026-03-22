@@ -10,44 +10,12 @@
 
 <body>
 
-<!-- OVERLAY -->
-<div id="overlay"></div>
-
-<!-- PANEL INFO -->
-<div id="infoPanel">
-
-    <button id="closeInfo">✖</button>
-
-    <!-- IZQUIERDA -->
-    <div class="info left">
-        <h2>📘 Acerca de la Plataforma</h2>
-        <p>Plataforma educativa moderna para gestionar cursos y tareas.</p>
-        <ul>
-            <li>✔ Cursos</li>
-            <li>✔ Tareas</li>
-            <li>✔ Calificaciones</li>
-        </ul>
-    </div>
-
-    <!-- DERECHA -->
-    <div class="info right">
-        <h2>👤 Sobre mí</h2>
-        <p><strong>José Augusto Herrera Castillo</strong></p>
-        <ul>
-            <li>💻 Web</li>
-            <li>📱 Apps</li>
-            <li>🎮 Juegos</li>
-        </ul>
-    </div>
-</div>
-
-<!-- LOGIN -->
 <div class="container">
     <div class="flip-card" id="flipCard">
         <div class="flip-card-inner">
 
             <!-- LOGIN -->
-            <div class="flip-card-front">
+            <div class="card face login">
                 <h2>Campus Virtual</h2>
 
                 <input id="loginUser" placeholder="Usuario">
@@ -55,15 +23,12 @@
 
                 <button id="btnLogin">Ingresar</button>
 
-                <!-- 🔁 FLIP -->
-                <span id="registerText" class="toggle-text">Registrarse</span>
-
-                <!-- ℹ️ INFO -->
-                <span class="info-text toggleInfo">ℹ️ Información</span>
+                <span id="goRegister" class="toggle-text">Registrarse</span>
+                <span id="goInfo" class="toggle-text">ℹ️ Información</span>
             </div>
 
             <!-- REGISTRO -->
-            <div class="flip-card-back">
+            <div class="card face register">
                 <h2>Crear Cuenta</h2>
 
                 <input id="regUser" placeholder="Usuario">
@@ -77,18 +42,32 @@
 
                 <button id="btnRegistrar">Registrar</button>
 
-                <!-- 🔁 VOLVER -->
-                <span id="loginText" class="toggle-text">Volver</span>
+                <span id="backLogin" class="toggle-text">Volver</span>
+                <span id="goInfo2" class="toggle-text">ℹ️ Información</span>
+            </div>
 
-                <!-- ℹ️ INFO -->
-                <span class="info-text toggleInfo">ℹ️ Información</span>
+            <!-- INFO -->
+            <div class="card face info">
+                <h2>📘 Información</h2>
+
+                <p>Este Campus Virtual permite gestionar cursos, tareas y calificaciones.</p>
+
+                <ul>
+                    <li>✔ Cursos</li>
+                    <li>✔ Tareas</li>
+                    <li>✔ Calificaciones</li>
+                </ul>
+
+                <h3>👤 Sobre mí</h3>
+                <p><strong>José Augusto Herrera Castillo</strong></p>
+
+                <span id="backFromInfo" class="toggle-text">Volver</span>
             </div>
 
         </div>
     </div>
 </div>
 
-<!-- TOAST -->
 <div id="toast"></div>
 
 <script src="script.js" defer></script>
