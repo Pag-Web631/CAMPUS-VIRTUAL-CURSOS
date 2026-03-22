@@ -7,117 +7,108 @@
 
 <style>
 :root {
-    --primary: #1a73e8;
-    --bg: #f4f6f8;
-    --white: #ffffff;
-    --text: #333;
-    --shadow: 0 4px 15px rgba(0,0,0,0.08);
+  --primary:#1a73e8;
+  --bg:#f4f6f8;
+  --white:#fff;
+  --text:#333;
+  --shadow:0 4px 15px rgba(0,0,0,0.08);
 }
 
 body {
-    margin:0;
-    font-family: Arial, sans-serif;
-    background: var(--bg);
+  margin:0;
+  font-family: Arial, sans-serif;
+  background: var(--bg);
 }
 
 header {
-    background: url('https://img.freepik.com/vector-gratis/blue-abstract-shapes-with-transparent-background_1035-7118.jpg?semt=ais_hybrid&w=740&q=80') center/cover no-repeat;
-    color: white;
-    padding: 30px 20px;
-    position: relative;
+  background: linear-gradient(135deg, #1a73e8, #4a90e2);
+  color:white;
+  padding:20px;
+  text-align:center;
+  position:relative;
 }
 
-header::before {
-    content: "";
-    position: absolute;
-    top:0; left:0; width:100%; height:100%;
-    background: rgba(0,0,0,0.6);
+header h2, header p { position:relative; z-index:1; }
+
+.container {
+  display:flex;
+  min-height:80vh;
 }
 
-header h2, header p {
-    position: relative;
-    z-index: 1;
-    margin: 0;
-}
-
-.container { display:flex; min-height:calc(100vh - 140px); }
-
-/* Sidebar */
 .sidebar {
-    width:250px;
-    background: var(--white);
-    padding:20px;
+  width:250px;
+  background:var(--white);
+  padding:20px;
+  box-shadow: var(--shadow);
 }
 
-.sidebar a, .sidebar button {
-    display:block;
-    padding:10px;
-    margin-bottom:5px;
-    border-radius:5px;
-    text-decoration:none;
-    color: var(--text);
-    border:none;
-    cursor:pointer;
-    text-align:left;
+.sidebar input {
+  width:100%;
+  padding:5px;
+  margin-bottom:10px;
 }
 
-.sidebar a:hover, .sidebar a.active, .sidebar button:hover {
-    background: var(--primary);
-    color:white;
+.sidebar button {
+  width:100%;
+  padding:8px;
+  margin-bottom:5px;
+  border:none;
+  border-radius:5px;
+  background:var(--primary);
+  color:white;
+  cursor:pointer;
 }
 
-/* Main */
-.main { flex:1; padding:20px; background: #f9f9f9; }
+.sidebar a {
+  display:block;
+  padding:8px;
+  margin-bottom:5px;
+  text-decoration:none;
+  color:var(--text);
+  border-radius:5px;
+}
 
-/* Cursos */
+.sidebar a:hover,
+.sidebar a.active { background:var(--primary); color:white; }
+
+.main {
+  flex:1;
+  padding:20px;
+}
+
 .cursos {
-    display:grid;
-    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
-    gap:15px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:15px;
 }
 
 .curso-card {
-    background: var(--white);
-    padding:15px;
-    border-radius:12px;
-    box-shadow: var(--shadow);
-    display:flex;
-    flex-direction:column;
-    justify-content:space-between;
-    border-left:6px solid var(--primary);
+  background:var(--white);
+  padding:15px;
+  border-radius:12px;
+  box-shadow:var(--shadow);
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  border-left:6px solid var(--primary);
 }
 
 .curso-titulo { font-weight:bold; }
 .curso-profesor { font-size:14px; color:gray; }
 
-.btn {
-    background: var(--primary);
-    color:white;
-    padding:8px;
-    border-radius:8px;
-    text-align:center;
-    text-decoration:none;
-    margin-top:10px;
-}
-
-/* Tarjetas de tareas y entregas */
-.card {
-    background: var(--white);
-    padding:15px;
-    margin-bottom:10px;
-    border-radius:10px;
-    box-shadow: var(--shadow);
-}
+.card { background:var(--white); padding:15px; margin-bottom:15px; border-radius:10px; box-shadow:var(--shadow); }
 
 .item { background:#f1f3f4; padding:10px; margin:5px 0; border-radius:5px; }
 
+.btn { background:var(--primary); color:white; padding:8px; border-radius:8px; text-align:center; text-decoration:none; cursor:pointer; }
+
 input, textarea { width:100%; padding:8px; margin:5px 0; }
 
-footer { text-align:center; padding:20px; font-size:12px; background:#eee; margin-top:20px; }
+footer { text-align:center; padding:15px; font-size:12px; background:#eee; }
 
 @media(max-width:768px){
-    .container { flex-direction:column; }
-    .sidebar { width:100%; }
+  .container { flex-direction:column; }
+  .sidebar { width:100%; }
 }
 </style>
 </head>
@@ -125,209 +116,191 @@ footer { text-align:center; padding:20px; font-size:12px; background:#eee; margi
 <body>
 
 <header>
-    <h2>Campus Virtual UTECO</h2>
-    <p id="nombreUsuario">Bienvenido</p>
+  <h2>Campus Virtual UTECO</h2>
+  <p id="nombreUsuario">Bienvenido</p>
 </header>
 
 <div class="container">
 
-<!-- Sidebar -->
-<div class="sidebar">
-    <input id="nombre" placeholder="Tu nombre" style="width:100%; margin-bottom:10px;">
-   <button onclick="modo='estudiante'; render()">👨‍🎓 Estudiante</button>
-        <button onclick="modo='docente'; render()">👨‍🏫 Docente</button>
+  <div class="sidebar">
+    <input id="nombre" placeholder="Tu nombre">
+    <button onclick="guardarUser('estudiante')">👨‍🎓 Estudiante</button>
+    <button onclick="guardarUser('docente')">👨‍🏫 Docente</button>
     <hr>
-    <a href="index.html" class="active">📚 Inicio</a>
-    <a href="curso.html">👤 Cursos</a>
-        <a href="#">👤 Área personal</a>
+    <a href="#" class="active">📚 Cursos</a>
+    <a href="#">👤 Área personal</a>
     <a href="#">📅 Eventos</a>
-</div>
+  </div>
 
-<!-- Main -->
-<div class="main" id="contenido">
-    <h2>Mis cursos</h2>
-    <div class="cursos" id="listaCursos"></div>
-</div>
-
+  <div class="main" id="contenido"></div>
 </div>
 
 <footer>
-© 2026 Derechos Reservados CURSO <br>
-Teléfono: +1 809-585-2291 <br>
-Correo: informacioncurso.cur.do <br>
-Dirección: Cotuí, República Dominicana
+  © 2026 Derechos Reservados CURSO <br>
+  Teléfono: +1 809-585-2291 <br>
+  Correo: informacioncurso.cur.do <br>
+  Dirección: Cotuí, República Dominicana
 </footer>
 
 <script>
-// ================== USUARIO ==================
+// ===== LOGICA =====
 let user = JSON.parse(localStorage.getItem("user")) || null;
 let cursos = JSON.parse(localStorage.getItem("cursos")) || [];
 let cursoActual = null;
 
-// Guardar usuario
+// Guardar usuario y rol
 function guardarUser(rol){
-    let nombre = document.getElementById("nombre").value.trim();
-    if(!nombre) return alert("Ingresa tu nombre");
-    user = {nombre, rol};
-    localStorage.setItem("user", JSON.stringify(user));
-    document.getElementById("nombreUsuario").innerText = `Bienvenido ${nombre} (${rol})`;
-    render();
+  let nombre = document.getElementById("nombre").value.trim();
+  if(!nombre) return alert("Ingresa tu nombre");
+  user = {nombre, rol};
+  localStorage.setItem("user", JSON.stringify(user));
+  document.getElementById("nombreUsuario").innerText = `Bienvenido ${nombre} (${rol})`;
+  render();
 }
 
-// Mostrar usuario guardado
-if(user) document.getElementById("nombreUsuario").innerText = `Bienvenido ${user.nombre} (${user.rol})`;
-
-// ================== RENDER ==================
+// Renderizar todo según rol y curso
 function render(){
-    let html = "";
-    
-    if(cursoActual===null){
-        // Crear curso solo para docente
-        if(user?.rol==="docente"){
-            html += `<div class="card solo-docente">
+  let html = "";
+
+  if(!user) {
+    html = "<p>Ingresa tu nombre y selecciona tu rol</p>";
+    document.getElementById("contenido").innerHTML = html;
+    return;
+  }
+
+  if(cursoActual===null){
+    if(user.rol==="docente"){
+      html += `<div class="card">
                 <h3>Crear curso</h3>
                 <input id="ct" placeholder="Nombre curso">
                 <input id="cp" placeholder="Profesor">
                 <button onclick="crearCurso()">Crear</button>
-            </div>`;
-        }
-        
-        // Mostrar lista de cursos
-        html += '<div class="cursos">';
-        cursos.forEach((c,i)=>{
-            html += `<div class="curso-card">
-                <div>
-                    <div class="curso-titulo">${c.titulo}</div>
-                    <div class="curso-profesor">Profesor: ${c.profesor}</div>
-                </div>
-                <button class="btn" onclick="abrirCurso(${i})">Entrar al curso</button>
-            </div>`;
-        });
-        html += '</div>';
-    } else {
-        // Mostrar curso seleccionado
-        let curso = cursos[cursoActual];
-        let tareas = JSON.parse(localStorage.getItem("tareas_"+cursoActual)) || [];
-        let entregas = JSON.parse(localStorage.getItem("entregas_"+cursoActual)) || [];
-        
-        html += `<h2>${curso.titulo}</h2>`;
-        
-        // Crear tarea solo docente
-        if(user?.rol==="docente"){
-            html += `<div class="card solo-docente">
-                <h3>Crear tarea</h3>
-                <input id="t" placeholder="Actividad">
-                <input type="datetime-local" id="apertura">
-                <input type="datetime-local" id="cierre">
-                <button onclick="crearTarea()">Crear</button>
-            </div>`;
-        }
-        
-        tareas.forEach((t,i)=>{
-            let entrega = entregas.find(e=>e.user===user?.nombre && e.tarea===i);
-            let ahora = new Date();
-            let disponible = ahora >= new Date(t.apertura);
-            let vencida = ahora > new Date(t.cierre);
-            
-            html += `<div class="card">`;
-            
-            if(user?.rol==="estudiante"){
-                html += `<b>${t.titulo}</b><br>
-                Apertura: ${new Date(t.apertura).toLocaleString()}<br>
-                Cierre: ${new Date(t.cierre).toLocaleString()}<br>
-                Estado: ${entrega?"Enviado":"No enviado"}<br>
-                Nota: ${entrega?.nota || "-"}<br>`;
-                if(disponible && !vencida){
-                    html += `<input type="file" id="f${i}"><button onclick="enviar(${i})">Enviar</button>`;
-                } else { html += `<p style="color:red;">Cerrado</p>`; }
-            }
-            
-            if(user?.rol==="docente"){
-                let lista = entregas.map((e,idx)=>({...e,idx})).filter(e=>e.tarea===i);
-                html += `<b>${t.titulo}</b><br>
-                <button onclick="eliminarTarea(${i})">🗑️ Eliminar tarea</button>
-                <h4>Entregas</h4>`;
-                if(lista.length===0) html+="No hay entregas";
-                lista.forEach(e=>{
-                    html += `<div class="item">
-                        ${e.user} - ${e.file}<br>
-                        <input id="nota${e.idx}" placeholder="Nota">
-                        <textarea id="com${e.idx}" placeholder="Comentario"></textarea>
-                        <button onclick="calificar(${e.idx})">Guardar</button>
-                    </div>`;
-                });
-            }
-            
-            html += "</div>";
-        });
-        
-        html += `<button class="btn" onclick="volver()">⬅ Volver</button>`;
+              </div>`;
     }
-    
-    document.getElementById("listaCursos").innerHTML = html;
+
+    html += `<div class="cursos">`;
+    cursos.forEach((c,i)=>{
+      html += `<div class="curso-card">
+                  <div class="curso-titulo">${c.titulo}</div>
+                  <div class="curso-profesor">Profesor: ${c.profesor}</div>
+                  <button class="btn" onclick="abrirCurso(${i})">Entrar al curso</button>
+               </div>`;
+    });
+    html += `</div>`;
+
+  } else {
+    let curso = cursos[cursoActual];
+    let tareas = JSON.parse(localStorage.getItem("tareas_"+cursoActual)) || [];
+    let entregas = JSON.parse(localStorage.getItem("entregas_"+cursoActual)) || [];
+
+    html += `<h2>${curso.titulo}</h2>`;
+
+    if(user.rol==="docente"){
+      html += `<div class="card">
+                  <h3>Crear tarea</h3>
+                  <input id="t" placeholder="Nombre tarea">
+                  <input type="datetime-local" id="apertura">
+                  <input type="datetime-local" id="cierre">
+                  <button onclick="crearTarea()">Crear</button>
+               </div>`;
+    }
+
+    tareas.forEach((t,i)=>{
+      let entrega = entregas.find(e=>e.user===user.nombre && e.tarea===i);
+      let ahora = new Date();
+      let disponible = ahora >= new Date(t.apertura);
+      let vencida = ahora > new Date(t.cierre);
+
+      html += `<div class="card">`;
+      if(user.rol==="estudiante"){
+        html += `<b>${t.titulo}</b><br>
+                 Apertura: ${new Date(t.apertura).toLocaleString()}<br>
+                 Cierre: ${new Date(t.cierre).toLocaleString()}<br>
+                 Estado: ${entrega?"Enviado":"No enviado"}<br>
+                 Nota: ${entrega?.nota || "-"}<br>`;
+        if(disponible && !vencida){
+          html += `<input type="file" id="f${i}"><button onclick="enviar(${i})">Enviar</button>`;
+        } else { html += `<p style="color:red;">Cerrado</p>`; }
+      }
+
+      if(user.rol==="docente"){
+        let lista = entregas.map((e,idx)=>({...e,idx})).filter(e=>e.tarea===i);
+        html += `<b>${t.titulo}</b><br>
+                 <button onclick="eliminarTarea(${i})">🗑️ Eliminar tarea</button>
+                 <h4>Entregas</h4>`;
+        if(lista.length===0) html+="No hay entregas";
+        lista.forEach(e=>{
+          html += `<div class="item">${e.user} - ${e.file}<br>
+                   <input id="nota${e.idx}" placeholder="Nota">
+                   <textarea id="com${e.idx}" placeholder="Comentario"></textarea>
+                   <button onclick="calificar(${e.idx})">Guardar</button>
+                   </div>`;
+        });
+      }
+
+      html += "</div>";
+    });
+
+    html += `<button class="btn" onclick="volver()">⬅ Volver</button>`;
+  }
+
+  document.getElementById("contenido").innerHTML = html;
 }
 
-// ================== FUNCIONES ==================
-
-// Crear curso
+// ===== FUNCIONES =====
 function crearCurso(){
-    let t = document.getElementById("ct").value;
-    let p = document.getElementById("cp").value;
-    if(!t || !p) return alert("Completa todo");
-    cursos.push({titulo:t, profesor:p});
-    localStorage.setItem("cursos", JSON.stringify(cursos));
-    render();
+  let t = document.getElementById("ct").value;
+  let p = document.getElementById("cp").value;
+  if(!t||!p) return alert("Completa todo");
+  cursos.push({titulo:t, profesor:p});
+  localStorage.setItem("cursos", JSON.stringify(cursos));
+  render();
 }
 
-// Abrir curso
 function abrirCurso(i){ cursoActual=i; render(); }
 function volver(){ cursoActual=null; render(); }
 
-// Crear tarea
 function crearTarea(){
-    let tareas = JSON.parse(localStorage.getItem("tareas_"+cursoActual)) || [];
-    let t = document.getElementById("t").value;
-    let a = document.getElementById("apertura").value;
-    let c = document.getElementById("cierre").value;
-    if(!t || !a || !c) return alert("Completa todo");
-    tareas.push({titulo:t, apertura:a, cierre:c});
-    localStorage.setItem("tareas_"+cursoActual, JSON.stringify(tareas));
-    render();
+  let tareas = JSON.parse(localStorage.getItem("tareas_"+cursoActual)) || [];
+  let t = document.getElementById("t").value;
+  let a = document.getElementById("apertura").value;
+  let c = document.getElementById("cierre").value;
+  if(!t||!a||!c) return alert("Completa todo");
+  tareas.push({titulo:t, apertura:a, cierre:c});
+  localStorage.setItem("tareas_"+cursoActual, JSON.stringify(tareas));
+  render();
 }
 
-// Eliminar tarea
 function eliminarTarea(i){
-    let tareas = JSON.parse(localStorage.getItem("tareas_"+cursoActual)) || [];
-    let entregas = JSON.parse(localStorage.getItem("entregas_"+cursoActual)) || [];
-    tareas.splice(i,1);
-    entregas = entregas.filter(e=>e.tarea!==i);
-    localStorage.setItem("tareas_"+cursoActual, JSON.stringify(tareas));
-    localStorage.setItem("entregas_"+cursoActual, JSON.stringify(entregas));
-    render();
+  let tareas = JSON.parse(localStorage.getItem("tareas_"+cursoActual)) || [];
+  let entregas = JSON.parse(localStorage.getItem("entregas_"+cursoActual)) || [];
+  tareas.splice(i,1);
+  entregas = entregas.filter(e=>e.tarea!==i);
+  localStorage.setItem("tareas_"+cursoActual, JSON.stringify(tareas));
+  localStorage.setItem("entregas_"+cursoActual, JSON.stringify(entregas));
+  render();
 }
 
-// Enviar tarea
 function enviar(i){
-    let entregas = JSON.parse(localStorage.getItem("entregas_"+cursoActual)) || [];
-    let file = document.getElementById("f"+i).files[0];
-    let index = entregas.findIndex(e=>e.user===user?.nombre && e.tarea===i);
-    let data = {user:user.nombre, tarea:i, file:file?file.name:"", nota:null, comentario:null};
-    if(index>=0) entregas[index]=data;
-    else entregas.push(data);
-    localStorage.setItem("entregas_"+cursoActual, JSON.stringify(entregas));
-    render();
+  let entregas = JSON.parse(localStorage.getItem("entregas_"+cursoActual)) || [];
+  let file = document.getElementById("f"+i).files[0];
+  let index = entregas.findIndex(e=>e.user===user.nombre && e.tarea===i);
+  let data = {user:user.nombre, tarea:i, file:file?file.name:"", nota:null, comentario:null};
+  if(index>=0) entregas[index]=data; else entregas.push(data);
+  localStorage.setItem("entregas_"+cursoActual, JSON.stringify(entregas));
+  render();
 }
 
-// Calificar tarea
 function calificar(i){
-    let entregas = JSON.parse(localStorage.getItem("entregas_"+cursoActual)) || [];
-    entregas[i].nota = document.getElementById("nota"+i).value;
-    entregas[i].comentario = document.getElementById("com"+i).value;
-    localStorage.setItem("entregas_"+cursoActual, JSON.stringify(entregas));
-    render();
+  let entregas = JSON.parse(localStorage.getItem("entregas_"+cursoActual)) || [];
+  entregas[i].nota = document.getElementById("nota"+i).value;
+  entregas[i].comentario = document.getElementById("com"+i).value;
+  localStorage.setItem("entregas_"+cursoActual, JSON.stringify(entregas));
+  render();
 }
 
 // Inicial
+if(user) document.getElementById("nombreUsuario").innerText = `Bienvenido ${user.nombre} (${user.rol})`;
 render();
 </script>
 
