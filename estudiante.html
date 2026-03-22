@@ -3,51 +3,56 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Estudiante - CursosVirtual</title>
+<title>Estudiante - Campus Virtual</title>
+<style>
+.main { max-width:1200px; margin:auto; padding:20px; }
+.cursos { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:15px; }
+.curso-card { padding:15px; border-left:6px solid #34a853; border-radius:10px; box-shadow:0 4px 15px rgba(0,0,0,0.08);}
+button { cursor:pointer; padding:6px 12px; border:none; border-radius:5px; background:#34a853; color:white; margin:3px;}
+</style>
 </head>
 <body>
 
-<!-- CARGAR HEADER -->
 <div id="header-container"></div>
 
-<div class="main" style="max-width:1200px;margin:auto;padding:20px;">
-    <h2>Panel Estudiante</h2>
-    <div class="cursos" id="listaCursos"></div>
+<div class="main">
+<h2>Panel Estudiante</h2>
+<div class="cursos" id="listaCursos"></div>
 </div>
 
 <script>
-// CARGAR HEADER
-fetch('header.html')
-.then(res=>res.text())
-.then(data => document.getElementById("header-container").innerHTML = data);
+// Cargar header
+fetch('header.html').then(res=>res.text()).then(data=>document.getElementById("header-container").innerHTML=data);
 
-// Obtener usuario para permisos
-let user = JSON.parse(localStorage.getItem("user")) || {nombre:"", rol:"estudiante"};
+// Verificar rol
+let user = JSON.parse(localStorage.getItem("user")) || {nombre:"", rol:""};
+if(user.rol!=="estudiante") { alert("No tienes permisos de estudiante"); window.location="index.html"; }
 
-// Solo estudiante puede entrar aquí
-if(user.rol!=="estudiante") alert("No tienes permisos de estudiante");
-
-// Cursos
 let cursos = JSON.parse(localStorage.getItem("cursos")) || [];
-let colores = ["color1","color2","color3","color4","color5"];
-
 function renderCursos(){
-    let html = "";
+    let html="";
     cursos.forEach((c,i)=>{
-        html += `<div class="curso-card ${colores[i % colores.length]}" style="padding:15px;border-left:6px solid #34a853;margin-bottom:10px;">
-                    <b>${c.titulo}</b><br>
-                    Profesor: ${c.profesor}<br>
-                    <button onclick="entrarCurso(${i})">Entrar al curso</button>
-                 </div>`;
+        let tareas = JSON.parse(localStorage.getItem("tareas_"+i)) || [];
+        html += `<div class="curso-card">
+            <b>${c.titulo}</b> - Profesor: ${c.profesor}<br>
+            <div>Tareas: ${tareas.length}</div>
+            ${tareas.map((t,j)=>`<div>${t.titulo} <button onclick="entregar(${i},${j})">Enviar</button></div>`).join("")}
+        </div>`;
     });
     if(cursos.length===0) html="<p>No tienes cursos asignados</p>";
     document.getElementById("listaCursos").innerHTML = html;
 }
 renderCursos();
 
-function entrarCurso(i){
-    alert(`Entrando al curso: ${cursos[i].titulo}`);
-    // Aquí puedes redirigir a la página de tareas del curso
+function entregar(cursoIndex, tareaIndex){
+    let file = prompt("Nombre del archivo a enviar");
+    if(!file) return;
+    let tareas = JSON.parse(localStorage.getItem("tareas_"+cursoIndex)) || [];
+    if(!tareas[tareaIndex].entregas) tareas[tareaIndex].entregas = [];
+    tareas[tareaIndex].entregas.push({user:user.nombre, file, nota:null});
+    localStorage.setItem("tareas_"+cursoIndex, JSON.stringify(tareas));
+    alert("Tarea enviada");
+    renderCursos();
 }
 </script>
 </body>
