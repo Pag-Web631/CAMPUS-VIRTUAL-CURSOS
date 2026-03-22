@@ -3,31 +3,36 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Estudiante - Campus Virtual</title>
+<title>Estudiante</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header>
-  <h2>Campus Virtual UTECO</h2>
+
+<header class="card">
+  <h2>Panel Estudiante</h2>
   <p id="bienvenida"></p>
+
   <nav>
-    <a href="curso.html">📚 Cursos</a>
-    <a href="#">👤 Área personal</a>
-    <a href="#">📅 Eventos</a>
+    <button>📚 Mis Cursos</button>
+    <button>📝 Tareas</button>
+    <button>📊 Mis Notas</button>
+    <button onclick="logout()">Salir</button>
   </nav>
 </header>
 
-<main id="panel">
-  <p>Panel Estudiante: solo ver cursos y tareas, enviar entregas.</p>
+<main class="card">
+  <p>Aquí ves tus cursos y entregas tareas.</p>
 </main>
 
 <script src="script.js"></script>
 <script>
 cargarUsuario();
+
 if(user.rol !== "estudiante"){
-    alert("No tienes permiso para ver esta página");
+    alert("No tienes permiso");
     window.location.href = "index.html";
 }
 </script>
+
 </body>
 </html>
