@@ -5,7 +5,7 @@ function goRegister(){
     document.getElementById("infoCard").style.display = "none";
 }
 
-// VOLVER A LOGIN
+// VOLVER LOGIN
 function goLogin(){
     document.getElementById("flipInner").style.transform = "rotateY(0deg)";
     document.getElementById("registerCard").style.display = "flex";
@@ -18,7 +18,6 @@ function goInfo(){
     document.getElementById("registerCard").style.display = "none";
     document.getElementById("infoCard").style.display = "flex";
 }
-
 
 // LOGIN
 function login(){
@@ -38,8 +37,14 @@ function login(){
     }
 
     alert("Bienvenido ✔");
-}
 
+    // REDIRECCIÓN
+    if(saved.rol === "docente"){
+        window.location.href = "docente.html";
+    } else {
+        window.location.href = "estudiante.html";
+    }
+}
 
 // REGISTRO
 function registrar(){
@@ -61,19 +66,16 @@ function registrar(){
     alert("Registrado ✔");
 }
 
-
-// VER / OCULTAR PASSWORD
+// MOSTRAR / OCULTAR PASSWORD
 function togglePass(id, icon){
     const input = document.getElementById(id);
     const i = icon.querySelector("i");
 
     if(input.type === "password"){
         input.type = "text";
-        i.classList.remove("fa-eye");
-        i.classList.add("fa-eye-slash");
+        i.classList.replace("fa-eye","fa-eye-slash");
     } else {
         input.type = "password";
-        i.classList.remove("fa-eye-slash");
-        i.classList.add("fa-eye");
+        i.classList.replace("fa-eye-slash","fa-eye");
     }
 }
