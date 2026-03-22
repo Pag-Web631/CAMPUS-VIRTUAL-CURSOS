@@ -11,64 +11,59 @@
 <body>
 
 <div class="container">
-    <div class="flip-card" id="flipCard">
-       <div class="container">
-    <div class="card">
 
+    <!-- LOGIN -->
+    <div class="card active" id="loginCard">
         <h2>Campus Virtual</h2>
 
-        <input placeholder="Usuario">
-        <input type="password" placeholder="Contraseña">
+        <input id="loginUser" placeholder="Usuario">
+        <input type="password" id="loginPass" placeholder="Contraseña">
 
-        <button>Ingresar</button>
+        <button id="btnLogin">Ingresar</button>
 
         <div class="links">
-            <span>Registrarse</span>
-            <span>ℹ️ Información</span>
-        </div>
-
-    </div>
-</div>
-
-            <!-- REGISTRO -->
-            <div class="card face register">
-                <h2>Crear Cuenta</h2>
-
-                <input id="regUser" placeholder="Usuario">
-                <input type="password" id="regPass" placeholder="Contraseña">
-
-                <select id="regRol">
-                    <option value="">Selecciona Rol</option>
-                    <option value="estudiante">Estudiante</option>
-                    <option value="docente">Docente</option>
-                </select>
-
-                <button id="btnRegistrar">Registrar</button>
-
-                <span id="backLogin" class="toggle-text">Volver</span>
-                <span id="goInfo2" class="toggle-text">ℹ️ Información</span>
-            </div>
-
-            <!-- INFO -->
-            <div class="card face info">
-                <h2>📘 Información</h2>
-
-                <p>Este Campus Virtual permite gestionar cursos, tareas y calificaciones.</p>
-
-                <ul>
-                    <li>✔ Cursos</li>
-                    <li>✔ Tareas</li>
-                    <li>✔ Calificaciones</li>
-                </ul>
-
-                <h3>👤 Sobre mí</h3>
-                <p><strong>José Augusto Herrera Castillo</strong></p>
-
-                <span id="backFromInfo" class="toggle-text">Volver</span>
-            </div>
-
+            <span id="goRegister">Registrarse</span>
+            <span id="goInfo">ℹ️ Información</span>
         </div>
     </div>
+
+    <!-- REGISTRO -->
+    <div class="card" id="registerCard">
+        <h2>Crear Cuenta</h2>
+
+        <input id="regUser" placeholder="Usuario">
+        <input type="password" id="regPass" placeholder="Contraseña">
+
+        <select id="regRol">
+            <option value="">Selecciona Rol</option>
+            <option value="estudiante">Estudiante</option>
+            <option value="docente">Docente</option>
+        </select>
+
+        <button id="btnRegistrar">Registrar</button>
+
+        <span id="backLogin" class="toggle-text">Volver</span>
+        <span id="goInfo2" class="toggle-text">ℹ️ Información</span>
+    </div>
+
+    <!-- INFO -->
+    <div class="card" id="infoCard">
+        <h2>📘 Información</h2>
+
+        <p>Este Campus Virtual permite gestionar cursos, tareas y calificaciones.</p>
+
+        <ul>
+            <li>✔ Cursos</li>
+            <li>✔ Tareas</li>
+            <li>✔ Calificaciones</li>
+        </ul>
+
+        <h3>👤 Sobre mí</h3>
+        <p><strong>José Augusto Herrera Castillo</strong></p>
+
+        <span id="backFromInfo" class="toggle-text">Volver</span>
+    </div>
+
 </div>
 
 <div id="toast"></div>
