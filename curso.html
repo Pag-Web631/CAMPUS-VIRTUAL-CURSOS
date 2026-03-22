@@ -2,34 +2,40 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Curso</title>
+<title>Curso - Comercio Electrónico</title>
 
 <style>
 body { font-family: Arial; margin:0; background:#f4f6f8; }
 header { background:#1a73e8; color:white; padding:15px; }
 .container { display:flex; }
-.sidebar { width:200px; background:white; padding:15px; height:100vh; }
+.sidebar { width:220px; background:white; padding:15px; height:100vh; }
 .main { flex:1; padding:20px; }
 .card { background:white; padding:15px; margin-bottom:10px; border-radius:10px; }
 .item { background:#f1f3f4; padding:10px; margin:5px 0; border-radius:5px; }
 button { padding:8px; background:#1a73e8; color:white; border:none; border-radius:5px; }
+input, textarea { width:100%; padding:8px; margin:5px 0; }
 </style>
 
 </head>
 <body>
 
 <header>
-<h2>Curso - Comercio Electrónico</h2>
+<h2>IRI-119-01 - Comercio Electrónico</h2>
 </header>
 
 <div class="container">
 
 <div class="sidebar">
+
+<h3>Usuario</h3>
 <input id="nombre" placeholder="Tu nombre">
 <button onclick="guardarUser()">Entrar</button>
+
 <hr>
-<button onclick="modo='estudiante'">Estudiante</button>
-<button onclick="modo='docente'">Docente</button>
+
+<button onclick="modo='estudiante'; render()">👨‍🎓 Estudiante</button>
+<button onclick="modo='docente'; render()">👨‍🏫 Docente</button>
+
 </div>
 
 <div class="main" id="contenido"></div>
@@ -50,45 +56,71 @@ function guardarUser(){
 let tareas = JSON.parse(localStorage.getItem("tareas")) || [];
 let entregas = JSON.parse(localStorage.getItem("entregas")) || [];
 
+// 🔄 RENDER PRINCIPAL
 function render(){
 
 let html = "<h2>Tareas del curso</h2>";
 
 if(modo==="docente"){
 html += `
+<div class="card">
+<h3>Crear tarea</h3>
 <input id="t" placeholder="Título tarea">
-<button onclick="crear()">Crear tarea</button>
-<hr>
+<button onclick="crear()">Crear</button>
+</div>
 `;
 }
 
+// LISTA DE TAREAS
 tareas.forEach((t,i)=>{
 
 let entrega = entregas.find(e=>e.user===user && e.tarea===i);
 
 html += `<div class="card">
-<b>${t}</b><br>`;
+<b>${t}</b><br><br>`;
 
+// 👨‍🎓 ESTUDIANTE
 if(modo==="estudiante"){
 html += `
-Estado: ${entrega?"Enviado":"No enviado"}<br>
+<table style="width:100%">
+<tr><td><b>Estado de la entrega</b></td><td>${entrega?"Enviado para calificar":"Todavía no se han realizado envíos"}</td></tr>
+<tr><td><b>Estado de la calificación</b></td><td>${entrega?.nota?("Calificado ("+entrega.nota+")"):"Sin calificar"}</td></tr>
+<tr><td><b>Última modificación</b></td><td>${entrega?entrega.fecha:"-"}</td></tr>
+<tr><td><b>Comentarios</b></td><td>${entrega?.comentario||"Comentarios (0)"}</td></tr>
+</table>
+
+<br>
+
 <input type="file" id="f${i}">
-<button onclick="enviar(${i})">Enviar</button>
+<textarea id="r${i}" placeholder="Respuesta"></textarea>
+<button onclick="enviar(${i})">Enviar tarea</button>
 `;
 }
 
+// 👨‍🏫 DOCENTE
 if(modo==="docente"){
+
 let lista = entregas.filter(e=>e.tarea===i);
 
 html += "<h4>Entregas:</h4>";
 
+if(lista.length===0){
+html += "<p>No hay entregas</p>";
+}
+
 lista.forEach((e,index)=>{
 html += `
 <div class="item">
-${e.user} - ${e.file || "Sin archivo"}<br>
-Nota: ${e.nota || "Sin calificar"}<br>
-<button onclick="calificar(${index})">Calificar</button>
-</div>`;
+<b>${e.user}</b><br>
+Archivo: ${e.file || "No subido"}<br>
+Estado: ${e.nota?"Calificado":"Sin calificar"}<br>
+
+<input id="nota${index}" placeholder="Nota">
+<textarea id="com${index}" placeholder="Comentario"></textarea>
+
+<button onclick="calificar(${index})">Guardar</button>
+</div>
+`;
 });
 }
 
@@ -98,30 +130,41 @@ html += "</div>";
 document.getElementById("contenido").innerHTML = html;
 }
 
+// 🧑‍🏫 CREAR TAREA
 function crear(){
 let t = document.getElementById("t").value;
+if(!t) return alert("Escribe título");
 tareas.push(t);
 localStorage.setItem("tareas", JSON.stringify(tareas));
 render();
 }
 
+// 👨‍🎓 ENVIAR
 function enviar(i){
+
+if(!user) return alert("Ingresa tu nombre");
+
 let file = document.getElementById("f"+i).files[0];
 
 entregas.push({
 user:user,
 tarea:i,
 file:file?file.name:"",
-nota:null
+fecha:new Date().toLocaleString(),
+nota:null,
+comentario:null
 });
 
 localStorage.setItem("entregas", JSON.stringify(entregas));
 render();
 }
 
+// ⭐ CALIFICAR
 function calificar(i){
-let nota = prompt("Nota:");
-entregas[i].nota = nota;
+
+entregas[i].nota = document.getElementById("nota"+i).value;
+entregas[i].comentario = document.getElementById("com"+i).value;
+
 localStorage.setItem("entregas", JSON.stringify(entregas));
 render();
 }
