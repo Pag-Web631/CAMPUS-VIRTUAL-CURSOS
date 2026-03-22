@@ -3,34 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Campus Virtual UTECO</title>
-<style>
-body { margin:0; font-family: Arial, sans-serif; background:#f4f6f8; display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh; }
-header { background: linear-gradient(135deg,#1a73e8,#4a90e2); color:white; padding:20px; text-align:center; border-radius:10px; }
-input { padding:5px; margin:5px 0; width:200px; }
-button { padding:5px 10px; margin:5px; border:none; border-radius:5px; cursor:pointer; background:#1a73e8; color:white; }
-</style>
+<title>Estudiante - Campus Virtual</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-
 <header>
-<h2>Campus Virtual UTECO</h2>
-<p>Bienvenido, ingresa tu nombre y selecciona tu rol</p>
-<input id="nombre" placeholder="Tu nombre">
-<br>
-<button onclick="login('estudiante')">👨‍🎓 Estudiante</button>
-<button onclick="login('docente')">👨‍🏫 Docente</button>
+  <h2>Campus Virtual UTECO</h2>
+  <p id="bienvenida"></p>
+  <nav>
+    <a href="estudiante.html">📚 Cursos</a>
+    <a href="#">👤 Área personal</a>
+    <a href="#">📅 Eventos</a>
+  </nav>
 </header>
 
+<main id="panel">
+  <p>Panel Estudiante: solo ver cursos y tareas, enviar entregas.</p>
+</main>
+
+<script src="script.js"></script>
 <script>
-function login(rol){
-    let nombre = document.getElementById("nombre").value.trim();
-    if(!nombre) return alert("Ingresa tu nombre");
-    localStorage.setItem("user", JSON.stringify({nombre, rol}));
-    if(rol==='docente') window.location.href='docente.html';
-    else window.location.href='estudiante.html';
+cargarUsuario();
+if(user.rol !== "estudiante"){
+    alert("No tienes permiso para ver esta página");
+    window.location.href = "index.html";
 }
 </script>
-
 </body>
 </html>
