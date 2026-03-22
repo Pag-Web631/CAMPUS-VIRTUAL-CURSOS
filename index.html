@@ -10,8 +10,14 @@
 
 <body>
 
+<!-- OVERLAY -->
+<div id="overlay"></div>
+
 <!-- PANEL INFO -->
 <div id="infoPanel">
+
+    <button id="closeInfo">✖</button>
+
     <div class="info left">
         <h2>📘 Acerca de la Plataforma</h2>
         <p>Plataforma educativa moderna para gestionar cursos y tareas.</p>
@@ -45,10 +51,11 @@
                 <input id="loginUser" placeholder="Usuario">
                 <input type="password" id="loginPass" placeholder="Contraseña">
 
-               <button id="btnLogin">Ingresar</button>
-              <span id="registerText" class="toggle-text">Registrarse</span>
-           
-             <span class="infoToggle info-text">ℹ️ Información</span>      
+                <button id="btnLogin">Ingresar</button>
+
+                <span id="registerText" class="toggle-text toggleInfo">Registrarse</span>
+
+                <span class="info-text toggleInfo">ℹ️ Información</span>
             </div>
 
             <!-- REGISTRO -->
@@ -65,10 +72,10 @@
                 </select>
 
                 <button id="btnRegistrar">Registrar</button>
-                
-                <span class="infoToggle info-text">ℹ️ Información</span>
-                
-                <span id="loginText" class="toggle-text">Volver</span>
+
+                <span class="info-text toggleInfo">ℹ️ Información</span>
+
+                <span id="loginText" class="toggle-text toggleInfo">Volver</span>
             </div>
 
         </div>
@@ -78,7 +85,7 @@
 <!-- TOAST -->
 <div id="toast"></div>
 
-<script src="script.js"></script>
+<script src="script.js" defer></script>
 
 </body>
 </html>
