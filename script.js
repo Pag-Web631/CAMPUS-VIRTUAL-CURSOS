@@ -1,97 +1,48 @@
-// 🔥 VERIFICAR CARGA
-console.log("JS cargado correctamente");
-
 document.addEventListener("DOMContentLoaded", () => {
 
-    console.log("DOM listo");
-
+    const panel = document.getElementById("infoPanel");
+    const overlay = document.getElementById("overlay");
     const flipCard = document.getElementById("flipCard");
 
-    // 🔁 REGISTRO
-    const registerText = document.getElementById("registerText");
-    if(registerText){
-        registerText.addEventListener("click", () => {
-            console.log("Click registrarse");
-            flipCard.classList.add("active");
-        });
-    }
-
-    // 🔁 VOLVER
-    const loginText = document.getElementById("loginText");
-    if(loginText){
-        loginText.addEventListener("click", () => {
-            console.log("Click volver");
-            flipCard.classList.remove("active");
-        });
-    }
-
-    // ℹ️ INFO
-    document.querySelectorAll(".infoToggle").forEach(btn => {
-        btn.addEventListener("click", () => {
-            console.log("Click info");
-            const panel = document.getElementById("infoPanel");
-            panel.classList.toggle("active");
+    // 🔥 ABRIR INFO
+    document.querySelectorAll(".toggleInfo").forEach(el => {
+        el.addEventListener("click", () => {
+            panel.classList.add("active");
+            overlay.classList.add("active");
         });
     });
 
-    // 🔐 LOGIN
-    const btnLogin = document.getElementById("btnLogin");
-    if(btnLogin){
-        btnLogin.addEventListener("click", () => {
-            console.log("Click login");
-            login();
-        });
-    }
+    // ❌ CERRAR
+    document.getElementById("closeInfo").onclick = () => {
+        panel.classList.remove("active");
+        overlay.classList.remove("active");
+    };
 
-    // 📝 REGISTRO
-    const btnRegistrar = document.getElementById("btnRegistrar");
-    if(btnRegistrar){
-        btnRegistrar.addEventListener("click", () => {
-            console.log("Click registrar");
-            registrar();
-        });
-    }
+    overlay.onclick = () => {
+        panel.classList.remove("active");
+        overlay.classList.remove("active");
+    };
 
+    // 🔁 FLIP (DOBLE CLICK)
+    document.getElementById("registerText").ondblclick = () => {
+        flipCard.classList.add("active");
+    };
+
+    document.getElementById("loginText").ondblclick = () => {
+        flipCard.classList.remove("active");
+    };
+
+    // BOTONES
+    document.getElementById("btnLogin").onclick = login;
+    document.getElementById("btnRegistrar").onclick = registrar;
 });
-
 
 // LOGIN
 function login(){
-    const u = document.getElementById("loginUser").value;
-    const p = document.getElementById("loginPass").value;
-
-    const saved = JSON.parse(localStorage.getItem("usuario"));
-
-    if(!saved){
-        alert("No hay usuario");
-        return;
-    }
-
-    if(saved.user !== u || saved.pass !== p){
-        alert("Datos incorrectos");
-        return;
-    }
-
-    alert("Bienvenido");
+    alert("Login funcionando");
 }
-
 
 // REGISTRO
 function registrar(){
-    const u = document.getElementById("regUser").value;
-    const p = document.getElementById("regPass").value;
-    const r = document.getElementById("regRol").value;
-
-    if(!u || !p || !r){
-        alert("Completa todo");
-        return;
-    }
-
-    localStorage.setItem("usuario", JSON.stringify({
-        user: u,
-        pass: p,
-        rol: r
-    }));
-
-    alert("Registrado");
+    alert("Registro funcionando");
 }
