@@ -3,27 +3,77 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Campus Virtual UTECO</title>
+<title>Login Futurista</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header>
-  <h2>Campus Virtual UTECO</h2>
-  <p>Bienvenido</p>
-  <input id="nombre" placeholder="Tu nombre">
-  <button onclick="login('estudiante')">👨‍🎓 Estudiante</button>
-  <button onclick="login('docente')">👨‍🏫 Docente</button>
-</header>
+
+<div class="container">
+
+    <!-- LOGIN -->
+    <div class="card">
+        <h2>Iniciar Sesión</h2>
+
+        <input type="text" id="loginUser" placeholder="Usuario">
+        <input type="password" id="loginPass" placeholder="Contraseña">
+
+        <button onclick="login()">Ingresar</button>
+        <button class="secondary" onclick="toggleRegistro()">Ocultar Registro</button>
+    </div>
+
+    <!-- REGISTRO -->
+    <div class="card" id="registro">
+        <h2>Registrar Nuevo Usuario</h2>
+
+        <input type="text" id="regUser" placeholder="Usuario">
+        <input type="password" id="regPass" placeholder="Contraseña">
+
+        <select id="regRol">
+            <option value="">Selecciona Rol</option>
+            <option value="estudiante">Estudiante</option>
+            <option value="docente">Docente</option>
+        </select>
+
+        <button onclick="registrar()">Registrar Usuario</button>
+    </div>
+
+</div>
 
 <script>
-function login(rol){
-    const nombre = document.getElementById("nombre").value.trim();
-    if(!nombre) return alert("Ingresa tu nombre");
-    localStorage.setItem("user", JSON.stringify({nombre, rol}));
-    // Redirigir según rol
-    if(rol === "estudiante") window.location.href = "estudiante.html";
+function login(){
+    const user = document.getElementById("loginUser").value;
+    const pass = document.getElementById("loginPass").value;
+
+    const saved = JSON.parse(localStorage.getItem("usuario"));
+
+    if(!saved || saved.user !== user || saved.pass !== pass){
+        alert("Datos incorrectos");
+        return;
+    }
+
+    if(saved.rol === "estudiante") window.location.href = "estudiante.html";
     else window.location.href = "docente.html";
 }
+
+function registrar(){
+    const user = document.getElementById("regUser").value;
+    const pass = document.getElementById("regPass").value;
+    const rol = document.getElementById("regRol").value;
+
+    if(!user || !pass || !rol){
+        alert("Completa todos los campos");
+        return;
+    }
+
+    localStorage.setItem("usuario", JSON.stringify({user, pass, rol}));
+    alert("Usuario registrado");
+}
+
+function toggleRegistro(){
+    const reg = document.getElementById("registro");
+    reg.style.display = reg.style.display === "none" ? "block" : "none";
+}
 </script>
+
 </body>
 </html>
