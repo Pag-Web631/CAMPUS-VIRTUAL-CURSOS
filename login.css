@@ -7,7 +7,25 @@ body {
     align-items: center;
     height: 100vh;
 }
+/* SPAN TIPO BOTÓN */
+.info-text {
+    display: block;
+    text-align: center;
+    padding: 8px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    background: linear-gradient(45deg,#00c6ff,#0072ff);
+    color: white;
+    cursor: pointer;
+    font-size: 13px;
+    transition: 0.3s;
+}
 
+/* EFECTO HOVER */
+.info-text:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 8px #00c6ff;
+}
 /* FLIP MÁS PEQUEÑO */
 .flip-card {
     width: 260px;
