@@ -1,32 +1,41 @@
+// CAMBIOS DE PANTALLA
 function goRegister(){
-    flipInner.style.transform = "rotateY(180deg)";
-    registerCard.style.display = "flex";
-    infoCard.style.display = "none";
+    document.getElementById("flipInner").style.transform = "rotateY(180deg)";
+    document.getElementById("registerCard").style.display = "flex";
+    document.getElementById("infoCard").style.display = "none";
 }
 
 function goLogin(){
-    flipInner.style.transform = "rotateY(0deg)";
+    document.getElementById("flipInner").style.transform = "rotateY(0deg)";
 }
 
 function goInfo(){
-    flipInner.style.transform = "rotateY(180deg)";
-    registerCard.style.display = "none";
-    infoCard.style.display = "flex";
+    document.getElementById("flipInner").style.transform = "rotateY(180deg)";
+    document.getElementById("registerCard").style.display = "none";
+    document.getElementById("infoCard").style.display = "flex";
 }
 
+// SCROLL BOTONES ◀ ▶
 function scrollInfo(dir){
     const container = document.getElementById("infoContainer");
-    container.scrollBy({ left: dir * 220, behavior: "smooth" });
+
+    container.scrollBy({
+        left: dir * 250,
+        behavior: "smooth"
+    });
 }
 
+// LOGIN
 function login(){
-    alert("Login funcionando");
+    alert("Login funcionando ✔");
 }
 
+// REGISTRO
 function registrar(){
-    alert("Registro funcionando");
+    alert("Registro funcionando ✔");
 }
 
+// VER PASSWORD
 function togglePass(id, el){
     const input = document.getElementById(id);
     input.type = input.type === "password" ? "text" : "password";
