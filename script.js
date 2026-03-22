@@ -1,10 +1,21 @@
-let user = JSON.parse(localStorage.getItem("user") || "null");
+let user = null;
 
 function cargarUsuario(){
-    if(!user){
+    const data = localStorage.getItem("usuario");
+
+    if(!data){
         window.location.href = "index.html";
         return;
     }
-    document.getElementById("bienvenida").innerText =
-        `Bienvenido ${user.nombre} (${user.rol === "estudiante" ? "Estudiante" : "Docente"})`;
+
+    user = JSON.parse(data);
+
+    // Mostrar nombre
+    const bienvenida = document.getElementById("bienvenida");
+    if(bienvenida){
+        bienvenida.innerText = "Bienvenido, " + user.nombre;
+    }
+
+    // Aplicar estilo por rol
+    document.body.classList.add(user.rol);
 }
