@@ -9,55 +9,54 @@
 </head>
 
 <body>
-<div id="infoPanel">
 
-    <!-- IZQUIERDA -->
+<!-- PANEL INFO -->
+<div id="infoPanel">
     <div class="info left">
         <h2>📘 Acerca de la Plataforma</h2>
-        <p>Este Campus Virtual es una plataforma educativa moderna diseñada para facilitar la gestión de cursos.</p>
-        <p>Permite a estudiantes acceder, entregar tareas y ver notas en tiempo real.</p>
+        <p>Plataforma educativa moderna para gestionar cursos y tareas.</p>
         <ul>
-            <li>✔ Gestión de cursos</li>
-            <li>✔ Entrega de tareas</li>
-            <li>✔ Sistema de calificaciones</li>
-            <li>✔ Acceso rápido</li>
+            <li>✔ Cursos</li>
+            <li>✔ Tareas</li>
+            <li>✔ Calificaciones</li>
         </ul>
     </div>
 
-    <!-- DERECHA -->
     <div class="info right">
         <h2>👤 Sobre mí</h2>
         <p><strong>José Augusto Herrera Castillo</strong></p>
-        <p>Desarrollador enfocado en crear apps modernas.</p>
         <ul>
             <li>💻 Web</li>
             <li>📱 Apps</li>
             <li>🎮 Juegos</li>
-            <li>🤖 IA</li>
         </ul>
     </div>
-
 </div>
 
+<!-- LOGIN -->
 <div class="container">
     <div class="flip-card" id="flipCard">
         <div class="flip-card-inner">
 
             <!-- LOGIN -->
             <div class="flip-card-front">
-                <h2>Campus Virtual</h2>        <button class="info-btn" onclick="toggleInfo()">ℹ️ Información</button>
+                <h2>Campus Virtual</h2>
+
+                <button class="info-btn infoToggle">ℹ️ Información</button>
 
                 <input id="loginUser" placeholder="Usuario">
                 <input type="password" id="loginPass" placeholder="Contraseña">
 
-                <button onclick="login()">Ingresar</button>
+                <button id="btnLogin">Ingresar</button>
 
                 <span id="registerText" class="toggle-text">Registrarse</span>
             </div>
 
             <!-- REGISTRO -->
             <div class="flip-card-back">
-                <h2>Crear Cuenta</h2>            <button class="info-btn" onclick="toggleInfo()">ℹ️ Información</button>
+                <h2>Crear Cuenta</h2>
+
+                <button class="info-btn infoToggle">ℹ️ Información</button>
 
                 <input id="regUser" placeholder="Usuario">
                 <input type="password" id="regPass" placeholder="Contraseña">
@@ -68,7 +67,7 @@
                     <option value="docente">Docente</option>
                 </select>
 
-                <button onclick="registrar()">Registrar</button>
+                <button id="btnRegistrar">Registrar</button>
 
                 <span id="loginText" class="toggle-text">Volver</span>
             </div>
