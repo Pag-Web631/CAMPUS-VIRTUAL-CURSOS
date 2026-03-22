@@ -10,17 +10,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Campus Virtual UTECO</title>
 <style>
+:root {
+    --primary: #1a73e8;
+    --bg: #f4f6f8;
+    --white: #ffffff;
+    --text: #333;
+    --shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+/* GENERAL */
 body {
-    font-family: Arial;
+    font-family: 'Segoe UI', Arial, sans-serif;
     margin: 0;
-    background: #f4f6f8;
+    background: var(--bg);
 }
 
 /* HEADER */
 header {
-    background: #1a73e8;
+    background: linear-gradient(135deg, #1a73e8, #4a90e2);
     color: white;
-    padding: 15px;
+    padding: 20px;
+    box-shadow: var(--shadow);
 }
 
 /* CONTENEDOR */
@@ -31,57 +41,68 @@ header {
 /* SIDEBAR */
 .sidebar {
     width: 250px;
-    background: #fff;
-    padding: 15px;
+    background: var(--white);
+    padding: 20px;
     height: 100vh;
-    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    box-shadow: var(--shadow);
 }
 
 .sidebar h3 {
     margin-top: 0;
+    color: var(--primary);
 }
 
 .sidebar a {
     display: block;
-    padding: 10px;
+    padding: 12px;
     text-decoration: none;
-    color: #333;
-    border-radius: 5px;
+    color: var(--text);
+    border-radius: 8px;
+    margin-bottom: 5px;
     transition: 0.3s;
 }
 
 .sidebar a:hover {
-    background: #1a73e8;
+    background: var(--primary);
     color: white;
+    transform: translateX(5px);
 }
 
 /* CONTENIDO */
 .main {
     flex: 1;
-    padding: 20px;
+    padding: 25px;
 }
 
 /* TARJETAS */
 .card {
-    background: white;
-    padding: 15px;
-    margin-bottom: 10px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    background: var(--white);
+    padding: 18px;
+    margin-bottom: 15px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
     transition: 0.3s;
 }
 
 .card:hover {
-    transform: translateY(-3px);
+    transform: translateY(-5px) scale(1.01);
 }
 
 /* BUSCADOR */
 .search {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    border: none;
+    border-radius: 8px;
+    background: #f1f3f4;
+    outline: none;
+    transition: 0.3s;
+}
+
+.search:focus {
+    background: #e8f0fe;
+    box-shadow: 0 0 0 2px var(--primary);
 }
 
 /* FOOTER */
@@ -89,7 +110,18 @@ footer {
     text-align: center;
     padding: 20px;
     font-size: 12px;
-    color: #555;
+    color: #666;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+    .sidebar {
+        width: 100%;
+        height: auto;
+    }
 }
 </style>
 </head>
