@@ -3,31 +3,51 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Campus Virtual UTECO</title>
-<link rel="stylesheet" href="login.css">
+<title>Campus Virtual</title>
+
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="style.css">
+
+<meta name="theme-color" content="#070b1a">
 </head>
+
 <body>
 
 <div class="container">
+
     <div class="card">
-        <h2>Iniciar Sesión</h2>
+        <h2>Campus Virtual</h2>
 
-        <input id="nombre" placeholder="Usuario">
+        <input id="loginUser" placeholder="Usuario">
+        <input type="password" id="loginPass" placeholder="Contraseña">
 
-        <button onclick="login('estudiante')">👨‍🎓 Estudiante</button>
-        <button onclick="login('docente')">👨‍🏫 Docente</button>
+        <button onclick="login()">Ingresar</button>
+        <button class="secondary" onclick="toggleRegistro()">Registro</button>
     </div>
+
+    <div class="card" id="registro">
+        <h3>Registrar</h3>
+
+        <input id="regUser" placeholder="Usuario">
+        <input type="password" id="regPass" placeholder="Contraseña">
+
+        <select id="regRol">
+            <option value="">Rol</option>
+            <option value="estudiante">Estudiante</option>
+            <option value="docente">Docente</option>
+        </select>
+
+        <button onclick="registrar()">Crear cuenta</button>
+    </div>
+
 </div>
 
+<script src="script.js"></script>
+
 <script>
-function login(rol){
-    let nombre = document.getElementById("nombre").value.trim();
-    if(!nombre) return alert("Ingresa tu nombre");
-
-    localStorage.setItem("usuario", JSON.stringify({nombre, rol}));
-
-    if(rol === "docente") window.location.href = "docente.html";
-    else window.location.href = "estudiante.html";
+// activar modo app offline
+if("serviceWorker" in navigator){
+    navigator.serviceWorker.register("service-worker.js");
 }
 </script>
 
