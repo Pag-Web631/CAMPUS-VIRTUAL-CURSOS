@@ -24,7 +24,7 @@
 
                     <input type="text" id="loginUser" placeholder="Usuario" required>
 
-                    <div style="position: relative;">
+                    <div class="input-box">
                         <input type="password" id="loginPass" placeholder="Contraseña" required>
                         <span class="password-toggle" onclick="togglePass('loginPass', this)">
                             <i class="fa fa-eye"></i>
@@ -33,8 +33,10 @@
 
                     <button type="button" onclick="login()">Ingresar</button>
 
-                    <span class="toggle-text" onclick="goRegister()">Registrarse</span>
-                    <span class="toggle-text" onclick="goInfo()">ℹ️ Información</span>
+                    <div class="links">
+                        <span onclick="goRegister()">Registrarse</span>
+                        <span onclick="goInfo()">ℹ️ Información</span>
+                    </div>
                 </form>
             </div>
 
@@ -45,7 +47,7 @@
 
                     <input type="text" id="regUser" placeholder="Usuario">
 
-                    <div style="position: relative;">
+                    <div class="input-box">
                         <input type="password" id="regPass" placeholder="Contraseña">
                         <span class="password-toggle" onclick="togglePass('regPass', this)">
                             <i class="fa fa-eye"></i>
@@ -60,56 +62,52 @@
 
                     <button type="button" onclick="registrar()">Registrar</button>
 
-                    <span class="toggle-text" onclick="goLogin()">Volver</span>
-                    <span class="toggle-text" onclick="goInfo()">ℹ️ Información</span>
+                    <div class="links">
+                        <span onclick="goLogin()">Volver</span>
+                        <span onclick="goInfo()">ℹ️ Información</span>
+                    </div>
                 </form>
             </div>
 
-            <!-- INFO -->
+            <!-- INFO (TARJETAS EN FILA) -->
             <div class="flip-card-back" id="infoCard" style="display:none;">
-                
-                <div class="info-container">
 
-                    <!-- 1 -->
+                <!-- BOTONES -->
+                <div class="scroll-buttons">
+                    <button onclick="scrollInfo(-1)">◀</button>
+                    <button onclick="scrollInfo(1)">▶</button>
+                </div>
+
+                <div class="info-container" id="infoContainer">
+
                     <div class="mini-card">
                         <h3>📘 Información</h3>
-                        <p>
-                            Este Campus Virtual es una plataforma educativa moderna diseñada para la gestión académica digital.
-                        </p>
+                        <p>Plataforma moderna para gestión académica digital.</p>
                     </div>
 
-                    <!-- 2 -->
                     <div class="mini-card">
                         <h3>🎓 Estudiantes</h3>
-                        <p>
-                            Accede a cursos, envía tareas y revisa tus calificaciones en tiempo real desde cualquier lugar.
-                        </p>
+                        <p>Accede a cursos, tareas y calificaciones en tiempo real.</p>
                     </div>
 
-                    <!-- 3 -->
                     <div class="mini-card">
                         <h3>👨‍🏫 Docentes</h3>
-                        <p>
-                            Crea cursos, asigna tareas y evalúa el rendimiento de tus estudiantes fácilmente.
-                        </p>
+                        <p>Gestiona cursos y evalúa el rendimiento fácilmente.</p>
                     </div>
 
-                    <!-- 4 -->
                     <div class="mini-card">
                         <h3>⚙️ Funciones</h3>
                         <ul>
                             <li>✔ Cursos</li>
                             <li>✔ Tareas</li>
                             <li>✔ Calificaciones</li>
-                            <li>✔ Panel personalizado</li>
                         </ul>
                     </div>
 
-                    <!-- 5 -->
                     <div class="mini-card">
                         <h3>👤 Sobre mí</h3>
-                        <p><strong>José Augusto Herrera Castillo</strong></p>
-                        <p>Desarrollador enfocado en apps modernas.</p>
+                        <p><strong>José Augusto</strong></p>
+                        <p>Desarrollador de apps modernas.</p>
                     </div>
 
                 </div>
