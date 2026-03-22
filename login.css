@@ -1,101 +1,147 @@
-
+/* BODY */
 body {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
-    background-image: url('fondo.jpg'); 
+
+    background-image: url('fondo.jpg');
     background-size: cover;
     background-position: center;
+
     font-family: Arial, sans-serif;
 }
+
+/* CONTENEDOR */
 .container {
     perspective: 1000px;
 }
+
+/* TARJETA */
 .flip-card {
-    width: 300px;
-    height: 400px;
+    width: 280px;
+    height: 380px;
     position: relative;
     transform-style: preserve-3d;
     transition: transform 0.6s;
-    background-color: rgba(255, 255, 255, 0.7); 
-    border-radius: 10px;
+
+    background: rgba(10, 15, 40, 0.6); /* oscuro transparente */
+    border-radius: 12px;
 }
+
+/* INTERIOR */
 .flip-card-inner {
     width: 100%;
     height: 100%;
     position: absolute;
-    top: 0;
-    left: 0;
     transform-style: preserve-3d;
     transition: transform 0.6s;
 }
+
+/* CARAS */
 .flip-card-front,
 .flip-card-back {
     width: 100%;
     height: 100%;
     position: absolute;
-    top: 0;
-    left: 0;
+
     backface-visibility: hidden;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size: 1.2rem;
-    background-color: transparent;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-    padding: 20px;
+
+    padding: 18px;
     box-sizing: border-box;
-    color: yellow;
+
+    border-radius: 12px;
+
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(10px);
+
+    box-shadow: 0 0 20px rgba(0,0,0,0.4);
+
+    color: #e5e7eb; /* blanco suave */
 }
+
+/* ATRÁS */
 .flip-card-back {
     transform: rotateY(180deg);
 }
+
+/* FORM */
 form {
     display: flex;
     flex-direction: column;
     width: 100%;
     position: relative;
 }
-input {
+
+/* INPUT */
+input, select {
     margin-bottom: 10px;
-    padding: 10px;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: 9px;
+    font-size: 0.9rem;
+
+    border: 1px solid rgba(59, 130, 246, 0.4);
+    border-radius: 6px;
+
+    background: rgba(255,255,255,0.05);
+    color: #e5e7eb;
 }
+
+/* BOTÓN */
 button {
-    padding: 10px;
-    font-size: 1rem;
-    background-color: grey;
-    color: dark;
+    padding: 9px;
+    font-size: 0.9rem;
+
+    background: linear-gradient(45deg, #1e3a8a, #3b82f6);
+    color: white;
+
     border: none;
-    border-radius: 5px;
-    cursor: primary;
-    margin-top: 10px;
-}
-button:hover {
-    background-color: #ff51ff;
-}
-.toggle-text {
-    margin-top: 10px;
-    color: #ff00d4;
+    border-radius: 6px;
+
     cursor: pointer;
+    margin-top: 8px;
+
+    transition: 0.3s;
 }
-background-image: url('fondo.jpg');
+
+/* HOVER */
+button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px #3b82f6;
+}
+
+/* TEXTO */
+.toggle-text {
+    margin-top: 8px;
+    color: #60a5fa;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+
+.toggle-text:hover {
+    color: white;
+}
+
+/* ICONO PASSWORD */
 .password-toggle {
     position: absolute;
-    top: 50%;
+    top: 38%;
     right: 10px;
     transform: translateY(-50%);
     cursor: pointer;
+    color: #9ca3af;
 }
+
 .password-toggle i {
-    font-size: 1rem;
+    font-size: 0.9rem;
 }
+
+/* OCULTAR ICONO */
 .password-visible i.fa-eye-slash {
     display: none;
 }
