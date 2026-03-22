@@ -1,42 +1,128 @@
-// CAMBIOS DE PANTALLA
-function goRegister(){
-    document.getElementById("flipInner").style.transform = "rotateY(180deg)";
-    document.getElementById("registerCard").style.display = "flex";
-    document.getElementById("infoCard").style.display = "none";
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:url('fondo.jpg') center/cover;
+    font-family:Arial;
 }
 
-function goLogin(){
-    document.getElementById("flipInner").style.transform = "rotateY(0deg)";
+/* TARJETA */
+.flip-card{
+    width:300px;
+    height:420px;
+    perspective:1000px;
 }
 
-function goInfo(){
-    document.getElementById("flipInner").style.transform = "rotateY(180deg)";
-    document.getElementById("registerCard").style.display = "none";
-    document.getElementById("infoCard").style.display = "flex";
+.flip-card-inner{
+    width:100%;
+    height:100%;
+    position:relative;
+    transition:0.6s;
+    transform-style:preserve-3d;
 }
 
-// SCROLL BOTONES ◀ ▶
-function scrollInfo(dir){
-    const container = document.getElementById("infoContainer");
-
-    container.scrollBy({
-        left: dir * 250,
-        behavior: "smooth"
-    });
+.flip-card-front,
+.flip-card-back{
+    position:absolute;
+    width:100%;
+    height:100%;
+    backface-visibility:hidden;
+    background:rgba(0,0,0,0.7);
+    color:white;
+    border-radius:15px;
+    padding:20px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
 }
 
-// LOGIN
-function login(){
-    alert("Login funcionando ✔");
+.flip-card-back{
+    transform:rotateY(180deg);
 }
 
-// REGISTRO
-function registrar(){
-    alert("Registro funcionando ✔");
+/* INPUT */
+input, select{
+    width:100%;
+    padding:10px;
+    margin:8px 0;
+    border-radius:5px;
+    border:none;
 }
 
-// VER PASSWORD
-function togglePass(id, el){
-    const input = document.getElementById(id);
-    input.type = input.type === "password" ? "text" : "password";
+/* BOTON */
+button{
+    padding:10px;
+    background:#2563eb;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+/* LINKS */
+.links{
+    display:flex;
+    justify-content:space-between;
+    font-size:0.8rem;
+    margin-top:10px;
+    cursor:pointer;
+}
+
+/* PASSWORD */
+.input-box{
+    position:relative;
+}
+.password-toggle{
+    position:absolute;
+    right:10px;
+    top:50%;
+    transform:translateY(-50%);
+    cursor:pointer;
+}
+
+/* INFO SCROLL */
+.info-container{
+    display:flex;
+    gap:10px;
+    overflow-x:auto;
+}
+
+/* TARJETAS */
+.mini-card{
+    min-width:200px;
+    background:rgba(255,255,255,0.1);
+    padding:10px;
+    border-radius:10px;
+}
+
+/* BOTONES GRANDES */
+.scroll-buttons{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:10px;
+}
+
+.scroll-buttons button{
+    width:50px;
+    height:50px;
+    font-size:22px;
+    border-radius:50%;
+    background:#2563eb;
+    color:white;
+    border:none;
+    cursor:pointer;
+}
+
+.scroll-buttons button:hover{
+    transform:scale(1.2);
+    background:#1e3a8a;
+}
+
+/* TEXTO */
+.toggle-text{
+    text-align:center;
+    margin-top:10px;
+    cursor:pointer;
 }
