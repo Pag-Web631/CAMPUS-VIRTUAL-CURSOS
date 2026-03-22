@@ -85,6 +85,7 @@ button:hover {
     color: #ff00d4;
     cursor: pointer;
 }
+background-image: url('fondo.jpg');
 .password-toggle {
     position: absolute;
     top: 50%;
