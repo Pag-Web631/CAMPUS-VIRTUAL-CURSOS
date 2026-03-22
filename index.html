@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -14,7 +13,47 @@
     --text: #333;
     --shadow: 0 4px 15px rgba(0,0,0,0.08);
 }
-    /* MENU HORIZONTAL EN HEADER */
+
+.dark {
+    --bg: #121212;
+    --white: #1e1e1e;
+    --text: #f1f1f1;
+}
+
+body {
+    margin:0;
+    font-family: 'Segoe UI', Arial;
+    background: url('https://img.freepik.com/vector-gratis/blue-abstract-shapes-with-transparent-background_1035-7118.jpg?semt=ais_hybrid&w=740&q=80') center/cover no-repeat;
+    background-size: cover;
+}
+
+/* HEADER HORIZONTAL */
+header {
+    background: url('https://img.freepik.com/vector-gratis/blue-abstract-shapes-with-transparent-background_1035-7118.jpg?semt=ais_hybrid&w=740&q=80') center/cover no-repeat;
+    color: white;
+    padding: 20px;
+    position: relative;
+    text-align: center;
+}
+
+/* Capa oscura */
+header::before {
+    content: "";
+    position: absolute;
+    top:0; left:0;
+    width:100%; height:100%;
+    background: rgba(0,0,0,0.6);
+    z-index: 0;
+}
+
+/* Texto encima */
+header h2, header p {
+    position: relative;
+    z-index: 1;
+    margin: 5px 0;
+}
+
+/* MENU HORIZONTAL */
 nav.menu {
     display: flex;
     flex-wrap: wrap;
@@ -41,74 +80,12 @@ nav.menu a:hover, nav.menu button:hover, nav.menu a.active {
     background: var(--primary);
 }
 
-.dark {
-    --bg: #121212;
-    --white: #1e1e1e;
-    --text: #f1f1f1;
-}
-
-body {
-    margin:0;
-    font-family: 'Segoe UI', Arial;
-       background: url('https://img.freepik.com/vector-gratis/blue-abstract-shapes-with-transparent-background_1035-7118.jpg?semt=ais_hybrid&w=740&q=80') center/cover no-repeat;
-
-}
-
-header {
-    background: linear-gradient(135deg, #1a73e8, #4a90e2);
-    color:white;
-    padding:20px;
-}
-
-.container { display:flex; }
-
-.sidebar {
-    width:250px;
-    background:var(--white);
-    padding:20px;
-    min-height:100vh;
-}
-header {
-    background: url('https://img.freepik.com/vector-gratis/blue-abstract-shapes-with-transparent-background_1035-7118.jpg?semt=ais_hybrid&w=740&q=80') center/cover no-repeat;
-    color: white;
-    padding: 40px 20px;
-    position: relative;
-}
-
-/* 🔥 capa oscura para que se vea el texto */
-header::before {
-    content: "";
-    position: absolute;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background: rgba(0,0,0,0.6);
-}
-
-/* 🔥 asegurar que el texto esté encima */
-header h2, header p {
-    position: relative;
-    z-index: 1;
-}
-.sidebar a {
-    display:block;
-    padding:10px;
-    margin-bottom:5px;
-    border-radius:8px;
-    text-decoration:none;
-    color:var(--text);
-}
-
-.sidebar a:hover,
-.sidebar a.active {
-    background:var(--primary);
-    color:white;
-}
-
+/* CONTENIDO */
 .main {
     flex:1;
     padding:20px;
+    max-width:1200px;
+    margin:auto;
 }
 
 .cursos {
@@ -118,10 +95,10 @@ header h2, header p {
 }
 
 .curso-card {
-    background:var(--white);
+    background: var(--white);
     padding:15px;
     border-radius:12px;
-    box-shadow:var(--shadow);
+    box-shadow: var(--shadow);
     display:flex;
     flex-direction:column;
     justify-content:space-between;
@@ -156,6 +133,8 @@ header h2, header p {
     border-radius:8px;
     text-align:center;
     text-decoration:none;
+    display:inline-block;
+    margin-top:10px;
 }
 
 footer {
@@ -164,21 +143,22 @@ footer {
     font-size:12px;
 }
 
+/* RESPONSIVE */
 @media(max-width:768px){
-    .container { flex-direction:column; }
-    .sidebar { width:100%; min-height:auto; }
+    .cursos { grid-template-columns: 1fr; }
 }
 </style>
 </head>
 
 <body>
 
-<div class="main">
 <header>
-    <h2>Cursos Virtual</h2>
+    <h2>Campus Virtual UTECO</h2>
+    <p>Lic. José Augusto Herrera Castillo</p>
+
     <nav class="menu">
         <a href="index.html" class="active">🏠 Inicio</a>
-        <a href="curso.html">📚 Cursos</a>
+        <a href="cursos.html">📚 Cursos</a>
         <a href="#">👤 Área personal</a>
         <a href="#">📅 Eventos</a>
 
@@ -190,12 +170,11 @@ footer {
     </nav>
 </header>
 
-<h2>Mis cursos</h2>
-</div>
-<!-- 🔥 AQUÍ SE CARGAN LOS CURSOS -->
-<div class="cursos" id="listaCursos"></div>
+<div class="main">
+    <h2>Mis cursos</h2>
 
-</div>
+    <!-- CURSOS -->
+    <div class="cursos" id="listaCursos"></div>
 </div>
 
 <footer>
@@ -206,45 +185,43 @@ Dirección: Cotuí, República Dominicana
 </footer>
 
 <script>
+// Modo usuario
+let modo = "estudiante";
+let user = localStorage.getItem("user") || "";
 
-// 🔥 OBTENER CURSOS GUARDADOS
+// Guardar usuario
+function guardarUser(){
+    user = document.getElementById("nombre").value;
+    localStorage.setItem("user", user);
+    alert("Usuario guardado: " + user);
+}
+
+// Cursos desde localStorage
 let cursos = JSON.parse(localStorage.getItem("cursos")) || [];
-
-// 🎨 COLORES
 let colores = ["color1","color2","color3","color4","color5"];
 
 let html = "";
 
 cursos.forEach((c,i)=>{
-
-let progreso = Math.floor(Math.random()*100);
-
-html += `
-<div class="curso-card ${colores[i % colores.length]}">
-
-<div>
-<div class="curso-titulo">${c.titulo}</div>
-<div class="curso-profesor">Profesor: ${c.profesor}</div>
-
-<div class="progreso">
-<div class="barra" style="width:${progreso}%"></div>
-</div>
-</div>
-
-<a href="curso.html" class="btn">Entrar al curso</a>
-
-</div>
-`;
-
+    let progreso = Math.floor(Math.random()*100);
+    html += `
+    <div class="curso-card ${colores[i % colores.length]}">
+        <div>
+            <div class="curso-titulo">${c.titulo}</div>
+            <div class="curso-profesor">Profesor: ${c.profesor}</div>
+            <div class="progreso">
+                <div class="barra" style="width:${progreso}%"></div>
+            </div>
+        </div>
+        <a href="curso.html" class="btn">Entrar al curso</a>
+    </div>`;
 });
 
-// SI NO HAY CURSOS
 if(cursos.length===0){
-html = "<p>No tienes cursos creados todavía</p>";
+    html = "<p>No tienes cursos creados todavía</p>";
 }
 
 document.getElementById("listaCursos").innerHTML = html;
-
 </script>
 
 </body>
