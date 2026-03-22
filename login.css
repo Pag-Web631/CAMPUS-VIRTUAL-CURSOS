@@ -20,7 +20,38 @@ body::before {
     inset: 0;
     background: rgba(0,0,0,0.6);
 }
+/* CONTENEDOR INFO */
+.info-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
 
+/* TARJETAS PEQUEÑAS */
+.mini-card {
+    background: rgba(255,255,255,0.08);
+    border-radius: 10px;
+    padding: 10px;
+
+    font-size: 0.8rem;
+    color: #e5e7eb;
+
+    backdrop-filter: blur(6px);
+}
+
+/* TITULOS */
+.mini-card h3 {
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+    color: #93c5fd;
+}
+
+/* LISTA */
+.mini-card ul {
+    padding-left: 15px;
+    margin: 5px 0;
+}
 /* CONTENEDOR */
 .container {
     perspective: 1000px;
