@@ -3,225 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CursosVirtual</title>
-
+<title>Inicio - Campus Virtual</title>
 <style>
-:root {
-    --primary: #1a73e8;
-    --bg: #f4f6f8;
-    --white: #ffffff;
-    --text: #333;
-    --shadow: 0 4px 15px rgba(0,0,0,0.08);
-}
-
-.dark {
-    --bg: #121212;
-    --white: #1e1e1e;
-    --text: #f1f1f1;
-}
-
-body {
-    margin:0;
-    font-family: 'Segoe UI', Arial;
-    background: url('https://img.freepik.com/vector-gratis/blue-abstract-shapes-with-transparent-background_1035-7118.jpg?semt=ais_hybrid&w=740&q=80') center/cover no-repeat;
-    background-size: cover;
-}
-
-/* HEADER HORIZONTAL */
-header {
-    background: url('https://img.freepik.com/vector-gratis/blue-abstract-shapes-with-transparent-background_1035-7118.jpg?semt=ais_hybrid&w=740&q=80') center/cover no-repeat;
-    color: white;
-    padding: 20px;
-    position: relative;
-    text-align: center;
-}
-
-/* Capa oscura */
-header::before {
-    content: "";
-    position: absolute;
-    top:0; left:0;
-    width:100%; height:100%;
-    background: rgba(0,0,0,0.6);
-    z-index: 0;
-}
-
-/* Texto encima */
-header h2, header p {
-    position: relative;
-    z-index: 1;
-    margin: 5px 0;
-}
-
-/* MENU HORIZONTAL */
-nav.menu {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 10px;
-    position: relative;
-    z-index: 1;
-}
-
-nav.menu a, nav.menu button {
-    text-decoration: none;
-    padding: 6px 12px;
-    border-radius: 5px;
-    color: white;
-    background: rgba(26,115,232,0.7);
-    border: none;
-    cursor: pointer;
-    font-size: 14px;
-    transition: 0.3s;
-}
-
-nav.menu a:hover, nav.menu button:hover, nav.menu a.active {
-    background: var(--primary);
-}
-
-/* CONTENIDO */
-.main {
-    flex:1;
-    padding:20px;
-    max-width:1200px;
-    margin:auto;
-}
-
-.cursos {
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:15px;
-}
-
-.curso-card {
-    background: var(--white);
-    padding:15px;
-    border-radius:12px;
-    box-shadow: var(--shadow);
-    display:flex;
-    flex-direction:column;
-    justify-content:space-between;
-    border-left:6px solid var(--primary);
-}
-
-.color1 { border-left-color:#1a73e8; }
-.color2 { border-left-color:#34a853; }
-.color3 { border-left-color:#fbbc05; }
-.color4 { border-left-color:#ea4335; }
-.color5 { border-left-color:#9c27b0; }
-
-.curso-titulo { font-weight:bold; }
-.curso-profesor { font-size:14px; color:gray; }
-
-.progreso {
-    background:#ddd;
-    height:8px;
-    border-radius:10px;
-    margin:10px 0;
-}
-
-.barra {
-    height:100%;
-    background:var(--primary);
-}
-
-.btn {
-    background:var(--primary);
-    color:white;
-    padding:8px;
-    border-radius:8px;
-    text-align:center;
-    text-decoration:none;
-    display:inline-block;
-    margin-top:10px;
-}
-
-footer {
-    text-align:center;
-    padding:20px;
-    font-size:12px;
-}
-
-/* RESPONSIVE */
-@media(max-width:768px){
-    .cursos { grid-template-columns: 1fr; }
-}
+.main { max-width:1200px; margin:auto; padding:20px; text-align:center; }
 </style>
 </head>
-
 <body>
 
-<header>
-    <h2>Campus Virtual UTECO</h2>
-    <p>Lic. José Augusto Herrera Castillo</p>
-
-    <nav class="menu">
-        <a href="index.html" class="active">🏠 Inicio</a>
-        <a href="curso.html">📚 Cursos</a>
-        <a href="#">👤 Área personal</a>
-        <a href="#">📅 Eventos</a>
-
-    <button onclick="window.location='estudiante.html'">👨‍🎓 Estudiante</button>
-<button onclick="window.location='docente.html'">👨‍🏫 Docente</button>
-
-        <input id="nombre" placeholder="Tu nombre" style="padding:5px; margin-left:5px;">
-        <button onclick="guardarUser()">Guardar</button>
-    </nav>
-</header>
+<div id="header-container"></div>
 
 <div class="main">
-    <h2>Mis cursos</h2>
-
-    <!-- CURSOS -->
-    <div class="cursos" id="listaCursos"></div>
+<h1>Bienvenido al Campus Virtual</h1>
+<p>Selecciona tu rol arriba para entrar como estudiante o docente.</p>
 </div>
 
-<footer>
-© 2016 Derechos Reservados CURSO <br>
-Teléfono: +1 809-585-2291 <br>
-Correo: informacioncurso.cur.do <br>
-Dirección: Cotuí, República Dominicana
-</footer>
-
 <script>
-// Modo usuario
-let modo = "estudiante";
-let user = localStorage.getItem("user") || "";
-
-// Guardar usuario
-function guardarUser(){
-    user = document.getElementById("nombre").value;
-    localStorage.setItem("user", user);
-    alert("Usuario guardado: " + user);
-}
-
-// Cursos desde localStorage
-let cursos = JSON.parse(localStorage.getItem("cursos")) || [];
-let colores = ["color1","color2","color3","color4","color5"];
-
-let html = "";
-
-cursos.forEach((c,i)=>{
-    let progreso = Math.floor(Math.random()*100);
-    html += `
-    <div class="curso-card ${colores[i % colores.length]}">
-        <div>
-            <div class="curso-titulo">${c.titulo}</div>
-            <div class="curso-profesor">Profesor: ${c.profesor}</div>
-            <div class="progreso">
-                <div class="barra" style="width:${progreso}%"></div>
-            </div>
-        </div>
-        <a href="curso.html" class="btn">Entrar al curso</a>
-    </div>`;
-});
-
-if(cursos.length===0){
-    html = "<p>No tienes cursos creados todavía</p>";
-}
-
-document.getElementById("listaCursos").innerHTML = html;
+// Cargar header
+fetch('header.html').then(res=>res.text()).then(data=>document.getElementById("header-container").innerHTML=data);
 </script>
 
 </body>
