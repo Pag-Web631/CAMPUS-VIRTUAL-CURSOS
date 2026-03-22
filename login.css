@@ -10,12 +10,22 @@ body {
     background-size: cover;
     background-position: center;
 
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* OSCURECER FONDO */
+body::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
 }
 
 /* CONTENEDOR */
 .container {
     perspective: 1000px;
+    position: relative;
+    z-index: 2;
 }
 
 /* TARJETA */
@@ -26,8 +36,7 @@ body {
     transform-style: preserve-3d;
     transition: transform 0.6s;
 
-    background: rgba(0, 0, 0, 0.4);
-    border-radius: 10px;
+    border-radius: 14px;
 }
 
 /* INTERIOR */
@@ -56,10 +65,14 @@ body {
     padding: 20px;
     box-sizing: border-box;
 
-    border-radius: 10px;
+    border-radius: 14px;
 
-    background: rgba(255, 255, 255, 0.85); /* limpio */
-    color: #000; /* negro */
+    background: rgba(20, 20, 30, 0.75);
+    backdrop-filter: blur(12px);
+
+    box-shadow: 0 0 25px rgba(0,0,0,0.5);
+
+    color: #e5e7eb;
 }
 
 /* ATRÁS */
@@ -79,51 +92,68 @@ form {
 input, select {
     margin-bottom: 10px;
     padding: 10px;
-    font-size: 1rem;
+    font-size: 0.95rem;
 
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
 
-    background: #fff;
-    color: #000;
+    background: rgba(255,255,255,0.05);
+    color: #e5e7eb;
+
+    outline: none;
+}
+
+/* EFECTO INPUT */
+input:focus, select:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 5px #3b82f6;
 }
 
 /* BOTÓN */
 button {
     padding: 10px;
-    font-size: 1rem;
+    font-size: 0.95rem;
 
-    background: #333; /* negro/gris */
-    color: #fff;
+    background: linear-gradient(45deg, #1e3a8a, #3b82f6);
+    color: white;
 
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
 
     cursor: pointer;
     margin-top: 10px;
+
+    transition: 0.3s;
 }
 
 /* HOVER */
 button:hover {
-    background: #555;
+    transform: scale(1.05);
+    box-shadow: 0 0 12px #3b82f6;
 }
 
 /* TEXTO */
 .toggle-text {
     margin-top: 10px;
-    color: #333;
+    color: #9ca3af;
     cursor: pointer;
+    font-size: 0.85rem;
 }
 
-/* PASSWORD ICON */
+.toggle-text:hover {
+    color: #fff;
+}
+
+/* ICONO PASSWORD */
 .password-toggle {
     position: absolute;
     top: 50%;
     right: 10px;
     transform: translateY(-50%);
     cursor: pointer;
+    color: #9ca3af;
 }
 
 .password-toggle i {
-    font-size: 1rem;
+    font-size: 0.9rem;
 }
