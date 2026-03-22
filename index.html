@@ -9,61 +9,34 @@
 </head>
 
 <body>
+<div id="infoPanel">
 
-<!-- IZQUIERDA -->
-<div class="info left">
-    <h2>📘 Acerca de la Plataforma</h2>
-    <p>
-        Este Campus Virtual es una plataforma educativa moderna diseñada para
-        facilitar la gestión de cursos, tareas y calificaciones en un entorno digital.
-    </p>
+    <!-- IZQUIERDA -->
+    <div class="info left">
+        <h2>📘 Acerca de la Plataforma</h2>
+        <p>Este Campus Virtual es una plataforma educativa moderna diseñada para facilitar la gestión de cursos.</p>
+        <p>Permite a estudiantes acceder, entregar tareas y ver notas en tiempo real.</p>
+        <ul>
+            <li>✔ Gestión de cursos</li>
+            <li>✔ Entrega de tareas</li>
+            <li>✔ Sistema de calificaciones</li>
+            <li>✔ Acceso rápido</li>
+        </ul>
+    </div>
 
-    <p>
-        Permite a los estudiantes acceder a sus materias, entregar trabajos
-        y visualizar sus notas en tiempo real.
-    </p>
+    <!-- DERECHA -->
+    <div class="info right">
+        <h2>👤 Sobre mí</h2>
+        <p><strong>José Augusto Herrera Castillo</strong></p>
+        <p>Desarrollador enfocado en crear apps modernas.</p>
+        <ul>
+            <li>💻 Web</li>
+            <li>📱 Apps</li>
+            <li>🎮 Juegos</li>
+            <li>🤖 IA</li>
+        </ul>
+    </div>
 
-    <p>
-        Los docentes pueden crear cursos, asignar tareas y evaluar el
-        rendimiento de los estudiantes de forma eficiente.
-    </p>
-
-    <ul>
-        <li>✔ Gestión de cursos</li>
-        <li>✔ Entrega de tareas</li>
-        <li>✔ Sistema de calificaciones</li>
-        <li>✔ Acceso rápido y seguro</li>
-    </ul>
-</div>
-
-<!-- DERECHA -->
-<div class="info right">
-    <h2>👤 Sobre mí</h2>
-
-    <p>
-        <strong>José Augusto Herrera Castillo</strong>
-    </p>
-
-    <p>
-        Desarrollador en formación con enfoque en crear soluciones digitales
-        modernas y funcionales.
-    </p>
-
-    <p>
-        Este proyecto representa una iniciativa para construir una plataforma
-        educativa tipo universidad, con características de aplicaciones reales.
-    </p>
-
-    <p>
-        Intereses:
-    </p>
-
-    <ul>
-        <li>💻 Desarrollo web</li>
-        <li>📱 Aplicaciones móviles</li>
-        <li>🎮 Desarrollo de videojuegos</li>
-        <li>🤖 Inteligencia Artificial</li>
-    </ul>
 </div>
 
 <div class="container">
@@ -72,7 +45,7 @@
 
             <!-- LOGIN -->
             <div class="flip-card-front">
-                <h2>Campus Virtual</h2>
+                <h2>Campus Virtual</h2>        <button class="info-btn" onclick="toggleInfo()">ℹ️ Información</button>
 
                 <input id="loginUser" placeholder="Usuario">
                 <input type="password" id="loginPass" placeholder="Contraseña">
@@ -84,7 +57,7 @@
 
             <!-- REGISTRO -->
             <div class="flip-card-back">
-                <h2>Crear Cuenta</h2>
+                <h2>Crear Cuenta</h2>            <button class="info-btn" onclick="toggleInfo()">ℹ️ Información</button>
 
                 <input id="regUser" placeholder="Usuario">
                 <input type="password" id="regPass" placeholder="Contraseña">
