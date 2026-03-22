@@ -17,7 +17,35 @@
     --text: #333;
     --shadow: 0 4px 15px rgba(0,0,0,0.08);
 }
+.cursos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+}
 
+.curso-card {
+    background: var(--white);
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.curso-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    border-left: 5px solid var(--primary);
+}
+
+.curso-titulo {
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.curso-profesor {
+    font-size: 14px;
+    color: gray;
+}
 /* 🌙 MODO OSCURO */
 .dark {
     --bg: #121212;
@@ -152,34 +180,33 @@ footer {
 <div class="container">
 
 <div class="sidebar">
-
 <h2>Mis cursos</h2>
 
-<div class="card">
-<b>IRI-119-01 - Comercio electrónico</b><br>
-Profesor: Jose Manuel Batista
+<div class="cursos">
+
+<div class="curso-card">
+<div class="curso-titulo">IRI-119-01 - Comercio electrónico</div>
+<div class="curso-profesor">Profesor: Jose Manuel Batista</div>
 </div>
 
-<div class="card">
-<b>IRI-117-01 - Diseño Gráfico y Tratamiento Digital de Imagen</b><br>
-Profesor: Juan Antonio Graciano
+<div class="curso-card">
+<div class="curso-titulo">IRI-117-01 - Diseño Gráfico y Tratamiento Digital de Imagen</div>
+<div class="curso-profesor">Profesor: Juan Antonio Graciano</div>
 </div>
 
-<div class="card">
-<b>CHU-121-01 - Álgebra Matricial</b><br>
-Profesor: Lewis Santos Collado
+<div class="curso-card">
+<div class="curso-titulo">CHU-121-01 - Álgebra Matricial</div>
+<div class="curso-profesor">Profesor: Lewis Santos Collado</div>
 </div>
 
-<div class="card">
-<b>CHU-018-02 - Laboratorio de Física II</b><br>
-Profesor: ---
+<div class="curso-card">
+<div class="curso-titulo">CHU-018-02 - Laboratorio de Física II</div>
+<div class="curso-profesor">Profesor: ---</div>
 </div>
 
-<div class="card">
-<b>CHU-008-03 - Física II</b><br>
-Profesor: Jose Miguel Sanchez
-</div>
-
+<div class="curso-card">
+<div class="curso-titulo">CHU-008-03 - Física II</div>
+<div class="curso-profesor">Profesor: Jose Miguel Sanchez</div>
 </div>
 
 </div>
