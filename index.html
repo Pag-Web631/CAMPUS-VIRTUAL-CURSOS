@@ -18,11 +18,21 @@
     --shadow: 0 4px 15px rgba(0,0,0,0.08);
 }
 
+/* 🌙 MODO OSCURO */
+.dark {
+    --bg: #121212;
+    --white: #1e1e1e;
+    --text: #f1f1f1;
+    --shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
+
 /* GENERAL */
 body {
     font-family: 'Segoe UI', Arial, sans-serif;
     margin: 0;
     background: var(--bg);
+    color: var(--text);
+    transition: 0.3s;
 }
 
 /* HEADER */
@@ -31,6 +41,18 @@ header {
     color: white;
     padding: 20px;
     box-shadow: var(--shadow);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+/* BOTÓN DARK MODE */
+.toggle {
+    background:white;
+    border:none;
+    padding:8px 12px;
+    border-radius:8px;
+    cursor:pointer;
 }
 
 /* CONTENEDOR */
@@ -53,7 +75,9 @@ header {
 }
 
 .sidebar a {
-    display: block;
+    display: flex;
+    align-items:center;
+    gap:10px;
     padding: 12px;
     text-decoration: none;
     color: var(--text);
@@ -97,12 +121,11 @@ header {
     border-radius: 8px;
     background: #f1f3f4;
     outline: none;
-    transition: 0.3s;
 }
 
-.search:focus {
-    background: #e8f0fe;
-    box-shadow: 0 0 0 2px var(--primary);
+.dark .search {
+    background: #2a2a2a;
+    color:white;
 }
 
 /* FOOTER */
@@ -110,7 +133,7 @@ footer {
     text-align: center;
     padding: 20px;
     font-size: 12px;
-    color: #666;
+    color: #888;
 }
 
 /* RESPONSIVE */
