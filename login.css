@@ -7,7 +7,39 @@ body {
     align-items: center;
     height: 100vh;
 }
+/* CUADROS LATERALES */
+.info {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 250px;
+    padding: 20px;
+    border-radius: 15px;
+    background: rgba(20,30,70,0.3);
+    backdrop-filter: blur(10px);
+    color: #cfd8ff;
+    box-shadow: 0 0 20px rgba(0,140,255,0.2);
+}
 
+/* IZQUIERDA */
+.info.left {
+    left: 20px;
+}
+
+/* DERECHA */
+.info.right {
+    right: 20px;
+}
+
+/* TEXTO */
+.info h3 {
+    margin-bottom: 10px;
+}
+
+.info p {
+    font-size: 14px;
+    line-height: 1.5;
+}
 /* CONTENEDOR */
 .container {
     display: flex;
