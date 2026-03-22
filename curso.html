@@ -3,128 +3,80 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Curso - Comercio Electrónico</title>
+<title>Curso</title>
 
 <style>
-body {
-    font-family: Arial;
-    margin: 0;
-    background: #f4f6f8;
-}
-
-header {
-    background: #1a73e8;
-    color: white;
-    padding: 15px;
-}
-
-.container {
-    display: flex;
-}
-
-.sidebar {
-    width: 250px;
-    background: white;
-    padding: 15px;
-    height: 100vh;
-}
-
-.sidebar a {
-    display: block;
-    padding: 10px;
-    text-decoration: none;
-    color: #333;
-}
-
-.main {
-    flex: 1;
-    padding: 20px;
-}
-
-.card {
-    background: white;
-    padding: 15px;
-    margin-bottom: 10px;
-    border-radius: 10px;
-}
-
-.titulo {
-    font-weight: bold;
-    margin-top: 20px;
-    color: #1a73e8;
-}
-
-.item {
-    padding: 8px;
-    margin: 5px 0;
-    background: #f1f3f4;
-    border-radius: 5px;
-}
+body { font-family: Arial; margin:0; background:#f4f6f8; }
+header { background:#1a73e8; color:white; padding:15px; }
+.main { padding:20px; }
+.card { background:white; padding:15px; margin-bottom:10px; border-radius:10px; }
+input, textarea { width:100%; padding:10px; margin:5px 0; }
+button { padding:10px; background:#1a73e8; color:white; border:none; }
+.item { background:#f1f3f4; padding:8px; margin:5px 0; border-radius:5px; }
 </style>
-</head>
 
+</head>
 <body>
 
 <header>
-<h2>IRI-119-01 - Comercio Electrónico</h2>
+<h2 id="tituloCurso">Curso</h2>
+<a href="index.html" style="color:white;">⬅ Volver</a>
 </header>
-
-<div class="container">
-
-<div class="sidebar">
-<a href="index.html">⬅ Volver</a>
-<a>Colapsar todo</a>
-</div>
 
 <div class="main">
 
+<!-- CREAR CONTENIDO -->
 <div class="card">
-<div class="titulo">DESCRIPCION GENERAL</div>
+<h3>Crear contenido (Docente)</h3>
 
-<div class="item">UNIDAD I, Fundamentos y Ecosistema del Comercio Electrónico</div>
-<div class="item">UNIDAD II, Modelos de Negocio y Plataformas E-commerce</div>
-<div class="item">UNIDAD III, Arquitectura Técnica y Desarrollo de Tiendas Online</div>
-<div class="item">UNIDAD IV, Marketing Digital y Estrategias de Adquisición</div>
+<input id="titulo" placeholder="Ej: UNIDAD I, Fundamentos...">
+<textarea id="desc" placeholder="Descripción o contenido"></textarea>
 
-<div class="titulo">PRIMER PARCIAL</div>
+<button onclick="agregar()">Agregar</button>
+</div>
 
-<div class="item">UNIDAD V, Sistemas de Pago y Gestión Financiera Digital</div>
-<div class="item">UNIDAD VI, Logística, Fulfillment y Gestión de Operaciones</div>
-<div class="item">UNIDAD VII, Analítica, Optimización y Experiencia del Usuario</div>
-<div class="item">UNIDAD VIII, Seguridad, Legal y Aspectos Éticos del E-commerce</div>
-
-<div class="titulo">Competencias</div>
-
-<div class="item">Analiza, evalúa y diseña estrategias integrales de ciberseguridad</div>
-<div class="item">Aplica el marco normativo del comercio electrónico</div>
-<div class="item">Diseña políticas de protección de datos personales</div>
-<div class="item">Evalúa prácticas digitales desde ética y responsabilidad social</div>
-
-<div class="titulo">Material</div>
-
-<div class="item">📁 Material de la Unidad</div>
-<div class="item">💬 Foro: Compartiendo Ideas sobre el Tema</div>
-
-<div class="item">📄 Asignación 8 - Unidad VIII (Tarea)</div>
-
-<div class="titulo">SEGUNDO PARCIAL</div>
-
-<div class="item">📝 Segundo Parcial Comercio Electrónico (Cuestionario)</div>
-
-<div class="titulo">UNIDADES FINALES</div>
-
-<div class="item">UNIDAD IX, Tendencias Emergentes</div>
-<div class="item">UNIDAD X, Nombre de la Unidad (No disponible)</div>
-
-<div class="titulo">EVALUACIÓN FINAL</div>
-
-<div class="item">🧪 Evaluación Final Comercio Electrónico</div>
-
+<!-- MOSTRAR CONTENIDO -->
+<div class="card">
+<h3>Contenido del curso</h3>
+<div id="contenido"></div>
 </div>
 
 </div>
 
-</div>
+<script>
+let curso = "IRI-119-01 - Comercio Electrónico";
+document.getElementById("tituloCurso").innerText = curso;
+
+// cargar datos
+let datos = JSON.parse(localStorage.getItem(curso)) || [];
+
+function agregar(){
+    let t = document.getElementById("titulo").value;
+    let d = document.getElementById("desc").value;
+
+    if(!t) return alert("Escribe un título");
+
+    datos.push({t,d});
+    localStorage.setItem(curso, JSON.stringify(datos));
+
+    mostrar();
+}
+
+function mostrar(){
+    let cont = document.getElementById("contenido");
+    cont.innerHTML = "";
+
+    datos.forEach(x=>{
+        cont.innerHTML += `
+        <div class="item">
+        <b>${x.t}</b><br>
+        ${x.d}
+        </div>`;
+    });
+}
+
+mostrar();
+</script>
 
 </body>
 </html>
