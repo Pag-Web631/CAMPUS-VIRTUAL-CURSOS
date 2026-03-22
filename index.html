@@ -3,17 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Campus Virtual PRO MAX+</title>
+<title>Campus Virtual tipo Moodle</title>
 <style>
 body { font-family: Arial; margin:0; background:#f4f6f8; }
 header { background:#1a73e8; color:white; padding:15px; text-align:center; }
-nav { display:flex; gap:10px; justify-content:center; background:#fff; padding:10px; flex-wrap:wrap; }
-nav button { padding:10px; border:none; cursor:pointer; background:#eee; }
+nav { display:flex; gap:10px; justify-content:center; background:#fff; padding:10px; }
+nav button { padding:10px; border:none; cursor:pointer; }
 section { display:none; padding:20px; }
 .active { display:block; }
-.card { background:white; padding:15px; margin:10px 0; border-radius:10px; box-shadow:0 2px 5px rgba(0,0,0,0.1); }
-input, textarea { width:100%; padding:8px; margin:5px 0; }
-button.primary { background:#1a73e8; color:white; }
+.card { background:white; padding:15px; margin:10px 0; border-radius:10px; }
 .badge { padding:5px 10px; border-radius:5px; font-size:12px; }
 .ok { background:#d4edda; }
 .warn { background:#fff3cd; }
@@ -22,7 +20,7 @@ button.primary { background:#1a73e8; color:white; }
 <body>
 
 <header>
-<h1>🎓 Campus Virtual PRO MAX+</h1>
+<h1>🎓 Campus Virtual (Modo Moodle)</h1>
 </header>
 
 <section id="login" class="active">
@@ -43,22 +41,15 @@ button.primary { background:#1a73e8; color:white; }
 </nav>
 
 <section id="crear">
-<h2>Crear Tarea Completa</h2>
-<input id="titulo" placeholder="Título (Ej: LogLine - Línea Guía)">
-<textarea id="descripcion" placeholder="Descripción completa"></textarea>
+<h2>Crear tarea</h2>
+<input id="titulo" placeholder="Título">
+<textarea id="desc" placeholder="Descripción"></textarea>
 <input type="date" id="fecha">
-<button onclick="crearTarea()">Publicar</button>
+<button onclick="crear()">Publicar</button>
 </section>
 
-<section id="tareas">
-<h2>Tareas</h2>
-<div id="listaTareas"></div>
-</section>
-
-<section id="entregas">
-<h2>Entregas</h2>
-<div id="listaEntregas"></div>
-</section>
+<section id="tareas"><h2>Tareas</h2><div id="listaTareas"></div></section>
+<section id="entregas"><h2>Entregas</h2><div id="listaEntregas"></div></section>
 
 <script>
 let user = JSON.parse(localStorage.getItem('user'));
@@ -68,7 +59,6 @@ let entregas = JSON.parse(localStorage.getItem('entregas'))||[];
 function login(){
  let rol=document.getElementById('rol').value;
  let nombre=document.getElementById('usuario').value;
- if(!nombre) return alert('Escribe nombre');
  user={rol,nombre};
  localStorage.setItem('user',JSON.stringify(user));
  iniciar();
@@ -89,62 +79,68 @@ function mostrar(id){
  document.getElementById(id).classList.add('active');
 }
 
-function crearTarea(){
+function crear(){
  let t=document.getElementById('titulo').value;
- let d=document.getElementById('descripcion').value;
+ let d=document.getElementById('desc').value;
  let f=document.getElementById('fecha').value;
  tareas.push({t,d,f});
  guardar(); render();
 }
 
+function tiempoRestante(fecha){
+ let ahora=new Date();
+ let cierre=new Date(fecha);
+ let diff=cierre-ahora;
+ if(diff<=0) return 'Cerrado';
+ let dias=Math.floor(diff/(1000*60*60*24));
+ let horas=Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+ return dias+' días '+horas+' horas';
+}
+
 function render(){
  document.getElementById('listaTareas').innerHTML=tareas.map((t,i)=>{
- let fechaLimite=new Date(t.f);
- let ahora=new Date();
- let entregado=entregas.find(e=>e.user===user.nombre && e.index===i);
+ let entrega=entregas.find(e=>e.user===user.nombre && e.index===i);
 
  if(user.rol==='estudiante'){
  return `<div class='card'>
  <h3>${t.t}</h3>
  <p>${t.d}</p>
- <p><b>Apertura:</b> ${t.f}</p>
- <p><b>Cierre:</b> ${t.f}</p>
- 
- <p><b>Estado:</b> ${entregado?'<span class="badge ok">Enviado</span>':'<span class="badge warn">Pendiente</span>'}</p>
- 
- <textarea id='resp${i}' placeholder='Escribe o describe tu archivo'></textarea>
- <input type='file' id='file${i}'>
- <button onclick='enviar(${i})'>Subir tarea</button>
+ <p><b>Fecha límite:</b> ${t.f}</p>
+ <p><b>Tiempo restante:</b> ${tiempoRestante(t.f)}</p>
+
+ <p><b>Estado de la entrega:</b> ${entrega?'<span class="badge ok">Enviado para calificar</span>':'<span class="badge warn">No enviado</span>'}</p>
+ <p><b>Estado de la calificación:</b> ${entrega && entrega.nota ? 'Calificado ('+entrega.nota+')':'Sin calificar'}</p>
+ <p><b>Última modificación:</b> ${entrega?entrega.fecha:'-'}</p>
+ <p><b>Archivo enviado:</b> ${entrega?entrega.file:'Ninguno'}</p>
+
+ <textarea id='r${i}' placeholder='Respuesta'></textarea>
+ <input type='file' id='f${i}'>
+ <button onclick='enviar(${i})'>Enviar tarea</button>
  </div>`;
  }
- 
- return `<div class='card'>
- <h3>${t.t}</h3>
- <p>${t.d}</p>
- </div>`;
+ return `<div class='card'><h3>${t.t}</h3></div>`;
  }).join('');
 
  if(user.rol==='docente'){
  document.getElementById('listaEntregas').innerHTML=entregas.map((e,i)=>`<div class='card'>
  <b>${e.user}</b><br>
- ${e.r}<br>
- Archivo: ${e.file||'Ninguno'}<br>
- Estado: ${e.nota? 'Calificado: '+e.nota : 'Sin calificar'}<br>
- <input id='nota${i}' placeholder='Nota'>
+ Estado: ${e.nota?'Calificado':'Sin calificar'}<br>
+ Archivo: ${e.file}<br>
+ <input id='n${i}' placeholder='Nota'>
  <button onclick='calificar(${i})'>Calificar</button>
  </div>`).join('');
  }
 }
 
 function enviar(i){
- let r=document.getElementById('resp'+i).value;
- let file=document.getElementById('file'+i).files[0];
- entregas.push({user:user.nombre,index:i,r,file:file?file.name:''});
- guardar(); render(); alert('Tarea enviada');
+ let r=document.getElementById('r'+i).value;
+ let file=document.getElementById('f'+i).files[0];
+ entregas.push({user:user.nombre,index:i,r,file:file?file.name:'',fecha:new Date().toLocaleString()});
+ guardar(); render();
 }
 
 function calificar(i){
- let n=document.getElementById('nota'+i).value;
+ let n=document.getElementById('n'+i).value;
  entregas[i].nota=n;
  guardar(); render();
 }
