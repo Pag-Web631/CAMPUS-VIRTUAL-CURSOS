@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Campus Virtual Pro</title>
+<title>Campus Virtual Pro+</title>
 <style>
 body { font-family: Arial; margin:0; background:#f4f6f8; }
 header { background:#1a73e8; color:white; padding:15px; text-align:center; }
@@ -19,7 +19,7 @@ button.primary { background:#1a73e8; color:white; }
 <body>
 
 <header>
-<h1>🎓 Campus Virtual Pro</h1>
+<h1>🎓 Campus Virtual PRO+</h1>
 </header>
 
 <section id="login" class="active">
@@ -34,34 +34,45 @@ button.primary { background:#1a73e8; color:white; }
 
 <nav id="menu" style="display:none">
 <button onclick="mostrar('cursos')">Cursos</button>
-<button onclick="mostrar('crear')" id="btnCrear">Crear Curso</button>
+<button onclick="mostrar('crear')" id="btnCrear">Crear</button>
 <button onclick="mostrar('tareas')">Tareas</button>
+<button onclick="mostrar('examenes')">Exámenes</button>
 <button onclick="logout()">Salir</button>
 </nav>
 
 <section id="cursos">
-<h2>Mis Cursos</h2>
+<h2>Cursos</h2>
 <div id="listaCursos"></div>
 </section>
 
 <section id="crear">
-<h2>Crear Curso (Solo Docente)</h2>
-<input id="nombreCurso" placeholder="Nombre del curso">
-<textarea id="descCurso" placeholder="Descripción"></textarea>
-<button class="primary" onclick="crearCurso()">Guardar</button>
+<h2>Crear (Docente)</h2>
+<select id="tipoCrear">
+<option value="curso">Curso</option>
+<option value="tarea">Tarea</option>
+<option value="examen">Examen</option>
+</select>
+<input id="titulo" placeholder="Título">
+<textarea id="descripcion" placeholder="Descripción o preguntas"></textarea>
+<button class="primary" onclick="crear()">Guardar</button>
 </section>
 
 <section id="tareas">
 <h2>Tareas</h2>
-<input id="nombreTarea" placeholder="Nombre tarea">
-<button onclick="agregarTarea()">Agregar</button>
-<ul id="listaTareas"></ul>
+<div id="listaTareas"></div>
+</section>
+
+<section id="examenes">
+<h2>Exámenes</h2>
+<div id="listaExamenes"></div>
 </section>
 
 <script>
 let usuarioActual = JSON.parse(localStorage.getItem('usuarioActual')) || null;
 let cursos = JSON.parse(localStorage.getItem('cursos')) || [];
 let tareas = JSON.parse(localStorage.getItem('tareas')) || [];
+let examenes = JSON.parse(localStorage.getItem('examenes')) || [];
+let respuestas = JSON.parse(localStorage.getItem('respuestas')) || [];
 
 function login(){
  let rol = document.getElementById('rol').value;
@@ -76,59 +87,72 @@ function iniciarApp(){
  document.getElementById('login').style.display='none';
  document.getElementById('menu').style.display='flex';
  mostrar('cursos');
-
  if(usuarioActual.rol === 'estudiante'){
  document.getElementById('btnCrear').style.display='none';
- } else {
- document.getElementById('btnCrear').style.display='inline-block';
  }
-
- mostrarCursos();
- mostrarTareas();
+ mostrarTodo();
 }
 
-function logout(){
- localStorage.removeItem('usuarioActual');
- location.reload();
-}
+function logout(){ localStorage.removeItem('usuarioActual'); location.reload(); }
 
 function mostrar(id){
  document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
  document.getElementById(id).classList.add('active');
 }
 
-function crearCurso(){
- if(usuarioActual.rol !== 'docente') return alert('Solo el docente puede crear');
- let nombre = document.getElementById('nombreCurso').value;
- let desc = document.getElementById('descCurso').value;
- if(!nombre) return alert('Escribe un nombre');
- cursos.push({nombre, desc});
+function crear(){
+ if(usuarioActual.rol !== 'docente') return alert('Solo docente');
+ let tipo = document.getElementById('tipoCrear').value;
+ let titulo = document.getElementById('titulo').value;
+ let desc = document.getElementById('descripcion').value;
+ if(!titulo) return alert('Falta título');
+
+ if(tipo==='curso') cursos.push({titulo, desc});
+ if(tipo==='tarea') tareas.push({titulo, desc});
+ if(tipo==='examen') examenes.push({titulo, desc});
+
+ guardar();
+ mostrarTodo();
+}
+
+function guardar(){
  localStorage.setItem('cursos', JSON.stringify(cursos));
- mostrarCursos();
-}
-
-function mostrarCursos(){
- let cont = document.getElementById('listaCursos');
- cont.innerHTML='';
- cursos.forEach(c=>{
- cont.innerHTML += `<div class="card"><h3>${c.nombre}</h3><p>${c.desc}</p></div>`;
- });
-}
-
-function agregarTarea(){
- let t = document.getElementById('nombreTarea').value;
- if(!t) return;
- tareas.push(t);
  localStorage.setItem('tareas', JSON.stringify(tareas));
- mostrarTareas();
+ localStorage.setItem('examenes', JSON.stringify(examenes));
+ localStorage.setItem('respuestas', JSON.stringify(respuestas));
 }
 
-function mostrarTareas(){
- let ul = document.getElementById('listaTareas');
- ul.innerHTML='';
- tareas.forEach(t=>{
- ul.innerHTML += `<li>${t}</li>`;
- });
+function mostrarTodo(){
+ document.getElementById('listaCursos').innerHTML = cursos.map(c=>`<div class='card'>${c.titulo}</div>`).join('');
+
+ document.getElementById('listaTareas').innerHTML = tareas.map((t,i)=>{
+ if(usuarioActual.rol==='estudiante'){
+ return `<div class='card'>${t.titulo}
+ <textarea id='respT${i}' placeholder='Subir respuesta'></textarea>
+ <button onclick='enviarTarea(${i})'>Enviar</button></div>`;
+ } else return `<div class='card'>${t.titulo}</div>`;
+ }).join('');
+
+ document.getElementById('listaExamenes').innerHTML = examenes.map((e,i)=>{
+ if(usuarioActual.rol==='estudiante'){
+ return `<div class='card'>${e.titulo}
+ <p>${e.desc}</p>
+ <textarea id='respE${i}' placeholder='Responder examen'></textarea>
+ <button onclick='enviarExamen(${i})'>Enviar</button></div>`;
+ } else return `<div class='card'>${e.titulo}</div>`;
+ }).join('');
+}
+
+function enviarTarea(i){
+ let r = document.getElementById('respT'+i).value;
+ respuestas.push({tipo:'tarea', index:i, user:usuarioActual.nombre, r});
+ guardar(); alert('Tarea enviada');
+}
+
+function enviarExamen(i){
+ let r = document.getElementById('respE'+i).value;
+ respuestas.push({tipo:'examen', index:i, user:usuarioActual.nombre, r});
+ guardar(); alert('Examen enviado');
 }
 
 if(usuarioActual) iniciarApp();
