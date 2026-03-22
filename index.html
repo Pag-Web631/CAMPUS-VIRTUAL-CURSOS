@@ -1,14 +1,10 @@
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Campus Virtual UTECO</title>
+
 <style>
 :root {
     --primary: #1a73e8;
@@ -17,205 +13,211 @@
     --text: #333;
     --shadow: 0 4px 15px rgba(0,0,0,0.08);
 }
-.cursos {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 15px;
-}
 
-.curso-card {
-    background: var(--white);
-    padding: 15px;
-    border-radius: 12px;
-    box-shadow: var(--shadow);
-    transition: 0.3s;
-    cursor: pointer;
-}
-
-.curso-card:hover {
-    transform: translateY(-5px) scale(1.02);
-    border-left: 5px solid var(--primary);
-}
-
-.curso-titulo {
-    font-weight: bold;
-    margin-bottom: 8px;
-}
-
-.curso-profesor {
-    font-size: 14px;
-    color: gray;
-}
-/* 🌙 MODO OSCURO */
+/* 🌙 DARK MODE */
 .dark {
     --bg: #121212;
     --white: #1e1e1e;
     --text: #f1f1f1;
-    --shadow: 0 4px 15px rgba(0,0,0,0.5);
 }
 
 /* GENERAL */
 body {
-    font-family: 'Segoe UI', Arial, sans-serif;
-    margin: 0;
+    margin:0;
+    font-family: 'Segoe UI', Arial;
     background: var(--bg);
     color: var(--text);
-    transition: 0.3s;
 }
 
 /* HEADER */
 header {
     background: linear-gradient(135deg, #1a73e8, #4a90e2);
-    color: white;
-    padding: 20px;
-    box-shadow: var(--shadow);
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+    color:white;
+    padding:20px;
 }
 
-/* CONTENEDOR */
+/* LAYOUT */
 .container {
-    display: flex;
+    display:flex;
 }
 
-/* SIDEBAR (MENÚ) */
+/* MENU */
 .sidebar {
-    width: 250px;
-    background: var(--white);
-    padding: 20px;
-    min-height: 100vh;
-    box-shadow: var(--shadow);
-}
-
-.sidebar h3 {
-    margin-top: 0;
-    color: var(--primary);
+    width:250px;
+    background:var(--white);
+    padding:20px;
+    min-height:100vh;
 }
 
 .sidebar a {
-    display: flex;
-    align-items:center;
-    gap:10px;
-    padding: 12px;
-    text-decoration: none;
-    color: var(--text);
-    border-radius: 8px;
-    margin-bottom: 5px;
-    transition: 0.3s;
+    display:block;
+    padding:10px;
+    margin-bottom:5px;
+    border-radius:8px;
+    text-decoration:none;
+    color:var(--text);
 }
 
-.sidebar a:hover {
-    background: var(--primary);
-    color: white;
-    transform: translateX(5px);
-}
-
+.sidebar a:hover,
 .sidebar a.active {
-    background: var(--primary);
-    color: white;
+    background:var(--primary);
+    color:white;
 }
 
-/* CONTENIDO */
+/* MAIN */
 .main {
-    flex: 1;
-    padding: 25px;
+    flex:1;
+    padding:20px;
+}
+
+/* GRID CURSOS */
+.cursos {
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:15px;
 }
 
 /* TARJETAS */
-.card {
-    background: var(--white);
-    padding: 18px;
-    margin-bottom: 15px;
-    border-radius: 12px;
-    box-shadow: var(--shadow);
-    transition: 0.3s;
+.curso-card {
+    background:var(--white);
+    padding:15px;
+    border-radius:12px;
+    box-shadow:var(--shadow);
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    border-left:6px solid var(--primary);
 }
 
-.card:hover {
-    transform: translateY(-5px);
+/* COLORES */
+.color1 { border-left-color:#1a73e8; }
+.color2 { border-left-color:#34a853; }
+.color3 { border-left-color:#fbbc05; }
+.color4 { border-left-color:#ea4335; }
+.color5 { border-left-color:#9c27b0; }
+
+/* TEXTO */
+.curso-titulo { font-weight:bold; }
+.curso-profesor { font-size:14px; color:gray; }
+
+/* PROGRESO */
+.progreso {
+    background:#ddd;
+    height:8px;
+    border-radius:10px;
+    margin:10px 0;
+}
+
+.barra {
+    height:100%;
+    background:var(--primary);
+}
+
+/* BOTON */
+.btn {
+    background:var(--primary);
+    color:white;
+    padding:8px;
+    border-radius:8px;
+    text-align:center;
+    text-decoration:none;
 }
 
 /* FOOTER */
 footer {
-    text-align: center;
-    padding: 20px;
-    font-size: 12px;
-    color: #888;
+    text-align:center;
+    padding:20px;
+    font-size:12px;
 }
 
 /* RESPONSIVE */
-@media (max-width: 768px) {
-    .container {
-        flex-direction: column;
-    }
-
-    .sidebar {
-        width: 100%;
-        min-height: auto;
-    }
+@media(max-width:768px){
+    .container { flex-direction:column; }
+    .sidebar { width:100%; min-height:auto; }
 }
 </style>
 </head>
+
 <body>
+
 <header>
 <h2>Campus Virtual UTECO</h2>
 <p>JOSE AUGUSTO HERRERA CASTILLO</p>
 </header>
 
 <div class="container">
+
+<!-- MENÚ -->
 <div class="sidebar">
 <h3>Menú</h3>
-
-    <a href="index.html"class="active">🏠 Inicio</a>
-     <a href="curso.html">📚 Cursos </a>
-    <a href="#">👤 Área personal</a>
-    <a href="#">📅 Eventos</a>
+<a href="index.html" class="active">🏠 Inicio</a>
+<a href="curso.html">📚 Cursos</a>
+<a href="#">👤 Área personal</a>
+<a href="#">📅 Eventos</a>
 </div>
 
-
-</div>
+<!-- CONTENIDO -->
 <div class="main">
 
-<div class="container">
-
-<div class="sidebar">
 <h2>Mis cursos</h2>
 
 <div class="cursos">
 
-<div class="curso-card">
+<div class="curso-card color1">
+<div>
 <div class="curso-titulo">IRI-119-01 - Comercio electrónico</div>
 <div class="curso-profesor">Profesor: Jose Manuel Batista</div>
+<div class="progreso"><div class="barra" style="width:70%"></div></div>
+</div>
+<a href="curso.html" class="btn">Entrar al curso</a>
 </div>
 
-<div class="curso-card">
-<div class="curso-titulo">IRI-117-01 - Diseño Gráfico y Tratamiento Digital de Imagen</div>
+<div class="curso-card color2">
+<div>
+<div class="curso-titulo">IRI-117-01 - Diseño Gráfico</div>
 <div class="curso-profesor">Profesor: Juan Antonio Graciano</div>
+<div class="progreso"><div class="barra" style="width:40%"></div></div>
+</div>
+<a href="#" class="btn">Entrar al curso</a>
 </div>
 
-<div class="curso-card">
+<div class="curso-card color3">
+<div>
 <div class="curso-titulo">CHU-121-01 - Álgebra Matricial</div>
 <div class="curso-profesor">Profesor: Lewis Santos Collado</div>
+<div class="progreso"><div class="barra" style="width:90%"></div></div>
+</div>
+<a href="#" class="btn">Entrar al curso</a>
 </div>
 
-<div class="curso-card">
+<div class="curso-card color4">
+<div>
 <div class="curso-titulo">CHU-018-02 - Laboratorio de Física II</div>
 <div class="curso-profesor">Profesor: ---</div>
+<div class="progreso"><div class="barra" style="width:20%"></div></div>
+</div>
+<a href="#" class="btn">Entrar al curso</a>
 </div>
 
-<div class="curso-card">
+<div class="curso-card color5">
+<div>
 <div class="curso-titulo">CHU-008-03 - Física II</div>
 <div class="curso-profesor">Profesor: Jose Miguel Sanchez</div>
+<div class="progreso"><div class="barra" style="width:55%"></div></div>
+</div>
+<a href="#" class="btn">Entrar al curso</a>
 </div>
 
+</div>
+
+</div>
 </div>
 
 <footer>
 © 2016 Derechos Reservados UTECO <br>
 Teléfono: +1 809-585-2291 <br>
 Correo: informacion@uteco.edu.do <br>
-Dirección: Avenida Universitaria No. 100, Cotuí, República Dominicana
+Dirección: Cotuí, República Dominicana
 </footer>
 
 </body>
