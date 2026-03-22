@@ -39,8 +39,10 @@
                     <option value="docente">Docente</option>
                 </select>
 
-             <span id="registerText" class="toggle-text">Registrarse</span>
-<span id="loginText" class="toggle-text">Volver</span>
+                <!-- 🔥 ESTE BOTÓN FALTABA -->
+                <button onclick="registrar()">Registrar</button>
+
+                <span class="toggle-text" onclick="flip()">Volver</span>
             </div>
 
         </div>
@@ -50,14 +52,8 @@
 <script src="script.js"></script>
 
 <script>
-// girar tarjeta
 function flip(){
     document.getElementById("flipCard").classList.toggle("active");
-}
-
-// PWA (opcional)
-if("serviceWorker" in navigator){
-    navigator.serviceWorker.register("service-worker.js");
 }
 </script>
 
