@@ -12,7 +12,7 @@ header { background:#1a73e8; color:white; padding:15px; }
 .main { flex:1; padding:20px; }
 .card { background:white; padding:15px; margin-bottom:10px; border-radius:10px; }
 .item { background:#f1f3f4; padding:10px; margin:5px 0; border-radius:5px; }
-button { padding:8px; background:#1a73e8; color:white; border:none; border-radius:5px; }
+button { padding:8px; background:#1a73e8; color:white; border:none; border-radius:5px; cursor:pointer; }
 input, textarea { width:100%; padding:8px; margin:5px 0; }
 table td { padding:6px; }
 </style>
@@ -51,6 +51,7 @@ let user = localStorage.getItem("user") || "";
 let tareas = JSON.parse(localStorage.getItem("tareas")) || [];
 let entregas = JSON.parse(localStorage.getItem("entregas")) || [];
 
+// ================= USER =================
 function guardarUser(){
     user = document.getElementById("nombre").value.trim();
     if(!user) return alert("Escribe tu nombre");
@@ -63,19 +64,16 @@ function render(){
 
 let html = "<h2>Tareas del curso</h2>";
 
-// DOCENTE CREA
+// CREAR
 if(modo==="docente"){
 html += `
 <div class="card">
 <h3>Crear actividad</h3>
-
 <input id="t" placeholder="Actividad #1">
 <label>Apertura</label>
 <input type="datetime-local" id="apertura">
-
 <label>Cierre</label>
 <input type="datetime-local" id="cierre">
-
 <button onclick="crear()">Crear</button>
 </div>
 `;
@@ -108,66 +106,24 @@ Cierre: ${cierre.toLocaleString()}<br><br>
 <h4>Estado de la entrega</h4>
 
 <table width="100%">
-
-<tr>
-<td><b>Estado de la entrega</b></td>
-<td>${entrega?"Enviado para calificar":"Todavía no se han realizado envíos"}</td>
-</tr>
-
-<tr>
-<td><b>Estado de la calificación</b></td>
-<td>${entrega?.nota?"Calificado":"Sin calificar"}</td>
-</tr>
-
-<tr>
-<td><b>Tiempo</b></td>
-<td>
-${
-!disponible
-? "La actividad aún no está disponible"
-: vencida
-? "La actividad está cerrada"
-: "Disponible para envío"
-}
-</td>
-</tr>
-
-<tr>
-<td><b>Última modificación</b></td>
-<td>${entrega?entrega.fecha:"-"}</td>
-</tr>
-
-<tr>
-<td><b>Archivos enviados</b></td>
-<td>${entrega?.file || "-"}</td>
-</tr>
-
-<tr>
-<td><b>Comentarios</b></td>
-<td>${entrega?.comentario || "Comentarios (0)"}</td>
-</tr>
-
-<tr>
-<td><b>Calificación</b></td>
-<td>${entrega?.nota ? entrega.nota+" / 5.00" : "-"}</td>
-</tr>
-
+<tr><td><b>Estado de la entrega</b></td><td>${entrega?"Enviado para calificar":"Todavía no se han realizado envíos"}</td></tr>
+<tr><td><b>Estado de la calificación</b></td><td>${entrega?.nota?"Calificado":"Sin calificar"}</td></tr>
+<tr><td><b>Tiempo</b></td><td>${!disponible?"No disponible":vencida?"Cerrado":"Disponible"}</td></tr>
+<tr><td><b>Última modificación</b></td><td>${entrega?entrega.fecha:"-"}</td></tr>
+<tr><td><b>Archivos enviados</b></td><td>${entrega?.file || "-"}</td></tr>
+<tr><td><b>Comentarios</b></td><td>${entrega?.comentario || "Comentarios (0)"}</td></tr>
+<tr><td><b>Calificación</b></td><td>${entrega?.nota ? entrega.nota+" / 5.00" : "-"}</td></tr>
 </table>
-
 <br>
 `;
 
-// SOLO SI ESTÁ ABIERTA
 if(disponible && !vencida){
 html += `
 <input type="file" id="f${i}">
 <textarea id="r${i}" placeholder="Respuesta"></textarea>
-
-<button onclick="enviar(${i})">
-${entrega ? "Actualizar entrega" : "Enviar tarea"}
-</button>
+<button onclick="enviar(${i})">${entrega?"Actualizar":"Enviar"} tarea</button>
 `;
-} else {
+}else{
 html += `<p style="color:red;">No disponible para enviar</p>`;
 }
 
@@ -176,15 +132,18 @@ html += `<p style="color:red;">No disponible para enviar</p>`;
 // ================= DOCENTE =================
 if(modo==="docente"){
 
-let lista = entregas
-.map((e,idx)=>({ ...e, idx }))
-.filter(e=>e.tarea===i);
+let lista = entregas.map((e,idx)=>({...e,idx})).filter(e=>e.tarea===i);
 
-html += `<b>${t.titulo}</b><br>
+html += `
+<b>${t.titulo}</b><br>
 Apertura: ${apertura.toLocaleString()}<br>
 Cierre: ${cierre.toLocaleString()}<br><br>
 
-<h4>Entregas</h4>`;
+<button onclick="editar(${i})">✏️ Editar</button>
+<button onclick="eliminar(${i})">🗑️ Eliminar</button>
+
+<h4>Entregas</h4>
+`;
 
 if(lista.length===0){
 html += "<p>No hay entregas</p>";
@@ -214,22 +173,51 @@ document.getElementById("contenido").innerHTML = html;
 
 // ================= CREAR =================
 function crear(){
-
 let t = document.getElementById("t").value;
 let apertura = document.getElementById("apertura").value;
 let cierre = document.getElementById("cierre").value;
 
-if(!t || !apertura || !cierre){
-return alert("Completa todos los campos");
+if(!t || !apertura || !cierre) return alert("Completa todo");
+
+tareas.push({titulo:t, apertura, cierre});
+
+localStorage.setItem("tareas", JSON.stringify(tareas));
+render();
 }
 
-tareas.push({
-titulo:t,
-apertura:apertura,
-cierre:cierre
+// ================= EDITAR =================
+function editar(i){
+
+let t = tareas[i];
+
+let titulo = prompt("Título:", t.titulo);
+let apertura = prompt("Apertura:", t.apertura);
+let cierre = prompt("Cierre:", t.cierre);
+
+if(!titulo || !apertura || !cierre) return;
+
+tareas[i] = {titulo, apertura, cierre};
+
+localStorage.setItem("tareas", JSON.stringify(tareas));
+render();
+}
+
+// ================= ELIMINAR =================
+function eliminar(i){
+
+if(!confirm("Eliminar tarea?")) return;
+
+tareas.splice(i,1);
+
+entregas = entregas.filter(e => e.tarea !== i);
+entregas = entregas.map(e => {
+if(e.tarea > i) e.tarea--;
+return e;
 });
 
 localStorage.setItem("tareas", JSON.stringify(tareas));
+localStorage.setItem("entregas", JSON.stringify(entregas));
+
 render();
 }
 
@@ -241,23 +229,15 @@ if(!user) return alert("Ingresa tu nombre");
 let tarea = tareas[i];
 let ahora = new Date();
 
-let apertura = new Date(tarea.apertura);
-let cierre = new Date(tarea.cierre);
-
-if(ahora < apertura){
-return alert("Aún no disponible");
-}
-
-if(ahora > cierre){
-return alert("Actividad cerrada");
-}
+if(ahora < new Date(tarea.apertura)) return alert("No disponible");
+if(ahora > new Date(tarea.cierre)) return alert("Actividad cerrada");
 
 let file = document.getElementById("f"+i).files[0];
 
 let index = entregas.findIndex(e=>e.user===user && e.tarea===i);
 
 let data = {
-user:user,
+user,
 tarea:i,
 file:file?file.name:"",
 fecha:new Date().toLocaleString(),
@@ -265,11 +245,8 @@ nota:null,
 comentario:null
 };
 
-if(index >= 0){
-entregas[index] = data;
-}else{
-entregas.push(data);
-}
+if(index>=0) entregas[index]=data;
+else entregas.push(data);
 
 localStorage.setItem("entregas", JSON.stringify(entregas));
 render();
