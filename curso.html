@@ -14,6 +14,7 @@ header { background:#1a73e8; color:white; padding:15px; }
 .item { background:#f1f3f4; padding:10px; margin:5px 0; border-radius:5px; }
 button { padding:8px; background:#1a73e8; color:white; border:none; border-radius:5px; }
 input, textarea { width:100%; padding:8px; margin:5px 0; }
+table td { padding:6px; }
 </style>
 
 </head>
@@ -47,16 +48,17 @@ input, textarea { width:100%; padding:8px; margin:5px 0; }
 let modo = "estudiante";
 let user = localStorage.getItem("user") || "";
 
+let tareas = JSON.parse(localStorage.getItem("tareas")) || [];
+let entregas = JSON.parse(localStorage.getItem("entregas")) || [];
+
 function guardarUser(){
-    user = document.getElementById("nombre").value;
+    user = document.getElementById("nombre").value.trim();
+    if(!user) return alert("Escribe tu nombre");
     localStorage.setItem("user", user);
     render();
 }
 
-let tareas = JSON.parse(localStorage.getItem("tareas")) || [];
-let entregas = JSON.parse(localStorage.getItem("entregas")) || [];
-
-// 🔄 RENDER PRINCIPAL
+// 🔄 RENDER
 function render(){
 
 let html = "<h2>Tareas del curso</h2>";
@@ -71,36 +73,76 @@ html += `
 `;
 }
 
-// LISTA DE TAREAS
+// LISTA
 tareas.forEach((t,i)=>{
 
 let entrega = entregas.find(e=>e.user===user && e.tarea===i);
 
-html += `<div class="card">
-<b>${t}</b><br><br>`;
+html += `<div class="card"><b>${t}</b><br><br>`;
 
-// 👨‍🎓 ESTUDIANTE
+// ================= ESTUDIANTE =================
 if(modo==="estudiante"){
+
 html += `
-<table style="width:100%">
-<tr><td><b>Estado de la entrega</b></td><td>${entrega?"Enviado para calificar":"Todavía no se han realizado envíos"}</td></tr>
-<tr><td><b>Estado de la calificación</b></td><td>${entrega?.nota?("Calificado ("+entrega.nota+")"):"Sin calificar"}</td></tr>
-<tr><td><b>Última modificación</b></td><td>${entrega?entrega.fecha:"-"}</td></tr>
-<tr><td><b>Comentarios</b></td><td>${entrega?.comentario||"Comentarios (0)"}</td></tr>
+<b>Actividad #${i+1}</b><br>
+Requisitos de finalización<br><br>
+
+Apertura: 11 de marzo de 2026<br>
+Cierre: 15 de marzo de 2026<br><br>
+
+📄 Archivo de la actividad<br><br>
+
+<h4>Estado de la entrega</h4>
+
+<table width="100%">
+<tr>
+<td><b>Estado de la entrega</b></td>
+<td>${entrega?"Enviado para calificar":"Todavía no se han realizado envíos"}</td>
+</tr>
+
+<tr>
+<td><b>Estado de la calificación</b></td>
+<td>${entrega?.nota?"Calificado":"Sin calificar"}</td>
+</tr>
+
+<tr>
+<td><b>Última modificación</b></td>
+<td>${entrega?entrega.fecha:"-"}</td>
+</tr>
+
+<tr>
+<td><b>Archivos enviados</b></td>
+<td>${entrega?.file || "-"}</td>
+</tr>
+
+<tr>
+<td><b>Comentarios</b></td>
+<td>${entrega?.comentario || "Comentarios (0)"}</td>
+</tr>
+
+<tr>
+<td><b>Calificación</b></td>
+<td>${entrega?.nota ? entrega.nota+" / 5.00" : "-"}</td>
+</tr>
 </table>
 
 <br>
 
 <input type="file" id="f${i}">
 <textarea id="r${i}" placeholder="Respuesta"></textarea>
-<button onclick="enviar(${i})">Enviar tarea</button>
+
+<button onclick="enviar(${i})">
+${entrega ? "Actualizar entrega" : "Enviar tarea"}
+</button>
 `;
 }
 
-// 👨‍🏫 DOCENTE
+// ================= DOCENTE =================
 if(modo==="docente"){
 
-let lista = entregas.filter(e=>e.tarea===i);
+let lista = entregas
+.map((e,idx)=>({ ...e, idx }))
+.filter(e=>e.tarea===i);
 
 html += "<h4>Entregas:</h4>";
 
@@ -108,17 +150,17 @@ if(lista.length===0){
 html += "<p>No hay entregas</p>";
 }
 
-lista.forEach((e,index)=>{
+lista.forEach(e=>{
 html += `
 <div class="item">
 <b>${e.user}</b><br>
 Archivo: ${e.file || "No subido"}<br>
 Estado: ${e.nota?"Calificado":"Sin calificar"}<br>
 
-<input id="nota${index}" placeholder="Nota">
-<textarea id="com${index}" placeholder="Comentario"></textarea>
+<input id="nota${e.idx}" placeholder="Nota">
+<textarea id="com${e.idx}" placeholder="Comentario"></textarea>
 
-<button onclick="calificar(${index})">Guardar</button>
+<button onclick="calificar(${e.idx})">Guardar</button>
 </div>
 `;
 });
@@ -130,7 +172,7 @@ html += "</div>";
 document.getElementById("contenido").innerHTML = html;
 }
 
-// 🧑‍🏫 CREAR TAREA
+// CREAR
 function crear(){
 let t = document.getElementById("t").value;
 if(!t) return alert("Escribe título");
@@ -139,27 +181,35 @@ localStorage.setItem("tareas", JSON.stringify(tareas));
 render();
 }
 
-// 👨‍🎓 ENVIAR
+// ENVIAR (sin duplicar)
 function enviar(i){
 
 if(!user) return alert("Ingresa tu nombre");
 
 let file = document.getElementById("f"+i).files[0];
 
-entregas.push({
+let index = entregas.findIndex(e=>e.user===user && e.tarea===i);
+
+let data = {
 user:user,
 tarea:i,
 file:file?file.name:"",
 fecha:new Date().toLocaleString(),
 nota:null,
 comentario:null
-});
+};
+
+if(index >= 0){
+entregas[index] = data; // actualizar
+}else{
+entregas.push(data); // nuevo
+}
 
 localStorage.setItem("entregas", JSON.stringify(entregas));
 render();
 }
 
-// ⭐ CALIFICAR
+// CALIFICAR
 function calificar(i){
 
 entregas[i].nota = document.getElementById("nota"+i).value;
