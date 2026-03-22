@@ -37,20 +37,15 @@ nav.menu a:hover, nav.menu button:hover, nav.menu a.active { background:#1a73e8;
 </style>
 
 <script>
-// Guardar usuario y redirigir según rol
 function guardarUser(rol){
     let nombre = document.getElementById("nombre").value;
     if(!nombre) return alert("Ingresa tu nombre");
     let user = {nombre, rol};
     localStorage.setItem("user", JSON.stringify(user));
     document.getElementById("nombreUsuario").innerText = `Bienvenido ${nombre} (${rol})`;
-
-    // Redirigir según rol
     if(rol==="estudiante") window.location = "estudiante.html";
     else if(rol==="docente") window.location = "docente.html";
 }
-
-// Mostrar usuario guardado
 let user = JSON.parse(localStorage.getItem("user")) || {nombre:"", rol:""};
 if(user.nombre) document.getElementById("nombreUsuario").innerText = `Bienvenido ${user.nombre} (${user.rol})`;
 </script>
