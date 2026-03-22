@@ -1,60 +1,95 @@
 document.addEventListener("DOMContentLoaded", () => {
 
     const flipCard = document.getElementById("flipCard");
+    const registerText = document.getElementById("registerText");
+    const loginText = document.getElementById("loginText");
 
-    document.getElementById("registerText").onclick = () => {
-        flipCard.classList.add("active");
-    };
+    // 🔁 FLIP
+    if(registerText){
+        registerText.addEventListener("click", () => {
+            flipCard.classList.add("active");
+        });
+    }
 
-    document.getElementById("loginText").onclick = () => {
-        flipCard.classList.remove("active");
-    };
+    if(loginText){
+        loginText.addEventListener("click", () => {
+            flipCard.classList.remove("active");
+        });
+    }
 
-    // BOTONES INFO
-    document.querySelectorAll(".infoToggle").forEach(btn => {
+    // ℹ️ INFO PANEL
+    const infoBtns = document.querySelectorAll(".infoToggle");
+
+    infoBtns.forEach(btn => {
         btn.addEventListener("click", () => {
-            document.getElementById("infoPanel").classList.toggle("active");
+            const panel = document.getElementById("infoPanel");
+            panel.classList.toggle("active");
         });
     });
 
-    // BOTONES
-    document.getElementById("btnLogin").onclick = login;
-    document.getElementById("btnRegistrar").onclick = registrar;
+    // 🔘 BOTONES
+    const btnLogin = document.getElementById("btnLogin");
+    const btnRegistrar = document.getElementById("btnRegistrar");
+
+    if(btnLogin) btnLogin.addEventListener("click", login);
+    if(btnRegistrar) btnRegistrar.addEventListener("click", registrar);
+
 });
 
-// TOAST
+
+// 🔔 TOAST
 function showToast(msg, type="success"){
     const t = document.getElementById("toast");
+    if(!t) return;
+
     t.innerText = msg;
     t.className = "show " + type;
-    setTimeout(()=>t.classList.remove("show"), 2500);
+
+    setTimeout(() => t.classList.remove("show"), 2500);
 }
 
-// LOGIN
+
+// 🔐 LOGIN
 function login(){
     const u = document.getElementById("loginUser").value;
     const p = document.getElementById("loginPass").value;
+
     const saved = JSON.parse(localStorage.getItem("usuario"));
 
-    if(!saved) return showToast("No hay usuario", "warning");
-    if(saved.user !== u || saved.pass !== p) return showToast("Datos incorrectos", "error");
+    if(!saved){
+        showToast("No hay usuario", "warning");
+        return;
+    }
+
+    if(saved.user !== u || saved.pass !== p){
+        showToast("Datos incorrectos", "error");
+        return;
+    }
 
     showToast("Bienvenido ✔");
 
-    setTimeout(()=>{
+    setTimeout(() => {
         location.href = saved.rol === "docente" ? "docente.html" : "estudiante.html";
-    },1000);
+    }, 1000);
 }
 
-// REGISTRO
+
+// 📝 REGISTRO
 function registrar(){
     const u = document.getElementById("regUser").value;
     const p = document.getElementById("regPass").value;
     const r = document.getElementById("regRol").value;
 
-    if(!u || !p || !r) return showToast("Completa todo", "warning");
+    if(!u || !p || !r){
+        showToast("Completa todo", "warning");
+        return;
+    }
 
-    localStorage.setItem("usuario", JSON.stringify({user:u, pass:p, rol:r}));
+    localStorage.setItem("usuario", JSON.stringify({
+        user: u,
+        pass: p,
+        rol: r
+    }));
 
     showToast("Registrado ✔");
 
