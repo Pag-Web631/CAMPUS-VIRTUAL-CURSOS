@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Docente - CursosVirtual</title>
+</head>
+<body>
+
+<!-- CARGAR HEADER -->
+<div id="header-container"></div>
+
+<div class="main" style="max-width:1200px;margin:auto;padding:20px;">
+    <h2>Panel Docente</h2>
+
+    <!-- Crear curso -->
+    <div class="card">
+        <h3>Crear curso</h3>
+        <input id="ct" placeholder="Nombre del curso">
+        <input id="cp" placeholder="Profesor">
+        <button onclick="crearCurso()">Crear</button>
+    </div>
+
+    <!-- Lista cursos -->
+    <div class="cursos" id="listaCursos"></div>
+</div>
+
+<script>
+// CARGAR HEADER
+fetch('header.html')
+.then(res=>res.text())
+.then(data => document.getElementById("header-container").innerHTML = data);
+
+// Cursos
+let cursos = JSON.parse(localStorage.getItem("cursos")) || [];
+let colores = ["color1","color2","color3","color4","color5"];
+
+// Mostrar cursos
+function renderCursos(){
+    let html = "";
+    cursos.forEach((c,i)=>{
+        html += `<div class="curso-card ${colores[i % colores.length]}" style="padding:15px;border-left:6px solid #1a73e8;margin-bottom:10px;">
+                    <b>${c.titulo}</b><br>
+                    Profesor: ${c.profesor}<br>
+                    <button onclick="editarCurso(${i})">✏️ Editar</button>
+                    <button onclick="eliminarCurso(${i})">🗑️ Eliminar</button>
+                 </div>`;
+    });
+    if(cursos.length===0) html="<p>No hay cursos creados</p>";
+    document.getElementById("listaCursos").innerHTML = html;
+}
+renderCursos();
+
+// Funciones
+function crearCurso(){
+    let t = document.getElementById("ct").value;
+    let p = document.getElementById("cp").value;
+    if(!t || !p) return alert("Completa todo");
+    cursos.push({titulo:t, profesor:p});
+    localStorage.setItem("cursos", JSON.stringify(cursos));
+    renderCursos();
+}
+function editarCurso(i){
+    let t = prompt("Nombre", cursos[i].titulo);
+    let p = prompt("Profesor", cursos[i].profesor);
+    if(!t || !p) return;
+    cursos[i]={titulo:t, profesor:p};
+    localStorage.setItem("cursos", JSON.stringify(cursos));
+    renderCursos();
+}
+function eliminarCurso(i){
+    if(!confirm("Eliminar curso?")) return;
+    cursos.splice(i,1);
+    localStorage.setItem("cursos", JSON.stringify(cursos));
+    renderCursos();
+}
+</script>
+</body>
+</html>
