@@ -14,14 +14,12 @@
     --shadow: 0 4px 15px rgba(0,0,0,0.08);
 }
 
-/* 🌙 DARK MODE */
 .dark {
     --bg: #121212;
     --white: #1e1e1e;
     --text: #f1f1f1;
 }
 
-/* GENERAL */
 body {
     margin:0;
     font-family: 'Segoe UI', Arial;
@@ -29,19 +27,14 @@ body {
     color: var(--text);
 }
 
-/* HEADER */
 header {
     background: linear-gradient(135deg, #1a73e8, #4a90e2);
     color:white;
     padding:20px;
 }
 
-/* LAYOUT */
-.container {
-    display:flex;
-}
+.container { display:flex; }
 
-/* MENU */
 .sidebar {
     width:250px;
     background:var(--white);
@@ -64,20 +57,17 @@ header {
     color:white;
 }
 
-/* MAIN */
 .main {
     flex:1;
     padding:20px;
 }
 
-/* GRID CURSOS */
 .cursos {
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
     gap:15px;
 }
 
-/* TARJETAS */
 .curso-card {
     background:var(--white);
     padding:15px;
@@ -89,18 +79,15 @@ header {
     border-left:6px solid var(--primary);
 }
 
-/* COLORES */
 .color1 { border-left-color:#1a73e8; }
 .color2 { border-left-color:#34a853; }
 .color3 { border-left-color:#fbbc05; }
 .color4 { border-left-color:#ea4335; }
 .color5 { border-left-color:#9c27b0; }
 
-/* TEXTO */
 .curso-titulo { font-weight:bold; }
 .curso-profesor { font-size:14px; color:gray; }
 
-/* PROGRESO */
 .progreso {
     background:#ddd;
     height:8px;
@@ -113,7 +100,6 @@ header {
     background:var(--primary);
 }
 
-/* BOTON */
 .btn {
     background:var(--primary);
     color:white;
@@ -123,14 +109,12 @@ header {
     text-decoration:none;
 }
 
-/* FOOTER */
 footer {
     text-align:center;
     padding:20px;
     font-size:12px;
 }
 
-/* RESPONSIVE */
 @media(max-width:768px){
     .container { flex-direction:column; }
     .sidebar { width:100%; min-height:auto; }
@@ -147,7 +131,6 @@ footer {
 
 <div class="container">
 
-<!-- MENÚ -->
 <div class="sidebar">
 <h3>Menú</h3>
 <a href="index.html" class="active">🏠 Inicio</a>
@@ -156,59 +139,12 @@ footer {
 <a href="#">📅 Eventos</a>
 </div>
 
-<!-- CONTENIDO -->
 <div class="main">
 
 <h2>Mis cursos</h2>
 
-<div class="cursos">
-
-<div class="curso-card color1">
-<div>
-<div class="curso-titulo">IRI-119-01 - Comercio electrónico</div>
-<div class="curso-profesor">Profesor: Jose Manuel Batista</div>
-<div class="progreso"><div class="barra" style="width:70%"></div></div>
-</div>
-<a href="curso.html" class="btn">Entrar al curso</a>
-</div>
-
-<div class="curso-card color2">
-<div>
-<div class="curso-titulo">IRI-117-01 - Diseño Gráfico</div>
-<div class="curso-profesor">Profesor: Juan Antonio Graciano</div>
-<div class="progreso"><div class="barra" style="width:40%"></div></div>
-</div>
-<a href="#" class="btn">Entrar al curso</a>
-</div>
-
-<div class="curso-card color3">
-<div>
-<div class="curso-titulo">CHU-121-01 - Álgebra Matricial</div>
-<div class="curso-profesor">Profesor: Lewis Santos Collado</div>
-<div class="progreso"><div class="barra" style="width:90%"></div></div>
-</div>
-<a href="#" class="btn">Entrar al curso</a>
-</div>
-
-<div class="curso-card color4">
-<div>
-<div class="curso-titulo">CHU-018-02 - Laboratorio de Física II</div>
-<div class="curso-profesor">Profesor: ---</div>
-<div class="progreso"><div class="barra" style="width:20%"></div></div>
-</div>
-<a href="#" class="btn">Entrar al curso</a>
-</div>
-
-<div class="curso-card color5">
-<div>
-<div class="curso-titulo">CHU-008-03 - Física II</div>
-<div class="curso-profesor">Profesor: Jose Miguel Sanchez</div>
-<div class="progreso"><div class="barra" style="width:55%"></div></div>
-</div>
-<a href="#" class="btn">Entrar al curso</a>
-</div>
-
-</div>
+<!-- 🔥 AQUÍ SE CARGAN LOS CURSOS -->
+<div class="cursos" id="listaCursos"></div>
 
 </div>
 </div>
@@ -219,6 +155,48 @@ Teléfono: +1 809-585-2291 <br>
 Correo: informacion@uteco.edu.do <br>
 Dirección: Cotuí, República Dominicana
 </footer>
+
+<script>
+
+// 🔥 OBTENER CURSOS GUARDADOS
+let cursos = JSON.parse(localStorage.getItem("cursos")) || [];
+
+// 🎨 COLORES
+let colores = ["color1","color2","color3","color4","color5"];
+
+let html = "";
+
+cursos.forEach((c,i)=>{
+
+let progreso = Math.floor(Math.random()*100);
+
+html += `
+<div class="curso-card ${colores[i % colores.length]}">
+
+<div>
+<div class="curso-titulo">${c.titulo}</div>
+<div class="curso-profesor">Profesor: ${c.profesor}</div>
+
+<div class="progreso">
+<div class="barra" style="width:${progreso}%"></div>
+</div>
+</div>
+
+<a href="curso.html" class="btn">Entrar al curso</a>
+
+</div>
+`;
+
+});
+
+// SI NO HAY CURSOS
+if(cursos.length===0){
+html = "<p>No tienes cursos creados todavía</p>";
+}
+
+document.getElementById("listaCursos").innerHTML = html;
+
+</script>
 
 </body>
 </html>
