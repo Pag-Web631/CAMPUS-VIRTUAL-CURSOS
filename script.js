@@ -1,97 +1,80 @@
 let user = null;
 
-// ESPERAR CARGA
+// FLIP
 document.addEventListener("DOMContentLoaded", () => {
 
     const flipCard = document.getElementById("flipCard");
 
-    // BOTONES (SI EXISTEN)
-    const registerText = document.getElementById("registerText");
-    const loginText = document.getElementById("loginText");
+    document.getElementById("registerText").onclick = () => {
+        flipCard.classList.add("active");
+    };
 
-    if(registerText){
-        registerText.onclick = () => flipCard.classList.add("active");
-    }
-
-    if(loginText){
-        loginText.onclick = () => flipCard.classList.remove("active");
-    }
+    document.getElementById("loginText").onclick = () => {
+        flipCard.classList.remove("active");
+    };
 
 });
 
+// 🔥 TOAST
+function showToast(msg, type = "success"){
+    const toast = document.getElementById("toast");
+
+    toast.innerText = msg;
+    toast.className = "";
+    toast.classList.add("show", type);
+
+    setTimeout(() => {
+        toast.classList.remove("show");
+    }, 2500);
+}
 
 // LOGIN
 function login(){
-    const userInput = document.getElementById("loginUser").value.trim();
-    const pass = document.getElementById("loginPass").value.trim();
+    const userInput = document.getElementById("loginUser").value;
+    const pass = document.getElementById("loginPass").value;
 
     const saved = JSON.parse(localStorage.getItem("usuario"));
 
     if(!saved){
-        alert("No hay usuario registrado");
+        showToast("No hay usuario registrado", "warning");
         return;
     }
 
     if(saved.user !== userInput || saved.pass !== pass){
-        alert("Datos incorrectos");
+        showToast("Datos incorrectos", "error");
         return;
     }
 
-    if(saved.rol === "docente"){
-        location.href = "docente.html";
-    } else {
-        location.href = "estudiante.html";
-    }
-}
+    showToast("Bienvenido ✔", "success");
 
+    setTimeout(() => {
+        if(saved.rol === "docente"){
+            location.href = "docente.html";
+        } else {
+            location.href = "estudiante.html";
+        }
+    }, 1000);
+}
 
 // REGISTRO
 function registrar(){
-    const userInput = document.getElementById("regUser").value.trim();
-    const pass = document.getElementById("regPass").value.trim();
+    const user = document.getElementById("regUser").value;
+    const pass = document.getElementById("regPass").value;
     const rol = document.getElementById("regRol").value;
 
-    if(!userInput || !pass || !rol){
-        alert("Completa todos los campos");
+    if(!user || !pass || !rol){
+        showToast("Completa todos los campos", "warning");
         return;
     }
 
     localStorage.setItem("usuario", JSON.stringify({
-        nombre: userInput,
-        user: userInput,
-        pass: pass,
-        rol: rol
+        nombre: user,
+        user,
+        pass,
+        rol
     }));
 
-    alert("Usuario registrado ✔");
+    showToast("Usuario registrado ✔", "success");
 
-    // 🔥 VOLVER AUTOMÁTICAMENTE AL LOGIN
     document.getElementById("flipCard").classList.remove("active");
-}
-
-
-// PANEL USUARIO
-function cargarUsuario(){
-    const data = localStorage.getItem("usuario");
-
-    if(!data){
-        location.href = "index.html";
-        return;
-    }
-
-    user = JSON.parse(data);
-
-    document.body.classList.add(user.rol);
-
-    const b = document.getElementById("bienvenida");
-    if(b){
-        b.innerText = "Bienvenido " + user.nombre;
-    }
-}
-
-
-// LOGOUT
-function logout(){
-    localStorage.removeItem("usuario");
-    location.href = "index.html";
 }
