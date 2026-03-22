@@ -3,145 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Login Futurista</title>
+<title>Campus Virtual UTECO</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<style>
 
-body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: #070b1a;
-    color: #cfd8ff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-
-/* CONTENEDOR */
-.container {
-    width: 350px;
-}
-
-/* TARJETAS */
-.card {
-    background: rgba(20, 30, 70, 0.3);
-    padding: 25px;
-    border-radius: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 0 25px rgba(0, 140, 255, 0.3);
-    backdrop-filter: blur(10px);
-}
-
-/* TITULOS */
-.card h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #9bbcff;
-}
-
-/* INPUTS */
-input, select {
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    border-radius: 10px;
-    border: 1px solid #3a4a7a;
-    background: transparent;
-    color: #fff;
-    outline: none;
-}
-
-/* BOTONES */
-button {
-    width: 100%;
-    padding: 12px;
-    margin-top: 10px;
-    border-radius: 12px;
-    border: none;
-    background: linear-gradient(45deg, #3b82f6, #6366f1);
-    color: white;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-/* BOTON SECUNDARIO */
-button.secondary {
-    background: #2a335c;
-}
-
-/* EFECTO HOVER */
-button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 10px #4f9cff;
-}
-</style>
 <div class="container">
-
-    <!-- LOGIN -->
     <div class="card">
         <h2>Iniciar Sesión</h2>
 
-        <input type="text" id="loginUser" placeholder="Usuario">
-        <input type="password" id="loginPass" placeholder="Contraseña">
+        <input id="nombre" placeholder="Usuario">
 
-        <button onclick="login()">Ingresar</button>
-        <button class="secondary" onclick="toggleRegistro()">Ocultar Registro</button>
+        <button onclick="login('estudiante')">👨‍🎓 Estudiante</button>
+        <button onclick="login('docente')">👨‍🏫 Docente</button>
     </div>
-
-    <!-- REGISTRO -->
-    <div class="card" id="registro">
-        <h2>Registrar Nuevo Usuario</h2>
-
-        <input type="text" id="regUser" placeholder="Usuario">
-        <input type="password" id="regPass" placeholder="Contraseña">
-
-        <select id="regRol">
-            <option value="">Selecciona Rol</option>
-            <option value="estudiante">Estudiante</option>
-            <option value="docente">Docente</option>
-        </select>
-
-        <button onclick="registrar()">Registrar Usuario</button>
-    </div>
-
 </div>
 
 <script>
-function login(){
-    const user = document.getElementById("loginUser").value;
-    const pass = document.getElementById("loginPass").value;
+function login(rol){
+    let nombre = document.getElementById("nombre").value.trim();
+    if(!nombre) return alert("Ingresa tu nombre");
 
-    const saved = JSON.parse(localStorage.getItem("usuario"));
+    localStorage.setItem("usuario", JSON.stringify({nombre, rol}));
 
-    if(!saved || saved.user !== user || saved.pass !== pass){
-        alert("Datos incorrectos");
-        return;
-    }
-
-    if(saved.rol === "estudiante") window.location.href = "estudiante.html";
-    else window.location.href = "docente.html";
-}
-
-function registrar(){
-    const user = document.getElementById("regUser").value;
-    const pass = document.getElementById("regPass").value;
-    const rol = document.getElementById("regRol").value;
-
-    if(!user || !pass || !rol){
-        alert("Completa todos los campos");
-        return;
-    }
-
-    localStorage.setItem("usuario", JSON.stringify({user, pass, rol}));
-    alert("Usuario registrado");
-}
-
-function toggleRegistro(){
-    const reg = document.getElementById("registro");
-    reg.style.display = reg.style.display === "none" ? "block" : "none";
+    if(rol === "docente") window.location.href = "docente.html";
+    else window.location.href = "estudiante.html";
 }
 </script>
 
