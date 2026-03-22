@@ -5,18 +5,14 @@
 <title>Curso - Comercio Electrónico</title>
 
 <style>
-body { font-family: Arial; margin:0; background:#f4f6f8; 
-         background: url('https://img.freepik.com/vector-gratis/blue-abstract-shapes-with-transparent-background_1035-7118.jpg?semt=ais_hybrid&w=740&q=80') center/cover no-repeat;
-
-     
-     }
-
-header {
-background:#1a73e8;
-color:white;
-padding:15px;
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #f4f6f8;
+    background: url('https://img.freepik.com/vector-gratis/blue-abstract-shapes-with-transparent-background_1035-7118.jpg?semt=ais_hybrid&w=740&q=80') center/cover no-repeat;
 }
-}
+
+/* HEADER */
 header {
     background: url('https://img.freepik.com/vector-gratis/blue-abstract-shapes-with-transparent-background_1035-7118.jpg?semt=ais_hybrid&w=740&q=80') center/cover no-repeat;
     color: white;
@@ -24,426 +20,371 @@ header {
     position: relative;
 }
 
-/* 🔥 capa oscura para que se vea el texto */
+/* Capa oscura para el texto */
 header::before {
     content: "";
     position: absolute;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background: rgba(0,0,0,0.6);
 }
 
-/* 🔥 asegurar que el texto esté encima */
+/* Texto encima de la capa */
 header h2, header p {
     position: relative;
     z-index: 1;
 }
+
 .container {
-display:flex;
+    display: flex;
 }
 
-/* MENÚ (IGUAL) */
+/* MENÚ LATERAL */
 .sidebar {
-width:250px;
-background:white;
-padding:20px;
-height:100vh;
-box-shadow:0 4px 15px rgba(0,0,0,0.08);
+    width: 250px;
+    background: white;
+    padding: 20px;
+    height: 100vh;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
 }
 
 .sidebar a {
-display:flex;
-gap:10px;
-padding:12px;
-text-decoration:none;
-color:#333;
-border-radius:8px;
-margin-bottom:5px;
+    display: flex;
+    gap: 10px;
+    padding: 12px;
+    text-decoration: none;
+    color: #333;
+    border-radius: 8px;
+    margin-bottom: 5px;
 }
 
 .sidebar a:hover,
 .sidebar a.active {
-background:#1a73e8;
-color:white;
+    background: #1a73e8;
+    color: white;
 }
 
-/* CONTENIDO */
+/* CONTENIDO PRINCIPAL */
 .main {
-flex:1;
-padding:20px;
+    flex: 1;
+    padding: 20px;
 }
 
-/* CURSOS BONITOS */
+/* CURSOS */
 .cursos {
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:15px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
 }
 
 .curso-card {
-background:white;
-padding:18px;
-border-radius:12px;
-box-shadow:0 4px 15px rgba(0,0,0,0.08);
-transition:0.3s;
+    background: white;
+    padding: 18px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    transition: 0.3s;
 }
 
 .curso-card:hover {
-transform:translateY(-5px);
-border-left:5px solid #1a73e8;
+    transform: translateY(-5px);
+    border-left: 5px solid #1a73e8;
 }
 
 .curso-titulo {
-font-weight:bold;
-margin-bottom:8px;
+    font-weight: bold;
+    margin-bottom: 8px;
 }
 
 .curso-profesor {
-font-size:14px;
-color:gray;
-margin-bottom:10px;
+    font-size: 14px;
+    color: gray;
+    margin-bottom: 10px;
 }
 
 .btn-curso {
-width:100%;
-padding:10px;
-background:#1a73e8;
-color:white;
-border:none;
-border-radius:8px;
-cursor:pointer;
+    width: 100%;
+    padding: 10px;
+    background: #1a73e8;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
 }
 
 /* TARJETAS */
 .card {
-background:white;
-padding:15px;
-margin-bottom:10px;
-border-radius:10px;
+    background: white;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 10px;
 }
 
 .item {
-background:#f1f3f4;
-padding:10px;
-margin:5px 0;
-border-radius:5px;
+    background: #f1f3f4;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
 }
 
 button {
-padding:8px;
-background:#1a73e8;
-color:white;
-border:none;
-border-radius:5px;
-cursor:pointer;
-margin:3px;
+    padding: 8px;
+    background: #1a73e8;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 3px;
 }
 
 input, textarea {
-width:100%;
-padding:8px;
-margin:5px 0;
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
 }
 </style>
-
 </head>
 
 <body>
 
 <header>
-<h2>Campus Virtual UTECO</h2>
-<p>JOSE AUGUSTO HERRERA CASTILLO</p>
+    <h2>Campus Virtual UTECO</h2>
+    <p>JOSE AUGUSTO HERRERA CASTILLO</p>
 </header>
 
 <div class="container">
 
-<!-- MENÚ -->
-<div class="sidebar">
-<h3>Menú</h3>
+    <!-- MENÚ -->
+    <div class="sidebar">
+        <h3>Menú</h3>
+        <a href="index.html">🏠 Inicio</a>
+        <a href="#" class="active">📚 Cursos</a>
+        <a href="#">👤 Área personal</a>
+        <a href="#">📅 Eventos</a>
 
-<a href="index.html">🏠 Inicio</a>
-<a href="#" class="active">📚 Cursos</a>
-<a href="#">👤 Área personal</a>
-<a href="#">📅 Eventos</a>
+        <hr>
 
-<hr>
+        <button onclick="modo='estudiante'; render()">👨‍🎓 Estudiante</button>
+        <button onclick="modo='docente'; render()">👨‍🏫 Docente</button>
 
-<button onclick="modo='estudiante'; render()">👨‍🎓 Estudiante</button>
-<button onclick="modo='docente'; render()">👨‍🏫 Docente</button>
+        <input id="nombre" placeholder="Tu nombre">
+        <button onclick="guardarUser()">Guardar</button>
 
-<input id="nombre" placeholder="Tu nombre">
-<button onclick="guardarUser()">Guardar</button>
+        <button onclick="volver()">⬅ Volver</button>
+    </div>
 
-<button onclick="volver()">⬅ Volver</button>
-
-</div>
-
-<!-- CONTENIDO -->
-<div class="main" id="contenido"></div>
-
+    <!-- CONTENIDO -->
+    <div class="main" id="contenido"></div>
 </div>
 
 <script>
-
+// ================= LOGICA JS =================
 let modo = "estudiante";
 let user = localStorage.getItem("user") || "";
 
 let cursos = JSON.parse(localStorage.getItem("cursos")) || [];
 let cursoActual = null;
 
-// USER
+// GUARDAR USUARIO
 function guardarUser(){
-user = document.getElementById("nombre").value;
-localStorage.setItem("user", user);
-render();
+    user = document.getElementById("nombre").value;
+    localStorage.setItem("user", user);
+    render();
 }
 
-// RENDER
+// RENDER GENERAL
 function render(){
+    let html = "";
 
-let html = "";
+    // ================= CURSOS =================
+    if(cursoActual===null){
+        html += "<h2>Mis cursos</h2>";
 
-// ================= CURSOS =================
-if(cursoActual===null){
+        if(modo==="docente"){
+            html += `
+            <div class="card">
+                <h3>Crear curso</h3>
+                <input id="ct" placeholder="Nombre curso">
+                <input id="cp" placeholder="Profesor">
+                <button onclick="crearCurso()">Crear</button>
+            </div>
+            `;
+        }
 
-html += "<h2>Mis cursos</h2>";
+        html += `<div class="cursos">`;
 
-if(modo==="docente"){
-html += `
-<div class="card">
-<h3>Crear curso</h3>
-<input id="ct" placeholder="Nombre curso">
-<input id="cp" placeholder="Profesor">
-<button onclick="crearCurso()">Crear</button>
-</div>
-`;
+        cursos.forEach((c,i)=>{
+            html += `
+            <div class="curso-card">
+                <div class="curso-titulo">${c.titulo}</div>
+                <div class="curso-profesor">Profesor: ${c.profesor}</div>
+                <button class="btn-curso" onclick="abrirCurso(${i})">Entrar al curso</button>
+                ${modo==="docente"?`
+                    <br>
+                    <button onclick="editarCurso(${i})">✏️</button>
+                    <button onclick="eliminarCurso(${i})">🗑️</button>
+                `:""}
+            </div>
+            `;
+        });
+
+        html += `</div>`;
+    }
+
+    // ================= CURSO =================
+    else{
+        let curso = cursos[cursoActual];
+
+        let tareas = JSON.parse(localStorage.getItem("tareas_"+cursoActual)) || [];
+        let entregas = JSON.parse(localStorage.getItem("entregas_"+cursoActual)) || [];
+
+        html += `<h2>${curso.titulo}</h2>`;
+
+        if(modo==="docente"){
+            html += `
+            <div class="card">
+                <h3>Crear tarea</h3>
+                <input id="t" placeholder="Actividad">
+                <input type="datetime-local" id="apertura">
+                <input type="datetime-local" id="cierre">
+                <button onclick="crearTarea()">Crear</button>
+            </div>
+            `;
+        }
+
+        tareas.forEach((t,i)=>{
+            let entrega = entregas.find(e=>e.user===user && e.tarea===i);
+            let ahora = new Date();
+            let disponible = ahora >= new Date(t.apertura);
+            let vencida = ahora > new Date(t.cierre);
+
+            html += `<div class="card">`;
+
+            if(modo==="estudiante"){
+                html += `
+                <b>${t.titulo}</b><br>
+                Apertura: ${new Date(t.apertura).toLocaleString()}<br>
+                Cierre: ${new Date(t.cierre).toLocaleString()}<br><br>
+                Estado: ${entrega?"Enviado":"No enviado"}<br>
+                Nota: ${entrega?.nota || "-"}<br><br>
+                `;
+                if(disponible && !vencida){
+                    html += `
+                    <input type="file" id="f${i}">
+                    <button onclick="enviar(${i})">Enviar</button>
+                    `;
+                }else{
+                    html += `<p style="color:red;">Cerrado</p>`;
+                }
+            }
+
+            if(modo==="docente"){
+                let lista = entregas.map((e,idx)=>({...e,idx})).filter(e=>e.tarea===i);
+                html += `
+                <b>${t.titulo}</b><br>
+                <button onclick="eliminarTarea(${i})">🗑️ Eliminar tarea</button>
+                <h4>Entregas</h4>
+                `;
+                if(lista.length===0) html+="No hay entregas";
+                lista.forEach(e=>{
+                    html += `
+                    <div class="item">
+                        ${e.user} - ${e.file}<br>
+                        <input id="nota${e.idx}" placeholder="Nota">
+                        <textarea id="com${e.idx}" placeholder="Comentario"></textarea>
+                        <button onclick="calificar(${e.idx})">Guardar</button>
+                    </div>
+                    `;
+                });
+            }
+
+            html += "</div>";
+        });
+    }
+
+    document.getElementById("contenido").innerHTML = html;
 }
 
-html += `<div class="cursos">`;
-
-cursos.forEach((c,i)=>{
-html += `
-<div class="curso-card">
-
-<div class="curso-titulo">${c.titulo}</div>
-<div class="curso-profesor">Profesor: ${c.profesor}</div>
-
-<button class="btn-curso" onclick="abrirCurso(${i})">
-Entrar al curso
-</button>
-
-${modo==="docente"?`
-<br>
-<button onclick="editarCurso(${i})">✏️</button>
-<button onclick="eliminarCurso(${i})">🗑️</button>
-`:""}
-
-</div>
-`;
-});
-
-html += `</div>`;
-}
-
-// ================= CURSO =================
-else{
-
-let curso = cursos[cursoActual];
-
-let tareas = JSON.parse(localStorage.getItem("tareas_"+cursoActual)) || [];
-let entregas = JSON.parse(localStorage.getItem("entregas_"+cursoActual)) || [];
-
-html += `<h2>${curso.titulo}</h2>`;
-
-// CREAR TAREA
-if(modo==="docente"){
-html += `
-<div class="card">
-<h3>Crear tarea</h3>
-<input id="t" placeholder="Actividad">
-<input type="datetime-local" id="apertura">
-<input type="datetime-local" id="cierre">
-<button onclick="crearTarea()">Crear</button>
-</div>
-`;
-}
-
-// LISTA TAREAS
-tareas.forEach((t,i)=>{
-
-let entrega = entregas.find(e=>e.user===user && e.tarea===i);
-
-let ahora = new Date();
-let disponible = ahora >= new Date(t.apertura);
-let vencida = ahora > new Date(t.cierre);
-
-html += `<div class="card">`;
-
-if(modo==="estudiante"){
-html += `
-<b>${t.titulo}</b><br>
-Apertura: ${new Date(t.apertura).toLocaleString()}<br>
-Cierre: ${new Date(t.cierre).toLocaleString()}<br><br>
-
-Estado: ${entrega?"Enviado":"No enviado"}<br>
-Nota: ${entrega?.nota || "-"}<br><br>
-`;
-
-if(disponible && !vencida){
-html += `
-<input type="file" id="f${i}">
-<button onclick="enviar(${i})">Enviar</button>
-`;
-}else{
-html += `<p style="color:red;">Cerrado</p>`;
-}
-}
-
-if(modo==="docente"){
-
-let lista = entregas.map((e,idx)=>({...e,idx})).filter(e=>e.tarea===i);
-
-html += `
-<b>${t.titulo}</b><br>
-<button onclick="eliminarTarea(${i})">🗑️ Eliminar tarea</button>
-<h4>Entregas</h4>
-`;
-
-if(lista.length===0) html+="No hay entregas";
-
-lista.forEach(e=>{
-html += `
-<div class="item">
-${e.user} - ${e.file}<br>
-
-<input id="nota${e.idx}" placeholder="Nota">
-<textarea id="com${e.idx}" placeholder="Comentario"></textarea>
-
-<button onclick="calificar(${e.idx})">Guardar</button>
-</div>
-`;
-});
-}
-
-html += "</div>";
-});
-
-}
-
-document.getElementById("contenido").innerHTML = html;
-}
-
-// CURSOS
+// FUNCIONES CURSOS
 function crearCurso(){
-let t = document.getElementById("ct").value;
-let p = document.getElementById("cp").value;
-
-if(!t || !p) return alert("Completa todo");
-
-cursos.push({titulo:t, profesor:p});
-localStorage.setItem("cursos", JSON.stringify(cursos));
-render();
+    let t = document.getElementById("ct").value;
+    let p = document.getElementById("cp").value;
+    if(!t || !p) return alert("Completa todo");
+    cursos.push({titulo:t, profesor:p});
+    localStorage.setItem("cursos", JSON.stringify(cursos));
+    render();
 }
 
 function editarCurso(i){
-let t = prompt("Nombre", cursos[i].titulo);
-let p = prompt("Profesor", cursos[i].profesor);
-
-if(!t || !p) return;
-
-cursos[i]={titulo:t, profesor:p};
-localStorage.setItem("cursos", JSON.stringify(cursos));
-render();
+    let t = prompt("Nombre", cursos[i].titulo);
+    let p = prompt("Profesor", cursos[i].profesor);
+    if(!t || !p) return;
+    cursos[i]={titulo:t, profesor:p};
+    localStorage.setItem("cursos", JSON.stringify(cursos));
+    render();
 }
 
 function eliminarCurso(i){
-if(!confirm("Eliminar curso?")) return;
-
-cursos.splice(i,1);
-localStorage.setItem("cursos", JSON.stringify(cursos));
-render();
+    if(!confirm("Eliminar curso?")) return;
+    cursos.splice(i,1);
+    localStorage.setItem("cursos", JSON.stringify(cursos));
+    render();
 }
 
 function abrirCurso(i){
-cursoActual = i;
-render();
+    cursoActual = i;
+    render();
 }
 
 function volver(){
-cursoActual = null;
-render();
+    cursoActual = null;
+    render();
 }
 
-// TAREAS
+// FUNCIONES TAREAS
 function crearTarea(){
-
-let tareas = JSON.parse(localStorage.getItem("tareas_"+cursoActual)) || [];
-
-let t = document.getElementById("t").value;
-let a = document.getElementById("apertura").value;
-let c = document.getElementById("cierre").value;
-
-if(!t || !a || !c) return alert("Completa todo");
-
-tareas.push({titulo:t, apertura:a, cierre:c});
-
-localStorage.setItem("tareas_"+cursoActual, JSON.stringify(tareas));
-render();
+    let tareas = JSON.parse(localStorage.getItem("tareas_"+cursoActual)) || [];
+    let t = document.getElementById("t").value;
+    let a = document.getElementById("apertura").value;
+    let c = document.getElementById("cierre").value;
+    if(!t || !a || !c) return alert("Completa todo");
+    tareas.push({titulo:t, apertura:a, cierre:c});
+    localStorage.setItem("tareas_"+cursoActual, JSON.stringify(tareas));
+    render();
 }
 
 function eliminarTarea(i){
-
-let tareas = JSON.parse(localStorage.getItem("tareas_"+cursoActual)) || [];
-let entregas = JSON.parse(localStorage.getItem("entregas_"+cursoActual)) || [];
-
-tareas.splice(i,1);
-entregas = entregas.filter(e=>e.tarea!==i);
-
-localStorage.setItem("tareas_"+cursoActual, JSON.stringify(tareas));
-localStorage.setItem("entregas_"+cursoActual, JSON.stringify(entregas));
-
-render();
+    let tareas = JSON.parse(localStorage.getItem("tareas_"+cursoActual)) || [];
+    let entregas = JSON.parse(localStorage.getItem("entregas_"+cursoActual)) || [];
+    tareas.splice(i,1);
+    entregas = entregas.filter(e=>e.tarea!==i);
+    localStorage.setItem("tareas_"+cursoActual, JSON.stringify(tareas));
+    localStorage.setItem("entregas_"+cursoActual, JSON.stringify(entregas));
+    render();
 }
 
-// ENTREGAS
+// FUNCIONES ENTREGAS
 function enviar(i){
-
-let entregas = JSON.parse(localStorage.getItem("entregas_"+cursoActual)) || [];
-
-let file = document.getElementById("f"+i).files[0];
-
-let index = entregas.findIndex(e=>e.user===user && e.tarea===i);
-
-let data = {
-user,
-tarea:i,
-file:file?file.name:"",
-nota:null,
-comentario:null
-};
-
-if(index>=0) entregas[index]=data;
-else entregas.push(data);
-
-localStorage.setItem("entregas_"+cursoActual, JSON.stringify(entregas));
-render();
+    let entregas = JSON.parse(localStorage.getItem("entregas_"+cursoActual)) || [];
+    let file = document.getElementById("f"+i).files[0];
+    let index = entregas.findIndex(e=>e.user===user && e.tarea===i);
+    let data = {user, tarea:i, file:file?file.name:"", nota:null, comentario:null};
+    if(index>=0) entregas[index]=data;
+    else entregas.push(data);
+    localStorage.setItem("entregas_"+cursoActual, JSON.stringify(entregas));
+    render();
 }
 
 function calificar(i){
-
-let entregas = JSON.parse(localStorage.getItem("entregas_"+cursoActual)) || [];
-
-entregas[i].nota = document.getElementById("nota"+i).value;
-entregas[i].comentario = document.getElementById("com"+i).value;
-
-localStorage.setItem("entregas_"+cursoActual, JSON.stringify(entregas));
-render();
+    let entregas = JSON.parse(localStorage.getItem("entregas_"+cursoActual)) || [];
+    entregas[i].nota = document.getElementById("nota"+i).value;
+    entregas[i].comentario = document.getElementById("com"+i).value;
+    localStorage.setItem("entregas_"+cursoActual, JSON.stringify(entregas));
+    render();
 }
 
 render();
-
 </script>
 
 </body>
