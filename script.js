@@ -4,37 +4,55 @@ document.addEventListener("DOMContentLoaded", () => {
     const overlay = document.getElementById("overlay");
     const flipCard = document.getElementById("flipCard");
 
-    // 🔥 ABRIR INFO
+    // 🔥 INFO + FLIP (AQUI ESTA LA MAGIA)
     document.querySelectorAll(".toggleInfo").forEach(el => {
         el.addEventListener("click", () => {
-            panel.classList.add("active");
-            overlay.classList.add("active");
+
+            // abrir panel
+            if(panel) panel.classList.add("active");
+            if(overlay) overlay.classList.add("active");
+
+            // girar tarjeta
+            if(flipCard) flipCard.classList.toggle("active");
         });
     });
 
-    // ❌ CERRAR
-    document.getElementById("closeInfo").onclick = () => {
-        panel.classList.remove("active");
-        overlay.classList.remove("active");
-    };
+    // ❌ CERRAR INFO
+    const closeBtn = document.getElementById("closeInfo");
+    if(closeBtn){
+        closeBtn.onclick = () => {
+            if(panel) panel.classList.remove("active");
+            if(overlay) overlay.classList.remove("active");
+        };
+    }
 
-    overlay.onclick = () => {
-        panel.classList.remove("active");
-        overlay.classList.remove("active");
-    };
+    if(overlay){
+        overlay.onclick = () => {
+            if(panel) panel.classList.remove("active");
+            overlay.classList.remove("active");
+        };
+    }
 
-    // 🔁 FLIP (DOBLE CLICK)
-    document.getElementById("registerText").ondblclick = () => {
-        flipCard.classList.add("active");
-    };
+    // 🔁 FLIP NORMAL
+    const reg = document.getElementById("registerText");
+    const log = document.getElementById("loginText");
 
-    document.getElementById("loginText").ondblclick = () => {
-        flipCard.classList.remove("active");
-    };
+    if(reg){
+        reg.onclick = () => {
+            flipCard.classList.add("active");
+        };
+    }
+
+    if(log){
+        log.onclick = () => {
+            flipCard.classList.remove("active");
+        };
+    }
 
     // BOTONES
     document.getElementById("btnLogin").onclick = login;
     document.getElementById("btnRegistrar").onclick = registrar;
+
 });
 
 // LOGIN
