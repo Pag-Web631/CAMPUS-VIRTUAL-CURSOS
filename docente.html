@@ -1,69 +1,36 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Docente - Campus Virtual</title>
+<title>Docente</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header>
-  <h2>Campus Virtual UTECO</h2>
+
+<header class="card">
+  <h2>Panel Docente</h2>
   <p id="bienvenida"></p>
+
   <nav>
-    <a href="docente.html">📚 Cursos</a>
-    <a href="#">👤 Área personal</a>
-    <a href="#">📅 Eventos</a>
+    <button>📚 Cursos</button>
+    <button>📝 Tareas</button>
+    <button>📊 Calificaciones</button>
+    <button onclick="logout()">Salir</button>
   </nav>
 </header>
 
-<main id="panel">
-  <p>Panel Docente: crear cursos, crear tareas, ver entregas y calificar.</p>
+<main class="card">
+  <p>Aquí puedes crear cursos, tareas y calificar.</p>
 </main>
 
 <script src="script.js"></script>
 <script>
 cargarUsuario();
+
 if(user.rol !== "docente"){
-    alert("No tienes permiso para ver esta página");
+    alert("No tienes permiso");
     window.location.href = "index.html";
-}
-</script>
-</body>
-</html>
-
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Campus Virtual UTECO</title>
-<style>
-body { margin:0; font-family: Arial, sans-serif; background:#f4f6f8; display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh; }
-header { background: linear-gradient(135deg,#1a73e8,#4a90e2); color:white; padding:20px; text-align:center; border-radius:10px; }
-input { padding:5px; margin:5px 0; width:200px; }
-button { padding:5px 10px; margin:5px; border:none; border-radius:5px; cursor:pointer; background:#1a73e8; color:white; }
-</style>
-</head>
-<body>
-
-<header>
-<h2>Campus Virtual UTECO</h2>
-<p>Bienvenido, ingresa tu nombre y selecciona tu rol</p>
-<input id="nombre" placeholder="Tu nombre">
-<br>
-<button onclick="login('estudiante')">👨‍🎓 Estudiante</button>
-<button onclick="login('docente')">👨‍🏫 Docente</button>
-</header>
-
-<script>
-function login(rol){
-    let nombre = document.getElementById("nombre").value.trim();
-    if(!nombre) return alert("Ingresa tu nombre");
-    localStorage.setItem("user", JSON.stringify({nombre, rol}));
-    if(rol==='docente') window.location.href='docente.html';
-    else window.location.href='estudiante.html';
 }
 </script>
 
