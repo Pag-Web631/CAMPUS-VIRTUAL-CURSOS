@@ -13,6 +13,9 @@
     perspective: 1000px;
 }
 body {
+    background-image: url("img/fondo.jpg");
+}
+body {
     background-image: url("https://www.noticiasneo.com/sites/default/files/inline-images/1_6.jpg");
     background-size: cover;       /* ajusta a toda la pantalla */
     background-position: center;  /* centra la imagen */
