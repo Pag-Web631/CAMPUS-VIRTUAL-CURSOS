@@ -7,7 +7,77 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<style>
 
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: #070b1a;
+    color: #cfd8ff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* CONTENEDOR */
+.container {
+    width: 350px;
+}
+
+/* TARJETAS */
+.card {
+    background: rgba(20, 30, 70, 0.3);
+    padding: 25px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 25px rgba(0, 140, 255, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+/* TITULOS */
+.card h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #9bbcff;
+}
+
+/* INPUTS */
+input, select {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 10px;
+    border: 1px solid #3a4a7a;
+    background: transparent;
+    color: #fff;
+    outline: none;
+}
+
+/* BOTONES */
+button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border-radius: 12px;
+    border: none;
+    background: linear-gradient(45deg, #3b82f6, #6366f1);
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* BOTON SECUNDARIO */
+button.secondary {
+    background: #2a335c;
+}
+
+/* EFECTO HOVER */
+button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px #4f9cff;
+}
+</style>
 <div class="container">
 
     <!-- LOGIN -->
