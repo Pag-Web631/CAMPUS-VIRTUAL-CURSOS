@@ -1,18 +1,37 @@
 <header>
     <h2>Campus Virtual UTECO</h2>
     <p id="nombreUsuario">Bienvenido</p>
+<div style="text-align:center; margin-top:10px;">
+    <input id="nombre" placeholder="Tu nombre" style="padding:5px; border-radius:5px; border:1px solid #ccc;">
+    <button onclick="guardarUser('estudiante')">👨‍🎓 Estudiante</button>
+    <button onclick="guardarUser('docente')">👨‍🏫 Docente</button>
+</div>
 
-    <nav class="menu">
-        <a href="index.html" class="active">🏠 Inicio</a>
-        <a href="cursos.html">📚 Cursos</a>
-        <a href="perfil.html">👤 Área personal</a>
-        <a href="eventos.html">📅 Eventos</a>
+<p id="nombreUsuario" style="text-align:center; margin-top:5px; color:white;"></p>
 
-        <input id="nombre" placeholder="Tu nombre" style="padding:5px;">
-        <button onclick="guardarUser('estudiante')">👨‍🎓 Estudiante</button>
-        <button onclick="guardarUser('docente')">👨‍🏫 Docente</button>
-    </nav>
-</header>
+<script>
+// Función para guardar usuario y redirigir según rol
+function guardarUser(rol){
+    let nombre = document.getElementById("nombre").value.trim();
+    if(!nombre) return alert("Ingresa tu nombre");
+    
+    let user = {nombre, rol};
+    localStorage.setItem("user", JSON.stringify(user));
+    
+    // Mostrar nombre y rol en el header
+    document.getElementById("nombreUsuario").innerText = `Bienvenido ${nombre} (${rol})`;
+    
+    // Redirigir a la página según el rol
+    if(rol==="estudiante") window.location = "estudiante.html";
+    else if(rol==="docente") window.location = "docente.html";
+}
+
+// Mostrar usuario guardado al cargar la página
+let user = JSON.parse(localStorage.getItem("user")) || null;
+if(user) {
+    document.getElementById("nombreUsuario").innerText = `Bienvenido ${user.nombre} (${user.rol})`;
+}
+</script>
 
 <style>
 header {
@@ -36,16 +55,4 @@ nav.menu a, nav.menu button { text-decoration:none; padding:6px 12px; border-rad
 nav.menu a:hover, nav.menu button:hover, nav.menu a.active { background:#1a73e8; }
 </style>
 
-<script>
-function guardarUser(rol){
-    let nombre = document.getElementById("nombre").value;
-    if(!nombre) return alert("Ingresa tu nombre");
-    let user = {nombre, rol};
-    localStorage.setItem("user", JSON.stringify(user));
-    document.getElementById("nombreUsuario").innerText = `Bienvenido ${nombre} (${rol})`;
-    if(rol==="estudiante") window.location = "estudiante.html";
-    else if(rol==="docente") window.location = "docente.html";
-}
-let user = JSON.parse(localStorage.getItem("user")) || {nombre:"", rol:""};
-if(user.nombre) document.getElementById("nombreUsuario").innerText = `Bienvenido ${user.nombre} (${user.rol})`;
-</script>
+
