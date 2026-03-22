@@ -1,66 +1,65 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    const panel = document.getElementById("infoPanel");
-    const overlay = document.getElementById("overlay");
-    const flipCard = document.getElementById("flipCard");
+    const login = document.querySelector(".login");
+    const register = document.querySelector(".register");
+    const info = document.querySelector(".info");
 
-    // 🔥 INFO + FLIP (AQUI ESTA LA MAGIA)
-    document.querySelectorAll(".toggleInfo").forEach(el => {
-        el.addEventListener("click", () => {
+    // MOSTRAR LOGIN POR DEFECTO
+    show(login);
 
-            // abrir panel
-            if(panel) panel.classList.add("active");
-            if(overlay) overlay.classList.add("active");
+    // NAV
+    document.getElementById("goRegister").onclick = () => show(register);
+    document.getElementById("backLogin").onclick = () => show(login);
 
-            // girar tarjeta
-            if(flipCard) flipCard.classList.toggle("active");
-        });
-    });
+    document.getElementById("goInfo").onclick = () => show(info);
+    document.getElementById("goInfo2").onclick = () => show(info);
 
-    // ❌ CERRAR INFO
-    const closeBtn = document.getElementById("closeInfo");
-    if(closeBtn){
-        closeBtn.onclick = () => {
-            if(panel) panel.classList.remove("active");
-            if(overlay) overlay.classList.remove("active");
-        };
-    }
-
-    if(overlay){
-        overlay.onclick = () => {
-            if(panel) panel.classList.remove("active");
-            overlay.classList.remove("active");
-        };
-    }
-
-    // 🔁 FLIP NORMAL
-    const reg = document.getElementById("registerText");
-    const log = document.getElementById("loginText");
-
-    if(reg){
-        reg.onclick = () => {
-            flipCard.classList.add("active");
-        };
-    }
-
-    if(log){
-        log.onclick = () => {
-            flipCard.classList.remove("active");
-        };
-    }
+    document.getElementById("backFromInfo").onclick = () => show(login);
 
     // BOTONES
-    document.getElementById("btnLogin").onclick = login;
-    document.getElementById("btnRegistrar").onclick = registrar;
-
+    document.getElementById("btnLogin").onclick = loginUser;
+    document.getElementById("btnRegistrar").onclick = registrarUser;
 });
 
+// CAMBIAR VISTA
+function show(view){
+    document.querySelectorAll(".card").forEach(c => c.classList.remove("active"));
+    view.classList.add("active");
+}
+
 // LOGIN
-function login(){
-    alert("Login funcionando");
+function loginUser(){
+    const u = document.getElementById("loginUser").value;
+    const p = document.getElementById("loginPass").value;
+
+    const saved = JSON.parse(localStorage.getItem("usuario"));
+
+    if(!saved){
+        return alert("No hay usuario");
+    }
+
+    if(saved.user !== u || saved.pass !== p){
+        return alert("Datos incorrectos");
+    }
+
+    alert("Bienvenido ✔");
 }
 
 // REGISTRO
-function registrar(){
-    alert("Registro funcionando");
+function registrarUser(){
+    const u = document.getElementById("regUser").value;
+    const p = document.getElementById("regPass").value;
+    const r = document.getElementById("regRol").value;
+
+    if(!u || !p || !r){
+        return alert("Completa todo");
+    }
+
+    localStorage.setItem("usuario", JSON.stringify({
+        user: u,
+        pass: p,
+        rol: r
+    }));
+
+    alert("Registrado ✔");
 }
