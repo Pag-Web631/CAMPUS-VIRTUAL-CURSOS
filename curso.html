@@ -8,7 +8,7 @@
 body { font-family: Arial; margin:0; background:#f4f6f8; }
 header { background:#1a73e8; color:white; padding:15px; }
 .container { display:flex; }
-.sidebar { width:220px; background:white; padding:15px; height:100vh; }
+.sidebar { width:230px; background:white; padding:15px; height:100vh; }
 .main { flex:1; padding:20px; }
 .card { background:white; padding:15px; margin-bottom:10px; border-radius:10px; }
 .item { background:#f1f3f4; padding:10px; margin:5px 0; border-radius:5px; }
@@ -58,16 +58,24 @@ function guardarUser(){
     render();
 }
 
-// 🔄 RENDER
+// ================= RENDER =================
 function render(){
 
 let html = "<h2>Tareas del curso</h2>";
 
+// DOCENTE CREA
 if(modo==="docente"){
 html += `
 <div class="card">
-<h3>Crear tarea</h3>
-<input id="t" placeholder="Título tarea">
+<h3>Crear actividad</h3>
+
+<input id="t" placeholder="Actividad #1">
+<label>Apertura</label>
+<input type="datetime-local" id="apertura">
+
+<label>Cierre</label>
+<input type="datetime-local" id="cierre">
+
 <button onclick="crear()">Crear</button>
 </div>
 `;
@@ -78,23 +86,29 @@ tareas.forEach((t,i)=>{
 
 let entrega = entregas.find(e=>e.user===user && e.tarea===i);
 
-html += `<div class="card"><b>${t}</b><br><br>`;
+let ahora = new Date();
+let apertura = new Date(t.apertura);
+let cierre = new Date(t.cierre);
+
+let disponible = ahora >= apertura;
+let vencida = ahora > cierre;
+
+html += `<div class="card">`;
 
 // ================= ESTUDIANTE =================
 if(modo==="estudiante"){
 
 html += `
-<b>Actividad #${i+1}</b><br>
+<b>${t.titulo}</b><br>
 Requisitos de finalización<br><br>
 
-Apertura: 11 de marzo de 2026<br>
-Cierre: 15 de marzo de 2026<br><br>
-
-📄 Archivo de la actividad<br><br>
+Apertura: ${apertura.toLocaleString()}<br>
+Cierre: ${cierre.toLocaleString()}<br><br>
 
 <h4>Estado de la entrega</h4>
 
 <table width="100%">
+
 <tr>
 <td><b>Estado de la entrega</b></td>
 <td>${entrega?"Enviado para calificar":"Todavía no se han realizado envíos"}</td>
@@ -103,6 +117,19 @@ Cierre: 15 de marzo de 2026<br><br>
 <tr>
 <td><b>Estado de la calificación</b></td>
 <td>${entrega?.nota?"Calificado":"Sin calificar"}</td>
+</tr>
+
+<tr>
+<td><b>Tiempo</b></td>
+<td>
+${
+!disponible
+? "La actividad aún no está disponible"
+: vencida
+? "La actividad está cerrada"
+: "Disponible para envío"
+}
+</td>
 </tr>
 
 <tr>
@@ -124,10 +151,15 @@ Cierre: 15 de marzo de 2026<br><br>
 <td><b>Calificación</b></td>
 <td>${entrega?.nota ? entrega.nota+" / 5.00" : "-"}</td>
 </tr>
+
 </table>
 
 <br>
+`;
 
+// SOLO SI ESTÁ ABIERTA
+if(disponible && !vencida){
+html += `
 <input type="file" id="f${i}">
 <textarea id="r${i}" placeholder="Respuesta"></textarea>
 
@@ -135,6 +167,10 @@ Cierre: 15 de marzo de 2026<br><br>
 ${entrega ? "Actualizar entrega" : "Enviar tarea"}
 </button>
 `;
+} else {
+html += `<p style="color:red;">No disponible para enviar</p>`;
+}
+
 }
 
 // ================= DOCENTE =================
@@ -144,7 +180,11 @@ let lista = entregas
 .map((e,idx)=>({ ...e, idx }))
 .filter(e=>e.tarea===i);
 
-html += "<h4>Entregas:</h4>";
+html += `<b>${t.titulo}</b><br>
+Apertura: ${apertura.toLocaleString()}<br>
+Cierre: ${cierre.toLocaleString()}<br><br>
+
+<h4>Entregas</h4>`;
 
 if(lista.length===0){
 html += "<p>No hay entregas</p>";
@@ -172,19 +212,45 @@ html += "</div>";
 document.getElementById("contenido").innerHTML = html;
 }
 
-// CREAR
+// ================= CREAR =================
 function crear(){
+
 let t = document.getElementById("t").value;
-if(!t) return alert("Escribe título");
-tareas.push(t);
+let apertura = document.getElementById("apertura").value;
+let cierre = document.getElementById("cierre").value;
+
+if(!t || !apertura || !cierre){
+return alert("Completa todos los campos");
+}
+
+tareas.push({
+titulo:t,
+apertura:apertura,
+cierre:cierre
+});
+
 localStorage.setItem("tareas", JSON.stringify(tareas));
 render();
 }
 
-// ENVIAR (sin duplicar)
+// ================= ENVIAR =================
 function enviar(i){
 
 if(!user) return alert("Ingresa tu nombre");
+
+let tarea = tareas[i];
+let ahora = new Date();
+
+let apertura = new Date(tarea.apertura);
+let cierre = new Date(tarea.cierre);
+
+if(ahora < apertura){
+return alert("Aún no disponible");
+}
+
+if(ahora > cierre){
+return alert("Actividad cerrada");
+}
 
 let file = document.getElementById("f"+i).files[0];
 
@@ -200,16 +266,16 @@ comentario:null
 };
 
 if(index >= 0){
-entregas[index] = data; // actualizar
+entregas[index] = data;
 }else{
-entregas.push(data); // nuevo
+entregas.push(data);
 }
 
 localStorage.setItem("entregas", JSON.stringify(entregas));
 render();
 }
 
-// CALIFICAR
+// ================= CALIFICAR =================
 function calificar(i){
 
 entregas[i].nota = document.getElementById("nota"+i).value;
