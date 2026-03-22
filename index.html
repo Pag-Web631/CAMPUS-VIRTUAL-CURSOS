@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Campus Virtual</title>
+<style>
+body { font-family: Arial; margin:0; background:#f4f6f8; }
+header { background:#1a73e8; color:white; padding:15px; text-align:center; }
+nav { display:flex; gap:10px; justify-content:center; background:#fff; padding:10px; }
+nav button { padding:10px; border:none; cursor:pointer; background:#eee; }
+section { display:none; padding:20px; }
+.active { display:block; }
+.card { background:white; padding:15px; margin:10px 0; border-radius:10px; box-shadow:0 2px 5px rgba(0,0,0,0.1); }
+input, textarea { width:100%; padding:8px; margin:5px 0; }
+button.primary { background:#1a73e8; color:white; }
+</style>
+</head>
+<body>
+
+<header>
+<h1>📚 Campus Virtual</h1>
+</header>
+
+<nav>
+<button onclick="mostrar('cursos')">Cursos</button>
+<button onclick="mostrar('crear')">Crear Curso</button>
+<button onclick="mostrar('tareas')">Tareas</button>
+</nav>
+
+<section id="cursos" class="active">
+<h2>Mis Cursos</h2>
+<div id="listaCursos"></div>
+</section>
+
+<section id="crear">
+<h2>Crear Curso</h2>
+<input id="nombreCurso" placeholder="Nombre del curso">
+<textarea id="descCurso" placeholder="Descripción"></textarea>
+<button class="primary" onclick="crearCurso()">Guardar</button>
+</section>
+
+<section id="tareas">
+<h2>Tareas</h2>
+<input id="nombreTarea" placeholder="Nombre tarea">
+<button onclick="agregarTarea()">Agregar</button>
+<ul id="listaTareas"></ul>
+</section>
+
+<script>
+let cursos = JSON.parse(localStorage.getItem('cursos')) || [];
+let tareas = JSON.parse(localStorage.getItem('tareas')) || [];
+
+function mostrar(id){
+ document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+}
+
+function crearCurso(){
+ let nombre = document.getElementById('nombreCurso').value;
+ let desc = document.getElementById('descCurso').value;
+ if(!nombre) return alert('Escribe un nombre');
+ cursos.push({nombre, desc});
+ localStorage.setItem('cursos', JSON.stringify(cursos));
+ mostrarCursos();
+}
+
+function mostrarCursos(){
+ let cont = document.getElementById('listaCursos');
+ cont.innerHTML='';
+ cursos.forEach(c=>{
+ cont.innerHTML += `<div class="card"><h3>${c.nombre}</h3><p>${c.desc}</p></div>`;
+ });
+}
+
+function agregarTarea(){
+ let t = document.getElementById('nombreTarea').value;
+ if(!t) return;
+ tareas.push(t);
+ localStorage.setItem('tareas', JSON.stringify(tareas));
+ mostrarTareas();
+}
+
+function mostrarTareas(){
+ let ul = document.getElementById('listaTareas');
+ ul.innerHTML='';
+ tareas.forEach(t=>{
+ ul.innerHTML += `<li>${t}</li>`;
+ });
+}
+
+mostrarCursos();
+mostrarTareas();
+</script>
+
+</body>
+</html>
