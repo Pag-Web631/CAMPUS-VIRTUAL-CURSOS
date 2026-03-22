@@ -19,3 +19,7 @@ function cargarUsuario(){
     // Aplicar estilo por rol
     document.body.classList.add(user.rol);
 }
+function logout(){
+    localStorage.removeItem("usuario");
+    window.location.href = "index.html";
+}
