@@ -3,90 +3,77 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Docente - Campus Virtual</title>
+<title>Panel Docente</title>
 <style>
-.main { max-width:1200px; margin:auto; padding:20px; }
-.card { background:#fff; padding:15px; margin-bottom:10px; border-radius:10px; box-shadow:0 4px 15px rgba(0,0,0,0.08);}
-.cursos { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:15px; }
-.curso-card { padding:15px; border-left:6px solid #1a73e8; border-radius:10px; box-shadow:0 4px 15px rgba(0,0,0,0.08);}
-button { cursor:pointer; padding:6px 12px; border:none; border-radius:5px; background:#1a73e8; color:white; margin:3px;}
+body { margin:0; font-family: Arial, sans-serif; background:#f4f6f8; }
+header {
+    background: linear-gradient(135deg,#1a73e8,#4a90e2);
+    color:white;
+    padding:10px 20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position: sticky;
+    top:0;
+    z-index:1000;
+}
+header button { padding:5px 10px; border:none; border-radius:5px; cursor:pointer; }
+.main { padding:20px; max-width:800px; margin:auto; }
+.card { background:white; padding:20px; margin-bottom:10px; border-radius:10px; box-shadow:0 4px 15px rgba(0,0,0,0.1); }
+a { text-decoration:none; color:white; background:#1a73e8; padding:8px 12px; border-radius:5px; }
 </style>
 </head>
 <body>
 
-<div id="header-container"></div>
+<header>
+    <h2>Campus Virtual UTECO</h2>
+    <div>
+        <span id="bienvenida"></span>
+        <button onclick="cerrarSesion()">Cerrar sesión</button>
+    </div>
+</header>
 
-<div class="main">
-<h2>Panel Docente</h2>
-
-<div class="card">
-<h3>Crear curso</h3>
-<input id="ct" placeholder="Nombre curso">
-<input id="cp" placeholder="Profesor">
-<button onclick="crearCurso()">Crear</button>
-</div>
-
-<div class="cursos" id="listaCursos"></div>
+<div class="main" id="panel">
 </div>
 
 <script>
-// Cargar header
-fetch('header.html').then(res=>res.text()).then(data=>document.getElementById("header-container").innerHTML=data);
-
 // Verificar rol
-let user = JSON.parse(localStorage.getItem("user")) || {nombre:"", rol:""};
-if(user.rol!=="docente") { alert("No tienes permisos de docente"); window.location="index.html"; }
+let user = JSON.parse(localStorage.getItem("user"));
+if(!user || user.rol !== 'docente'){
+    alert("Acceso denegado. Solo docentes.");
+    window.location.href='index.html';
+}
 
-let cursos = JSON.parse(localStorage.getItem("cursos")) || [];
-function renderCursos(){
-    let html="";
-    cursos.forEach((c,i)=>{
-        let tareas = JSON.parse(localStorage.getItem("tareas_"+i)) || [];
-        html += `<div class="curso-card">
-            <b>${c.titulo}</b> - Profesor: ${c.profesor}<br>
-            <button onclick="crearTarea(${i})">Crear Tarea</button>
-            <button onclick="editarCurso(${i})">✏️ Editar</button>
-            <button onclick="eliminarCurso(${i})">🗑️ Eliminar</button>
-            <div>Tareas: ${tareas.length}</div>
-        </div>`;
-    });
-    if(cursos.length===0) html="<p>No hay cursos creados</p>";
-    document.getElementById("listaCursos").innerHTML = html;
-}
-renderCursos();
+// Mostrar nombre en header
+document.getElementById("bienvenida").innerText = `Bienvenido ${user.nombre} (Docente)`;
 
-// Funciones
-function crearCurso(){
-    let t = document.getElementById("ct").value;
-    let p = document.getElementById("cp").value;
-    if(!t||!p) return alert("Completa todo");
-    cursos.push({titulo:t, profesor:p});
-    localStorage.setItem("cursos", JSON.stringify(cursos));
-    renderCursos();
-}
-function editarCurso(i){
-    let t = prompt("Nombre", cursos[i].titulo);
-    let p = prompt("Profesor", cursos[i].profesor);
-    if(!t||!p) return;
-    cursos[i]={titulo:t, profesor:p};
-    localStorage.setItem("cursos", JSON.stringify(cursos));
-    renderCursos();
-}
-function eliminarCurso(i){
-    if(!confirm("Eliminar curso?")) return;
-    cursos.splice(i,1);
-    localStorage.setItem("cursos", JSON.stringify(cursos));
-    renderCursos();
-}
-function crearTarea(cursoIndex){
-    let titulo = prompt("Nombre de la tarea");
-    if(!titulo) return;
-    let tareas = JSON.parse(localStorage.getItem("tareas_"+cursoIndex)) || [];
-    tareas.push({titulo, entregas:[]});
-    localStorage.setItem("tareas_"+cursoIndex, JSON.stringify(tareas));
-    alert("Tarea creada");
-    renderCursos();
+// Render panel docente
+let panel = document.getElementById("panel");
+panel.innerHTML = `
+<div class="card">
+    <h3>Mis cursos</h3>
+    <p>Ver cursos existentes.</p>
+</div>
+<div class="card">
+    <h3>Tareas</h3>
+    <p>Ver tareas y entregas de los estudiantes.</p>
+</div>
+<div class="card">
+    <h3>Calificar</h3>
+    <p>Calificar entregas de los estudiantes.</p>
+</div>
+<div class="card">
+    <h3>Administrar cursos/tareas</h3>
+    <a href="curso.html">Ir a curso.html</a>
+</div>
+`;
+
+// Cerrar sesión
+function cerrarSesion(){
+    localStorage.removeItem("user");
+    window.location.href='index.html';
 }
 </script>
+
 </body>
 </html>
