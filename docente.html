@@ -3,75 +3,32 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Panel Docente</title>
+<title>Campus Virtual UTECO</title>
 <style>
-body { margin:0; font-family: Arial, sans-serif; background:#f4f6f8; }
-header {
-    background: linear-gradient(135deg,#1a73e8,#4a90e2);
-    color:white;
-    padding:10px 20px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    position: sticky;
-    top:0;
-    z-index:1000;
-}
-header button { padding:5px 10px; border:none; border-radius:5px; cursor:pointer; }
-.main { padding:20px; max-width:800px; margin:auto; }
-.card { background:white; padding:20px; margin-bottom:10px; border-radius:10px; box-shadow:0 4px 15px rgba(0,0,0,0.1); }
-a { text-decoration:none; color:white; background:#1a73e8; padding:8px 12px; border-radius:5px; }
+body { margin:0; font-family: Arial, sans-serif; background:#f4f6f8; display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh; }
+header { background: linear-gradient(135deg,#1a73e8,#4a90e2); color:white; padding:20px; text-align:center; border-radius:10px; }
+input { padding:5px; margin:5px 0; width:200px; }
+button { padding:5px 10px; margin:5px; border:none; border-radius:5px; cursor:pointer; background:#1a73e8; color:white; }
 </style>
 </head>
 <body>
 
 <header>
-    <h2>Campus Virtual UTECO</h2>
-    <div>
-        <span id="bienvenida"></span>
-        <button onclick="cerrarSesion()">Cerrar sesión</button>
-    </div>
+<h2>Campus Virtual UTECO</h2>
+<p>Bienvenido, ingresa tu nombre y selecciona tu rol</p>
+<input id="nombre" placeholder="Tu nombre">
+<br>
+<button onclick="login('estudiante')">👨‍🎓 Estudiante</button>
+<button onclick="login('docente')">👨‍🏫 Docente</button>
 </header>
 
-<div class="main" id="panel">
-</div>
-
 <script>
-// Verificar rol
-let user = JSON.parse(localStorage.getItem("user"));
-if(!user || user.rol !== 'docente'){
-    alert("Acceso denegado. Solo docentes.");
-    window.location.href='index.html';
-}
-
-// Mostrar nombre en header
-document.getElementById("bienvenida").innerText = `Bienvenido ${user.nombre} (Docente)`;
-
-// Render panel docente
-let panel = document.getElementById("panel");
-panel.innerHTML = `
-<div class="card">
-    <h3>Mis cursos</h3>
-    <p>Ver cursos existentes.</p>
-</div>
-<div class="card">
-    <h3>Tareas</h3>
-    <p>Ver tareas y entregas de los estudiantes.</p>
-</div>
-<div class="card">
-    <h3>Calificar</h3>
-    <p>Calificar entregas de los estudiantes.</p>
-</div>
-<div class="card">
-    <h3>Administrar cursos/tareas</h3>
-    <a href="curso.html">Ir a curso.html</a>
-</div>
-`;
-
-// Cerrar sesión
-function cerrarSesion(){
-    localStorage.removeItem("user");
-    window.location.href='index.html';
+function login(rol){
+    let nombre = document.getElementById("nombre").value.trim();
+    if(!nombre) return alert("Ingresa tu nombre");
+    localStorage.setItem("user", JSON.stringify({nombre, rol}));
+    if(rol==='docente') window.location.href='docente.html';
+    else window.location.href='estudiante.html';
 }
 </script>
 
