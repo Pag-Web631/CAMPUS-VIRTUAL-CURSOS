@@ -15,7 +15,9 @@ body {
     background: #050814;
     font-family: 'Segoe UI', sans-serif;
 }
-
+html, body {
+    height: 100%;
+}
 /* CONTENEDOR */
 .container {
     width: 260px;   /* tamaño fijo tipo app */
