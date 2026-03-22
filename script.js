@@ -1,23 +1,20 @@
 let user = null;
 
-// ESPERAR QUE CARGUE EL DOM (IMPORTANTE)
+// ESPERAR CARGA
 document.addEventListener("DOMContentLoaded", () => {
 
     const flipCard = document.getElementById("flipCard");
+
+    // BOTONES (SI EXISTEN)
     const registerText = document.getElementById("registerText");
     const loginText = document.getElementById("loginText");
 
-    // Validar que existan antes de usar
     if(registerText){
-        registerText.addEventListener("click", () => {
-            flipCard.classList.add("active");
-        });
+        registerText.onclick = () => flipCard.classList.add("active");
     }
 
     if(loginText){
-        loginText.addEventListener("click", () => {
-            flipCard.classList.remove("active");
-        });
+        loginText.onclick = () => flipCard.classList.remove("active");
     }
 
 });
@@ -25,12 +22,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // LOGIN
 function login(){
-    const userInput = document.getElementById("loginUser").value;
-    const pass = document.getElementById("loginPass").value;
+    const userInput = document.getElementById("loginUser").value.trim();
+    const pass = document.getElementById("loginPass").value.trim();
 
     const saved = JSON.parse(localStorage.getItem("usuario"));
 
-    if(!saved || saved.user !== userInput || saved.pass !== pass){
+    if(!saved){
+        alert("No hay usuario registrado");
+        return;
+    }
+
+    if(saved.user !== userInput || saved.pass !== pass){
         alert("Datos incorrectos");
         return;
     }
@@ -45,23 +47,26 @@ function login(){
 
 // REGISTRO
 function registrar(){
-    const user = document.getElementById("regUser").value;
-    const pass = document.getElementById("regPass").value;
+    const userInput = document.getElementById("regUser").value.trim();
+    const pass = document.getElementById("regPass").value.trim();
     const rol = document.getElementById("regRol").value;
 
-    if(!user || !pass || !rol){
-        alert("Completa todo");
+    if(!userInput || !pass || !rol){
+        alert("Completa todos los campos");
         return;
     }
 
     localStorage.setItem("usuario", JSON.stringify({
-        nombre: user,
-        user,
-        pass,
-        rol
+        nombre: userInput,
+        user: userInput,
+        pass: pass,
+        rol: rol
     }));
 
     alert("Usuario registrado ✔");
+
+    // 🔥 VOLVER AUTOMÁTICAMENTE AL LOGIN
+    document.getElementById("flipCard").classList.remove("active");
 }
 
 
