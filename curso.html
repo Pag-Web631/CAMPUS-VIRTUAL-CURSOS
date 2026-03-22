@@ -2,80 +2,132 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Curso</title>
 
 <style>
 body { font-family: Arial; margin:0; background:#f4f6f8; }
 header { background:#1a73e8; color:white; padding:15px; }
-.main { padding:20px; }
+.container { display:flex; }
+.sidebar { width:200px; background:white; padding:15px; height:100vh; }
+.main { flex:1; padding:20px; }
 .card { background:white; padding:15px; margin-bottom:10px; border-radius:10px; }
-input, textarea { width:100%; padding:10px; margin:5px 0; }
-button { padding:10px; background:#1a73e8; color:white; border:none; }
-.item { background:#f1f3f4; padding:8px; margin:5px 0; border-radius:5px; }
+.item { background:#f1f3f4; padding:10px; margin:5px 0; border-radius:5px; }
+button { padding:8px; background:#1a73e8; color:white; border:none; border-radius:5px; }
 </style>
 
 </head>
 <body>
 
 <header>
-<h2 id="tituloCurso">Curso</h2>
-<a href="index.html" style="color:white;">⬅ Volver</a>
+<h2>Curso - Comercio Electrónico</h2>
 </header>
 
-<div class="main">
+<div class="container">
 
-<!-- CREAR CONTENIDO -->
-<div class="card">
-<h3>Crear contenido (Docente)</h3>
-
-<input id="titulo" placeholder="Ej: UNIDAD I, Fundamentos...">
-<textarea id="desc" placeholder="Descripción o contenido"></textarea>
-
-<button onclick="agregar()">Agregar</button>
+<div class="sidebar">
+<input id="nombre" placeholder="Tu nombre">
+<button onclick="guardarUser()">Entrar</button>
+<hr>
+<button onclick="modo='estudiante'">Estudiante</button>
+<button onclick="modo='docente'">Docente</button>
 </div>
 
-<!-- MOSTRAR CONTENIDO -->
-<div class="card">
-<h3>Contenido del curso</h3>
-<div id="contenido"></div>
-</div>
+<div class="main" id="contenido"></div>
 
 </div>
 
 <script>
-let curso = "IRI-119-01 - Comercio Electrónico";
-document.getElementById("tituloCurso").innerText = curso;
 
-// cargar datos
-let datos = JSON.parse(localStorage.getItem(curso)) || [];
+let modo = "estudiante";
+let user = localStorage.getItem("user") || "";
 
-function agregar(){
-    let t = document.getElementById("titulo").value;
-    let d = document.getElementById("desc").value;
-
-    if(!t) return alert("Escribe un título");
-
-    datos.push({t,d});
-    localStorage.setItem(curso, JSON.stringify(datos));
-
-    mostrar();
+function guardarUser(){
+    user = document.getElementById("nombre").value;
+    localStorage.setItem("user", user);
+    render();
 }
 
-function mostrar(){
-    let cont = document.getElementById("contenido");
-    cont.innerHTML = "";
+let tareas = JSON.parse(localStorage.getItem("tareas")) || [];
+let entregas = JSON.parse(localStorage.getItem("entregas")) || [];
 
-    datos.forEach(x=>{
-        cont.innerHTML += `
-        <div class="item">
-        <b>${x.t}</b><br>
-        ${x.d}
-        </div>`;
-    });
+function render(){
+
+let html = "<h2>Tareas del curso</h2>";
+
+if(modo==="docente"){
+html += `
+<input id="t" placeholder="Título tarea">
+<button onclick="crear()">Crear tarea</button>
+<hr>
+`;
 }
 
-mostrar();
+tareas.forEach((t,i)=>{
+
+let entrega = entregas.find(e=>e.user===user && e.tarea===i);
+
+html += `<div class="card">
+<b>${t}</b><br>`;
+
+if(modo==="estudiante"){
+html += `
+Estado: ${entrega?"Enviado":"No enviado"}<br>
+<input type="file" id="f${i}">
+<button onclick="enviar(${i})">Enviar</button>
+`;
+}
+
+if(modo==="docente"){
+let lista = entregas.filter(e=>e.tarea===i);
+
+html += "<h4>Entregas:</h4>";
+
+lista.forEach((e,index)=>{
+html += `
+<div class="item">
+${e.user} - ${e.file || "Sin archivo"}<br>
+Nota: ${e.nota || "Sin calificar"}<br>
+<button onclick="calificar(${index})">Calificar</button>
+</div>`;
+});
+}
+
+html += "</div>";
+});
+
+document.getElementById("contenido").innerHTML = html;
+}
+
+function crear(){
+let t = document.getElementById("t").value;
+tareas.push(t);
+localStorage.setItem("tareas", JSON.stringify(tareas));
+render();
+}
+
+function enviar(i){
+let file = document.getElementById("f"+i).files[0];
+
+entregas.push({
+user:user,
+tarea:i,
+file:file?file.name:"",
+nota:null
+});
+
+localStorage.setItem("entregas", JSON.stringify(entregas));
+render();
+}
+
+function calificar(i){
+let nota = prompt("Nota:");
+entregas[i].nota = nota;
+localStorage.setItem("entregas", JSON.stringify(entregas));
+render();
+}
+
+render();
+
 </script>
 
 </body>
