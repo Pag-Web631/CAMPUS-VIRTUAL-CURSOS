@@ -1,3 +1,38 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Docente - Campus Virtual</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h2>Campus Virtual UTECO</h2>
+  <p id="bienvenida"></p>
+  <nav>
+    <a href="docente.html">📚 Cursos</a>
+    <a href="#">👤 Área personal</a>
+    <a href="#">📅 Eventos</a>
+  </nav>
+</header>
+
+<main id="panel">
+  <p>Panel Docente: crear cursos, crear tareas, ver entregas y calificar.</p>
+</main>
+
+<script src="script.js"></script>
+<script>
+cargarUsuario();
+if(user.rol !== "docente"){
+    alert("No tienes permiso para ver esta página");
+    window.location.href = "index.html";
+}
+</script>
+</body>
+</html>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
