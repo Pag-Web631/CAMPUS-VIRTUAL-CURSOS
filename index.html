@@ -22,10 +22,10 @@
                 <form onsubmit="return false;">
                     <h2>Campus Virtual</h2>
 
-                    <input type="text" id="loginUser" placeholder="Usuario" required>
+                    <input type="text" id="loginUser" placeholder="Usuario">
 
                     <div class="input-box">
-                        <input type="password" id="loginPass" placeholder="Contraseña" required>
+                        <input type="password" id="loginPass" placeholder="Contraseña">
                         <span class="password-toggle" onclick="togglePass('loginPass', this)">
                             <i class="fa fa-eye"></i>
                         </span>
@@ -69,7 +69,7 @@
                 </form>
             </div>
 
-            <!-- INFO (TARJETAS EN FILA) -->
+            <!-- INFO -->
             <div class="flip-card-back" id="infoCard" style="display:none;">
 
                 <!-- BOTONES -->
@@ -78,6 +78,7 @@
                     <button onclick="scrollInfo(1)">▶</button>
                 </div>
 
+                <!-- TARJETAS -->
                 <div class="info-container" id="infoContainer">
 
                     <div class="mini-card">
@@ -87,12 +88,12 @@
 
                     <div class="mini-card">
                         <h3>🎓 Estudiantes</h3>
-                        <p>Accede a cursos, tareas y calificaciones en tiempo real.</p>
+                        <p>Accede a cursos, tareas y calificaciones.</p>
                     </div>
 
                     <div class="mini-card">
                         <h3>👨‍🏫 Docentes</h3>
-                        <p>Gestiona cursos y evalúa el rendimiento fácilmente.</p>
+                        <p>Gestiona cursos y evalúa estudiantes.</p>
                     </div>
 
                     <div class="mini-card">
@@ -100,7 +101,7 @@
                         <ul>
                             <li>✔ Cursos</li>
                             <li>✔ Tareas</li>
-                            <li>✔ Calificaciones</li>
+                            <li>✔ Notas</li>
                         </ul>
                     </div>
 
