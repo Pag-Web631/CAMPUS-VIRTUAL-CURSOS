@@ -7,6 +7,62 @@ body {
     align-items: center;
     height: 100vh;
 }
+/* BOTÓN */
+.info-btn {
+    margin-top: 10px;
+    background: linear-gradient(45deg, #00c6ff, #0072ff);
+}
+
+/* CONTENEDOR OCULTO */
+#infoPanel {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+/* CUADROS */
+.info {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 300px;
+    padding: 25px;
+    border-radius: 20px;
+    background: rgba(20,30,70,0.4);
+    backdrop-filter: blur(12px);
+    color: #cfd8ff;
+    box-shadow: 0 0 25px rgba(0,140,255,0.3);
+
+    opacity: 0;
+    transition: 0.5s;
+}
+
+/* POSICIONES */
+.left {
+    left: -350px;
+}
+
+.right {
+    right: -350px;
+}
+
+/* ACTIVO */
+#infoPanel.active {
+    pointer-events: auto;
+}
+
+#infoPanel.active .left {
+    left: 20px;
+    opacity: 1;
+}
+
+#infoPanel.active .right {
+    right: 20px;
+    opacity: 1;
+}
 /* CUADROS LATERALES */
 .info {
     position: fixed;
