@@ -8,15 +8,17 @@ function goRegister(){
 // VOLVER A LOGIN
 function goLogin(){
     document.getElementById("flipInner").style.transform = "rotateY(0deg)";
+    document.getElementById("registerCard").style.display = "flex";
     document.getElementById("infoCard").style.display = "none";
 }
 
-// MOSTRAR INFO (MISMA CARA QUE REGISTRO)
+// MOSTRAR INFO
 function goInfo(){
     document.getElementById("flipInner").style.transform = "rotateY(180deg)";
     document.getElementById("registerCard").style.display = "none";
     document.getElementById("infoCard").style.display = "flex";
 }
+
 
 // LOGIN
 function login(){
@@ -26,15 +28,18 @@ function login(){
     const saved = JSON.parse(localStorage.getItem("usuario"));
 
     if(!saved){
-        return alert("No hay usuario registrado");
+        alert("No hay usuario registrado");
+        return;
     }
 
     if(saved.user !== user || saved.pass !== pass){
-        return alert("Datos incorrectos");
+        alert("Datos incorrectos");
+        return;
     }
 
     alert("Bienvenido ✔");
 }
+
 
 // REGISTRO
 function registrar(){
@@ -43,7 +48,8 @@ function registrar(){
     const rol = document.getElementById("regRol").value;
 
     if(!user || !pass || !rol){
-        return alert("Completa todo");
+        alert("Completa todo");
+        return;
     }
 
     localStorage.setItem("usuario", JSON.stringify({
@@ -54,6 +60,7 @@ function registrar(){
 
     alert("Registrado ✔");
 }
+
 
 // VER / OCULTAR PASSWORD
 function togglePass(id, icon){
