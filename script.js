@@ -78,3 +78,7 @@ function registrar(){
 
     document.getElementById("flipCard").classList.remove("active");
 }
+function toggleInfo(){
+    const panel = document.getElementById("infoPanel");
+    panel.classList.toggle("active");
+}
