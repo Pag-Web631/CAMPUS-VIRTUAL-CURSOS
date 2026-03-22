@@ -2,36 +2,26 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Docente</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header class="card">
-  <h2>Panel Docente</h2>
-  <p id="bienvenida"></p>
+<div class="container">
+    <div class="card">
+        <h2>Panel Docente</h2>
+        <p id="bienvenida"></p>
 
-  <nav>
-    <button>📚 Cursos</button>
-    <button>📝 Tareas</button>
-    <button>📊 Calificaciones</button>
-    <button onclick="logout()">Salir</button>
-  </nav>
-</header>
-
-<main class="card">
-  <p>Aquí puedes crear cursos, tareas y calificar.</p>
-</main>
+        <button>Crear Curso</button>
+        <button>Crear Tarea</button>
+        <button>Calificar</button>
+        <button onclick="logout()">Salir</button>
+    </div>
+</div>
 
 <script src="script.js"></script>
 <script>
 cargarUsuario();
-
-if(user.rol !== "docente"){
-    alert("No tienes permiso");
-    window.location.href = "index.html";
-}
+if(user.rol !== "docente") location.href="index.html";
 </script>
 
 </body>
