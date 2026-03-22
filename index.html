@@ -14,6 +14,32 @@
     --text: #333;
     --shadow: 0 4px 15px rgba(0,0,0,0.08);
 }
+    /* MENU HORIZONTAL EN HEADER */
+nav.menu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+    position: relative;
+    z-index: 1;
+}
+
+nav.menu a, nav.menu button {
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 5px;
+    color: white;
+    background: rgba(26,115,232,0.7);
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+nav.menu a:hover, nav.menu button:hover, nav.menu a.active {
+    background: var(--primary);
+}
 
 .dark {
     --bg: #121212;
