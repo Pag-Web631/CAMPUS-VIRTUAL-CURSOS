@@ -26,8 +26,8 @@ body {
     transform-style: preserve-3d;
     transition: transform 0.6s;
 
-    background: rgba(10, 15, 40, 0.6); /* oscuro transparente */
-    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
 }
 
 /* INTERIOR */
@@ -53,17 +53,13 @@ body {
     justify-content: center;
     align-items: center;
 
-    padding: 18px;
+    padding: 20px;
     box-sizing: border-box;
 
-    border-radius: 12px;
+    border-radius: 10px;
 
-    background: rgba(15, 23, 42, 0.6);
-    backdrop-filter: blur(10px);
-
-    box-shadow: 0 0 20px rgba(0,0,0,0.4);
-
-    color: #e5e7eb; /* blanco suave */
+    background: rgba(255, 255, 255, 0.85); /* limpio */
+    color: #000; /* negro */
 }
 
 /* ATRÁS */
@@ -82,66 +78,52 @@ form {
 /* INPUT */
 input, select {
     margin-bottom: 10px;
-    padding: 9px;
-    font-size: 0.9rem;
+    padding: 10px;
+    font-size: 1rem;
 
-    border: 1px solid rgba(59, 130, 246, 0.4);
-    border-radius: 6px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 
-    background: rgba(255,255,255,0.05);
-    color: #e5e7eb;
+    background: #fff;
+    color: #000;
 }
 
 /* BOTÓN */
 button {
-    padding: 9px;
-    font-size: 0.9rem;
+    padding: 10px;
+    font-size: 1rem;
 
-    background: linear-gradient(45deg, #1e3a8a, #3b82f6);
-    color: white;
+    background: #333; /* negro/gris */
+    color: #fff;
 
     border: none;
-    border-radius: 6px;
+    border-radius: 5px;
 
     cursor: pointer;
-    margin-top: 8px;
-
-    transition: 0.3s;
+    margin-top: 10px;
 }
 
 /* HOVER */
 button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 10px #3b82f6;
+    background: #555;
 }
 
 /* TEXTO */
 .toggle-text {
-    margin-top: 8px;
-    color: #60a5fa;
+    margin-top: 10px;
+    color: #333;
     cursor: pointer;
-    font-size: 0.85rem;
 }
 
-.toggle-text:hover {
-    color: white;
-}
-
-/* ICONO PASSWORD */
+/* PASSWORD ICON */
 .password-toggle {
     position: absolute;
-    top: 38%;
+    top: 50%;
     right: 10px;
     transform: translateY(-50%);
     cursor: pointer;
-    color: #9ca3af;
 }
 
 .password-toggle i {
-    font-size: 0.9rem;
-}
-
-/* OCULTAR ICONO */
-.password-visible i.fa-eye-slash {
-    display: none;
+    font-size: 1rem;
 }
