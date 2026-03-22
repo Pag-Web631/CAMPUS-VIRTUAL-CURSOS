@@ -6,69 +6,90 @@
 <title>Campus Virtual</title>
 
 <link rel="stylesheet" href="login.css">
-</head>
 
+<!-- ICONOS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
 <body>
 
 <div class="container">
+    <div class="flip-card" id="flipCard">
+        <div class="flip-card-inner" id="flipInner">
 
-    <!-- LOGIN -->
-    <div class="card active" id="loginCard">
-        <h2>Campus Virtual</h2>
+            <!-- LOGIN -->
+            <div class="flip-card-front">
+                <form>
+                    <h2>Campus Virtual</h2>
 
-        <input id="loginUser" placeholder="Usuario">
-        <input type="password" id="loginPass" placeholder="Contraseña">
+                    <input type="text" id="loginUser" placeholder="Usuario" required>
 
-        <button id="btnLogin">Ingresar</button>
+                    <div style="position: relative;">
+                        <input type="password" id="loginPass" placeholder="Contraseña" required>
+                        <span class="password-toggle" onclick="togglePass('loginPass', this)">
+                            <i class="fa fa-eye"></i>
+                        </span>
+                    </div>
 
-        <div class="links">
-            <span id="goRegister">Registrarse</span>
-            <span id="goInfo">ℹ️ Información</span>
+                    <button type="button" onclick="login()">Ingresar</button>
+
+                    <span class="toggle-text" onclick="goRegister()">Registrarse</span>
+                    <span class="toggle-text" onclick="goInfo()">ℹ️ Información</span>
+                </form>
+            </div>
+
+            <!-- REGISTRO -->
+            <div class="flip-card-back" id="registerCard">
+                <form>
+                    <h2>Crear Cuenta</h2>
+
+                    <input type="text" id="regUser" placeholder="Usuario">
+
+                    <div style="position: relative;">
+                        <input type="password" id="regPass" placeholder="Contraseña">
+                        <span class="password-toggle" onclick="togglePass('regPass', this)">
+                            <i class="fa fa-eye"></i>
+                        </span>
+                    </div>
+
+                    <select id="regRol">
+                        <option value="">Selecciona Rol</option>
+                        <option value="estudiante">Estudiante</option>
+                        <option value="docente">Docente</option>
+                    </select>
+
+                    <button type="button" onclick="registrar()">Registrar</button>
+
+                    <span class="toggle-text" onclick="goLogin()">Volver</span>
+                    <span class="toggle-text" onclick="goInfo()">ℹ️ Información</span>
+                </form>
+            </div>
+
+            <!-- INFO -->
+            <div class="flip-card-back" id="infoCard" style="transform: rotateY(180deg); display:none;">
+                <div style="text-align:center;">
+                    <h2>📘 Información</h2>
+
+                    <p>Plataforma para gestionar cursos, tareas y calificaciones.</p>
+
+                    <ul style="text-align:left;">
+                        <li>✔ Cursos</li>
+                        <li>✔ Tareas</li>
+                        <li>✔ Notas</li>
+                    </ul>
+
+                    <h3>👤 Sobre mí</h3>
+                    <p><strong>José Augusto Herrera Castillo</strong></p>
+
+                    <span class="toggle-text" onclick="goLogin()">Volver</span>
+                </div>
+            </div>
+
         </div>
     </div>
-
-    <!-- REGISTRO -->
-    <div class="card" id="registerCard">
-        <h2>Crear Cuenta</h2>
-
-        <input id="regUser" placeholder="Usuario">
-        <input type="password" id="regPass" placeholder="Contraseña">
-
-        <select id="regRol">
-            <option value="">Selecciona Rol</option>
-            <option value="estudiante">Estudiante</option>
-            <option value="docente">Docente</option>
-        </select>
-
-        <button id="btnRegistrar">Registrar</button>
-
-        <span id="backLogin" class="toggle-text">Volver</span>
-        <span id="goInfo2" class="toggle-text">ℹ️ Información</span>
-    </div>
-
-    <!-- INFO -->
-    <div class="card" id="infoCard">
-        <h2>📘 Información</h2>
-
-        <p>Este Campus Virtual permite gestionar cursos, tareas y calificaciones.</p>
-
-        <ul>
-            <li>✔ Cursos</li>
-            <li>✔ Tareas</li>
-            <li>✔ Calificaciones</li>
-        </ul>
-
-        <h3>👤 Sobre mí</h3>
-        <p><strong>José Augusto Herrera Castillo</strong></p>
-
-        <span id="backFromInfo" class="toggle-text">Volver</span>
-    </div>
-
 </div>
 
-<div id="toast"></div>
-
-<script src="script.js" defer></script>
+<script src="script.js"></script>
 
 </body>
 </html>
