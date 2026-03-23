@@ -2,26 +2,27 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="style.css">
+<title>Estudiante</title>
 </head>
 <body>
 
-<div class="container">
-    <div class="card">
-        <h2>Panel Estudiante</h2>
-        <p id="bienvenida"></p>
+<h2>Panel Estudiante</h2>
 
-        <button>Ver Cursos</button>
-        <button>Entregar Tareas</button>
-        <button>Ver Notas</button>
-        <button onclick="logout()">Salir</button>
-    </div>
-</div>
+<p>Aquí podrás:</p>
 
-<script src="script.js"></script>
+<ul>
+<li>Ver cursos</li>
+<li>Enviar tareas</li>
+<li>Ver notas</li>
+</ul>
+
 <script>
-cargarUsuario();
-if(user.rol !== "estudiante") location.href="index.html";
+const session = JSON.parse(localStorage.getItem("session"));
+
+if(!session || session.rol !== "estudiante"){
+    alert("Acceso denegado");
+    location.href = "index.html";
+}
 </script>
 
 </body>
