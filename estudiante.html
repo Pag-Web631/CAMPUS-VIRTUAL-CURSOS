@@ -4,6 +4,18 @@
 <meta charset="UTF-8">
 <title>Estudiante</title>
 </head>
+    <script>
+const session = JSON.parse(localStorage.getItem("session"));
+
+if(!session){
+    location.href = "index.html";
+}
+
+if(session.rol !== "estudiante"){
+    alert("Acceso solo estudiantes ❌");
+    location.href = "index.html";
+}
+</script>
 <body>
 
 <h2>Panel Estudiante</h2>
@@ -16,17 +28,6 @@
 <li>Ver notas</li>
 </ul>
 
-<script>
-const session = JSON.parse(localStorage.getItem("session"));
 
-if(!session){
-    location.href = "index.html";
-}
-
-if(session.rol !== "estudiante"){
-    alert("Acceso solo estudiantes ❌");
-    location.href = "index.html";
-}
-</script>
 </body>
 </html>
