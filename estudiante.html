@@ -19,11 +19,14 @@
 <script>
 const session = JSON.parse(localStorage.getItem("session"));
 
-if(!session || session.rol !== "estudiante"){
-    alert("Acceso denegado");
+if(!session){
+    location.href = "index.html";
+}
+
+if(session.rol !== "estudiante"){
+    alert("Acceso solo estudiantes ❌");
     location.href = "index.html";
 }
 </script>
-
 </body>
 </html>
