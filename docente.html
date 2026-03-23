@@ -2,75 +2,28 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Admin</title>
+<title>Docente</title>
 </head>
 <body>
 
-<h2>ADMINISTRACIÓN</h2>
+<h2>Panel Docente</h2>
 
-<h3>Crear Docente</h3>
-<input id="docUser" placeholder="Usuario">
-<input id="docPass" placeholder="Contraseña">
-<button onclick="crearDocente()">Crear</button>
+<p>Aquí podrás:</p>
 
-<h3>Crear Curso</h3>
-<input id="cursoNombre" placeholder="Nombre curso">
-<input id="cursoDocente" placeholder="Docente (usuario)">
-<button onclick="crearCurso()">Crear Curso</button>
-
-<hr>
-<h3>Cursos</h3>
-<div id="listaCursos"></div>
+<ul>
+<li>Crear cursos</li>
+<li>Crear tareas</li>
+<li>Crear cuestionarios</li>
+<li>Calificar estudiantes</li>
+</ul>
 
 <script>
+const session = JSON.parse(localStorage.getItem("session"));
 
-function crearDocente(){
-    let user = docUser.value;
-    let pass = docPass.value;
-
-    let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-
-    usuarios.push({user, pass, rol:"docente"});
-    localStorage.setItem("usuarios", JSON.stringify(usuarios));
-
-    alert("Docente creado");
+if(!session || session.rol !== "docente"){
+    alert("Acceso denegado");
+    location.href = "index.html";
 }
-
-function crearCurso(){
-    let nombre = cursoNombre.value;
-    let docente = cursoDocente.value;
-
-    let cursos = JSON.parse(localStorage.getItem("cursos")) || [];
-
-    cursos.push({
-        id: Date.now(),
-        nombre,
-        docente,
-        estudiantes: [],
-        tareas: [],
-        cuestionarios: []
-    });
-
-    localStorage.setItem("cursos", JSON.stringify(cursos));
-    mostrarCursos();
-}
-
-function mostrarCursos(){
-    let cursos = JSON.parse(localStorage.getItem("cursos")) || [];
-    let html = "";
-
-    cursos.forEach(c => {
-        html += `
-        <div>
-            <b>${c.nombre}</b> - Docente: ${c.docente}
-        </div>`;
-    });
-
-    listaCursos.innerHTML = html;
-}
-
-mostrarCursos();
-
 </script>
 
 </body>
