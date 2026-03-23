@@ -4,7 +4,7 @@ function initUsuarios(){
 
     if(!usuarios || usuarios.length === 0){
         usuarios = [
-            { user: "profe", pass: "1234", rol: "docente" },
+            { user: "profe", pass: "12", rol: "docente" },
             { user: "admin", pass: "123", rol: "admin" }
         ];
         localStorage.setItem("usuarios", JSON.stringify(usuarios));
