@@ -4,12 +4,9 @@
 <meta charset="UTF-8">
 <title>Estudiante</title>
 </head>
->
 <body>
 
 <h2>Panel Estudiante</h2>
-
-<p>Aquí podrás:</p>
 
 <ul>
 <li>Ver cursos</li>
@@ -17,17 +14,18 @@
 <li>Ver notas</li>
 </ul>
 
+<button onclick="logout()">Salir</button>
+
 <script>
 const session = JSON.parse(localStorage.getItem("session"));
 
-if(!session){
-    location.href = "index.html";
-}
-
-if(session.rol !== "estudiante"){
-    alert("Acceso solo estudiantes ❌");
+if(!session || session.rol !== "estudiante"){
+    alert("Solo estudiante ❌");
     location.href = "index.html";
 }
 </script>
+
+<script src="script.js"></script>
+
 </body>
 </html>
