@@ -1,115 +1,165 @@
-.info-container {
-    display: flex;
-    gap: 10px;
-    overflow: hidden;
-    width: 260px;
-    margin: auto;
+/* 🔥 RESET */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
 }
 
-.mini-card {
-    min-width: 260px;
-    background: rgba(0,0,0,0.6);
-    color: white;
-    padding: 15px;
-    border-radius: 10px;
-    text-align: center;
-}
-body {
+/* 🌌 FONDO */
+body{
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    margin: 0;
-    background-image: url('fondo.jpg'); 
-    background-size: cover;
-    background-position: center;
-    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg,#0f172a,#020617);
+    color: white;
 }
-.container {
+
+/* 📦 CONTENEDOR */
+.container{
     perspective: 1000px;
 }
-.flip-card {
-    width: 300px;
-    height: 400px;
+
+/* 💳 TARJETA */
+.flip-card{
+    width: 320px;
+    height: 420px;
+}
+
+.flip-card-inner{
+    width: 100%;
+    height: 100%;
     position: relative;
-    transform-style: preserve-3d;
     transition: transform 0.6s;
-    background-color: rgba(255, 255, 255, 0.7); 
-    border-radius: 10px;
-}
-.flip-card-inner {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
     transform-style: preserve-3d;
-    transition: transform 0.6s;
 }
+
+/* 🔁 CARAS */
 .flip-card-front,
-.flip-card-back {
+.flip-card-back{
+    position: absolute;
     width: 100%;
     height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
+    background: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(12px);
+    border-radius: 15px;
+    padding: 20px;
     backface-visibility: hidden;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size: 1.2rem;
-    background-color: transparent;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-    padding: 20px;
-    box-sizing: border-box;
-    color: #333;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
-.flip-card-back {
+
+/* 🔁 ROTACIÓN */
+.flip-card-back{
     transform: rotateY(180deg);
 }
-form {
-    display: flex;
-    flex-direction: column;
+
+/* 📝 INPUT */
+input{
     width: 100%;
-    position: relative;
-}
-input {
-    margin-bottom: 10px;
     padding: 10px;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-button {
-    padding: 10px;
-    font-size: 1rem;
-    background-color: #ff9ef5;
-    color: white;
+    margin: 10px 0;
+    border-radius: 8px;
     border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 10px;
+    outline: none;
 }
-button:hover {
-    background-color: #ff51ff;
+
+/* 👁️ PASSWORD */
+.input-box{
+    position: relative;
+    width: 100%;
 }
-.toggle-text {
-    margin-top: 10px;
-    color: #ff00d4;
-    cursor: pointer;
-}
-.password-toggle {
+
+.password-toggle{
     position: absolute;
-    top: 50%;
     right: 10px;
+    top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
+    color: #555;
 }
-.password-toggle i {
-    font-size: 1rem;
+
+/* 🔘 BOTÓN */
+button{
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    background: linear-gradient(45deg,#2563eb,#1e40af);
+    color: white;
+    font-weight: bold;
+    transition: 0.3s;
 }
-.password-visible i.fa-eye-slash {
-    display: none;
+
+button:hover{
+    transform: scale(1.05);
+}
+
+/* 🔗 LINKS */
+.links{
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+}
+
+.links span{
+    cursor: pointer;
+    color: #60a5fa;
+    font-size: 0.9rem;
+}
+
+.links span:hover{
+    text-decoration: underline;
+}
+
+/* 🔄 INFO CARRUSEL */
+.info-container{
+    display: flex;
+    gap: 10px;
+    overflow: hidden;
+    width: 260px;
+    transition: transform 0.5s ease;
+}
+
+/* 🧾 TARJETAS INFO */
+.mini-card{
+    min-width: 260px;
+    background: rgba(30, 41, 59, 0.8);
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.mini-card h3{
+    margin-bottom: 10px;
+}
+
+.mini-card ul{
+    list-style: none;
+    margin-top: 10px;
+}
+
+/* ◀ ▶ BOTONES */
+.scroll-buttons{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.scroll-buttons button{
+    width: 45px;
+    padding: 5px;
+    font-size: 18px;
+    background: rgba(59,130,246,0.7);
+}
+
+.scroll-buttons button:hover{
+    background: #2563eb;
 }
