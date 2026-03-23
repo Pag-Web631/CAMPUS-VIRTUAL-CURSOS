@@ -113,3 +113,23 @@ function togglePass(id){
     const input = document.getElementById(id);
     input.type = input.type === "password" ? "text" : "password";
 }
+// 🔄 IR A REGISTRO
+function goRegister(){
+    document.getElementById("flipInner").style.transform = "rotateY(180deg)";
+    document.getElementById("registerCard").style.display = "flex";
+    document.getElementById("infoCard").style.display = "none";
+}
+
+// 🔄 VOLVER A LOGIN
+function goLogin(){
+    document.getElementById("flipInner").style.transform = "rotateY(0deg)";
+    document.getElementById("registerCard").style.display = "flex";
+    document.getElementById("infoCard").style.display = "none";
+}
+
+// ℹ️ MOSTRAR INFO
+function goInfo(){
+    document.getElementById("flipInner").style.transform = "rotateY(180deg)";
+    document.getElementById("registerCard").style.display = "none";
+    document.getElementById("infoCard").style.display = "flex";
+}
