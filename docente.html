@@ -2,38 +2,30 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Panel Docente</title>
+<title>Docente</title>
 </head>
-
 <body>
 
 <h2>Panel Docente</h2>
 
-<p>Aquí podrás:</p>
 <ul>
-    <li>Crear cursos</li>
-    <li>Asignar tareas</li>
-    <li>Calificar estudiantes</li>
+<li>Crear cursos</li>
+<li>Asignar tareas</li>
+<li>Calificar</li>
 </ul>
 
-<!-- 🔥 AQUI VA -->
+<button onclick="logout()">Salir</button>
+
 <script>
 const session = JSON.parse(localStorage.getItem("session"));
 
-if(!session){
-    alert("Debes iniciar sesión");
+if(!session || session.rol !== "docente"){
+    alert("Solo docente ❌");
     location.href = "index.html";
 }
-
-// SOLO DOCENTE
-if(session.rol !== "docente"){
-    alert("Acceso solo para docentes ❌");
-    location.href = "index.html";
-}
-
-// Mostrar nombre
-document.body.innerHTML += "<h3>Bienvenido docente: " + session.user + "</h3>";
 </script>
+
+<script src="script.js"></script>
 
 </body>
 </html>
