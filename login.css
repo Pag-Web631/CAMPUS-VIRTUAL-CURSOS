@@ -5,7 +5,29 @@
     box-sizing: border-box;
     font-family: Arial, sans-serif;
 }
+/* 🔥 CONTROL DE CARAS */
+#registerCard {
+    display: flex;
+}
 
+#infoCard {
+    display: none;
+}
+
+/* 🔥 PARA QUE EL CONTENIDO INFO NO SE CORTE */
+#infoCard {
+    justify-content: flex-start;
+    padding-top: 15px;
+}
+
+/* 🔥 ANIMACIÓN SUAVE DEL CARRUSEL */
+.info-container {
+    display: flex;
+    gap: 10px;
+    overflow: hidden;
+    width: 260px;
+    transition: transform 0.5s ease;
+}
 /* 🌌 FONDO */
 body{
     height: 100vh;
