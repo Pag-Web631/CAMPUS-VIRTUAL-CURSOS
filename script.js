@@ -1,92 +1,98 @@
-// CREAR USUARIOS BASE (SOLO UNA VEZ)
-if(!localStorage.getItem("usuarios")){
-    localStorage.setItem("usuarios", JSON.stringify([
-        { user: "profe", pass: "123", rol: "docente" },
-        { user: "admin", pass: "123", rol: "admin" }
-    ]));
-}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Campus Virtual</title>
 
-// CAMBIOS DE VISTA
-function goRegister(){
-    document.getElementById("flipInner").style.transform = "rotateY(180deg)";
-    document.getElementById("registerCard").style.display = "block";
-    document.getElementById("infoCard").style.display = "none";
-}
+<link rel="stylesheet" href="login.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
 
-function goLogin(){
-    document.getElementById("flipInner").style.transform = "rotateY(0deg)";
-}
+<body>
 
-function goInfo(){
-    document.getElementById("flipInner").style.transform = "rotateY(180deg)";
-    document.getElementById("registerCard").style.display = "none";
-    document.getElementById("infoCard").style.display = "block";
-}
+<div class="container">
+    <div class="flip-card">
+        <div class="flip-card-inner" id="flipInner">
 
-// SCROLL INFO
-function scrollInfo(dir){
-    document.getElementById("infoContainer")
-    .scrollBy({ left: dir * 200, behavior: "smooth" });
-}
+            <!-- LOGIN -->
+            <div class="flip-card-front">
+                <h2>Campus Virtual</h2>
+console.log("Usuarios:", usuarios);
+console.log("Ingresado:", user, pass);
+                <input type="text" id="loginUser" placeholder="Usuario">
 
-// REGISTRO (ESTUDIANTE)
-function registrar(){
-    const user = document.getElementById("regUser").value;
-    const pass = document.getElementById("regPass").value;
+                <div class="input-box">
+                    <input type="password" id="loginPass" placeholder="Contraseña">
+                    <span class="password-toggle" onclick="togglePass('loginPass', this)">
+                        <i class="fa fa-eye"></i>
+                    </span>
+                </div>
 
-    if(!user || !pass){
-        alert("Completa todo");
-        return;
-    }
+                <button onclick="login()">Ingresar</button>
 
-    let usuarios = JSON.parse(localStorage.getItem("usuarios"));
+                <div class="links">
+                    <span onclick="goRegister()">Registrarse</span>
+                    <span onclick="goInfo()">ℹ️ Información</span>
+                </div>
+            </div>
 
-    if(usuarios.find(u => u.user === user)){
-        alert("Usuario ya existe");
-        return;
-    }
+            <!-- REGISTRO -->
+            <div class="flip-card-back" id="registerCard">
+                <h2>Crear Cuenta</h2>
 
-    usuarios.push({
-        user,
-        pass,
-        rol: "estudiante"
-    });
+                <input id="regUser" placeholder="Usuario">
 
-    localStorage.setItem("usuarios", JSON.stringify(usuarios));
+                <div class="input-box">
+                    <input type="password" id="regPass" placeholder="Contraseña">
+                    <span class="password-toggle" onclick="togglePass('regPass', this)">
+                        <i class="fa fa-eye"></i>
+                    </span>
+                </div>
 
-    alert("Registrado ✔");
-}
+                <button onclick="registrar()">Registrar</button>
 
-// LOGIN REAL 🔥
-function login(){
-    const user = document.getElementById("loginUser").value;
-    const pass = document.getElementById("loginPass").value;
+                <div class="links">
+                    <span onclick="goLogin()">Volver</span>
+                    <span onclick="goInfo()">ℹ️ Información</span>
+                </div>
+            </div>
 
-    let usuarios = JSON.parse(localStorage.getItem("usuarios"));
+            <!-- INFO -->
+            <div class="flip-card-back" id="infoCard" style="display:none;">
 
-    const encontrado = usuarios.find(u => u.user === user && u.pass === pass);
+                <div class="scroll-buttons">
+                    <button onclick="scrollInfo(-1)">◀</button>
+                    <button onclick="scrollInfo(1)">▶</button>
+                </div>
 
-    if(!encontrado){
-        alert("Datos incorrectos ❌");
-        return;
-    }
+                <div class="info-container" id="infoContainer">
 
-    localStorage.setItem("session", JSON.stringify(encontrado));
+                    <div class="mini-card">
+                        <h3>📘 Información</h3>
+                        <p>Plataforma para cursos, tareas y calificaciones.</p>
+                    </div>
 
-    // REDIRECCIÓN
-    if(encontrado.rol === "docente"){
-        window.location.href = "docente.html";
-    } 
-    else if(encontrado.rol === "admin"){
-        window.location.href = "administracion.html";
-    } 
-    else {
-        window.location.href = "estudiante.html";
-    }
-}
+                    <div class="mini-card">
+                        <h3>🎓 Estudiantes</h3>
+                        <p>Accede a cursos y tareas.</p>
+                    </div>
 
-// VER PASSWORD
-function togglePass(id){
-    const input = document.getElementById(id);
-    input.type = input.type === "password" ? "text" : "password";
-}
+                    <div class="mini-card">
+                        <h3>👨‍🏫 Docentes</h3>
+                        <p>Gestionan cursos y evalúan.</p>
+                    </div>
+
+                </div>
+
+                <span class="toggle-text" onclick="goLogin()">Volver</span>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
