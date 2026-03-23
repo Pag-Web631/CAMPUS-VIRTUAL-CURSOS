@@ -7,8 +7,8 @@
 
 <link rel="stylesheet" href="login.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
 </head>
+
 <body>
 
 <div class="container">
@@ -17,53 +17,44 @@
 
             <!-- LOGIN -->
             <div class="flip-card-front">
-                <form onsubmit="return false;">
-                    <h2>Campus Virtual</h2>
+                <h2>Campus Virtual</h2>
 
-                    <input type="text" id="loginUser" placeholder="Usuario">
+                <input type="text" id="loginUser" placeholder="Usuario">
 
-                    <div class="input-box">
-                        <input type="password" id="loginPass" placeholder="Contraseña">
-                        <span class="password-toggle" onclick="togglePass('loginPass', this)">
-                            <i class="fa fa-eye"></i>
-                        </span>
-                    </div>
+                <div class="input-box">
+                    <input type="password" id="loginPass" placeholder="Contraseña">
+                    <span class="password-toggle" onclick="togglePass('loginPass', this)">
+                        <i class="fa fa-eye"></i>
+                    </span>
+                </div>
 
-                    <button onclick="login()">Ingresar</button>
+                <button onclick="login()">Ingresar</button>
 
-                    <div class="links">
-                        <span onclick="goRegister()">Registrarse</span>
-                        <span onclick="goInfo()">ℹ️ Información</span>
-                    </div>
-                </form>
+                <div class="links">
+                    <span onclick="goRegister()">Registrarse</span>
+                    <span onclick="goInfo()">ℹ️ Información</span>
+                </div>
             </div>
 
             <!-- REGISTRO -->
             <div class="flip-card-back" id="registerCard">
-                <form onsubmit="return false;">
-                    <h2>Crear Cuenta</h2>
+                <h2>Crear Cuenta</h2>
 
-                    <input id="regUser" placeholder="Usuario">
+                <input id="regUser" placeholder="Usuario">
 
-                    <div class="input-box">
-                        <input type="password" id="regPass" placeholder="Contraseña">
-                        <span class="password-toggle" onclick="togglePass('regPass', this)">
-                            <i class="fa fa-eye"></i>
-                        </span>
-                    </div>
+                <div class="input-box">
+                    <input type="password" id="regPass" placeholder="Contraseña">
+                    <span class="password-toggle" onclick="togglePass('regPass', this)">
+                        <i class="fa fa-eye"></i>
+                    </span>
+                </div>
 
-                    <!-- SOLO ESTUDIANTE -->
-                    <select>
-                        <option>Estudiante</option>
-                    </select>
+                <button onclick="registrar()">Registrar</button>
 
-                    <button onclick="registrar()">Registrar</button>
-
-                    <div class="links">
-                        <span onclick="goLogin()">Volver</span>
-                        <span onclick="goInfo()">ℹ️ Información</span>
-                    </div>
-                </form>
+                <div class="links">
+                    <span onclick="goLogin()">Volver</span>
+                    <span onclick="goInfo()">ℹ️ Información</span>
+                </div>
             </div>
 
             <!-- INFO -->
@@ -78,7 +69,7 @@
 
                     <div class="mini-card">
                         <h3>📘 Información</h3>
-                        <p>Plataforma moderna para gestión académica.</p>
+                        <p>Plataforma para cursos, tareas y calificaciones.</p>
                     </div>
 
                     <div class="mini-card">
@@ -88,16 +79,7 @@
 
                     <div class="mini-card">
                         <h3>👨‍🏫 Docentes</h3>
-                        <p>Crean cursos y califican.</p>
-                    </div>
-
-                    <div class="mini-card">
-                        <h3>⚙️ Funciones</h3>
-                        <ul>
-                            <li>✔ Cursos</li>
-                            <li>✔ Tareas</li>
-                            <li>✔ Notas</li>
-                        </ul>
+                        <p>Gestionan cursos y evalúan.</p>
                     </div>
 
                 </div>
