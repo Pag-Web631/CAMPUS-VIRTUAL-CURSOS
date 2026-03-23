@@ -1,1 +1,29 @@
-hola
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Administración</title>
+</head>
+<body>
+
+<h2>Panel Administrador</h2>
+
+<input id="docUser" placeholder="Usuario docente">
+<input id="docPass" placeholder="Contraseña">
+
+<button onclick="crearDocente()">Crear Docente</button>
+<button onclick="logout()">Salir</button>
+
+<script>
+const session = JSON.parse(localStorage.getItem("session"));
+
+if(!session || session.rol !== "admin"){
+    alert("Solo admin ❌");
+    location.href = "index.html";
+}
+</script>
+
+<script src="script.js"></script>
+
+</body>
+</html>
