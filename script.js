@@ -67,26 +67,39 @@ function registrar(){
 
 // 👑 ADMIN CREA DOCENTE
 function crearDocente(){
-    const user = document.getElementById("docUser").value;
-    const pass = document.getElementById("docPass").value;
+    const user = document.getElementById("docUser").value.trim();
+    const pass = document.getElementById("docPass").value.trim();
 
     if(!user || !pass){
-        return alert("Completa todo");
+        alert("Completa todos los campos ❌");
+        return;
     }
 
-    let usuarios = JSON.parse(localStorage.getItem("usuarios"));
+    let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
 
+    // Verificar si ya existe
     if(usuarios.some(u => u.user === user)){
-        return alert("Ya existe");
+        alert("Ese usuario ya existe ❌");
+        return;
     }
 
-    usuarios.push({ user, pass, rol: "docente" });
+    // 🔥 CREAR DOCENTE (rol fijo)
+    const nuevoDocente = {
+        user: user,
+        pass: pass,
+        rol: "docente"
+    };
+
+    usuarios.push(nuevoDocente);
 
     localStorage.setItem("usuarios", JSON.stringify(usuarios));
 
-    alert("Docente creado ✔");
-}
+    alert("Docente creado correctamente ✔");
 
+    // limpiar campos
+    document.getElementById("docUser").value = "";
+    document.getElementById("docPass").value = "";
+}
 
 // 🚪 LOGOUT
 function logout(){
