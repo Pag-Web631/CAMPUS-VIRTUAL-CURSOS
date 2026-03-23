@@ -1,3 +1,97 @@
-hola   
+body{
+    margin:0;
+    font-family:Segoe UI;
+    background:#0f172a;
+    color:white;
+}
 
+/* LAYOUT */
+.dashboard{
+    display:flex;
+}
 
+/* SIDEBAR */
+.sidebar{
+    width:220px;
+    height:100vh;
+    background:#020617;
+    padding:20px;
+}
+
+.sidebar h2{
+    margin-bottom:20px;
+}
+
+.sidebar ul{
+    list-style:none;
+    padding:0;
+}
+
+.sidebar li{
+    padding:10px;
+    cursor:pointer;
+    border-radius:8px;
+}
+
+.sidebar li:hover{
+    background:#1e293b;
+}
+
+/* MAIN */
+.main{
+    flex:1;
+    padding:20px;
+}
+
+/* CURSOS GRID */
+.courses{
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px,1fr));
+    gap:20px;
+}
+
+/* TARJETA CURSO */
+.course-card{
+    background:#1e293b;
+    padding:15px;
+    border-radius:15px;
+    box-shadow:0 0 10px rgba(0,0,0,0.3);
+}
+
+/* INPUT */
+.course-card input{
+    width:100%;
+    padding:8px;
+    margin-top:5px;
+    border-radius:8px;
+    border:none;
+}
+
+/* BOTON */
+.course-card button{
+    margin-top:5px;
+    width:100%;
+    padding:8px;
+    border:none;
+    border-radius:8px;
+    background:#2563eb;
+    color:white;
+    cursor:pointer;
+}
+
+.course-card button:hover{
+    background:#1d4ed8;
+}
+
+/* LISTAS */
+.list{
+    margin-top:10px;
+    font-size:0.9rem;
+}
+
+.list div{
+    background:#334155;
+    padding:5px;
+    margin:3px 0;
+    border-radius:5px;
+}
