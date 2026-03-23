@@ -6,8 +6,6 @@
 <title>Campus Virtual</title>
 
 <link rel="stylesheet" href="login.css">
-
-<!-- ICONOS -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 </head>
@@ -17,7 +15,7 @@
     <div class="flip-card">
         <div class="flip-card-inner" id="flipInner">
 
-            <!-- ================= LOGIN ================= -->
+            <!-- LOGIN -->
             <div class="flip-card-front">
                 <form onsubmit="return false;">
                     <h2>Campus Virtual</h2>
@@ -31,7 +29,7 @@
                         </span>
                     </div>
 
-                    <button type="button" onclick="login()">Ingresar</button>
+                    <button onclick="login()">Ingresar</button>
 
                     <div class="links">
                         <span onclick="goRegister()">Registrarse</span>
@@ -40,12 +38,12 @@
                 </form>
             </div>
 
-            <!-- ================= REGISTRO ================= -->
+            <!-- REGISTRO -->
             <div class="flip-card-back" id="registerCard">
                 <form onsubmit="return false;">
                     <h2>Crear Cuenta</h2>
 
-                    <input type="text" id="regUser" placeholder="Usuario">
+                    <input id="regUser" placeholder="Usuario">
 
                     <div class="input-box">
                         <input type="password" id="regPass" placeholder="Contraseña">
@@ -55,11 +53,11 @@
                     </div>
 
                     <!-- SOLO ESTUDIANTE -->
-                    <select id="regRol">
-                        <option value="estudiante">Estudiante</option>
+                    <select>
+                        <option>Estudiante</option>
                     </select>
 
-                    <button type="button" onclick="registrar()">Registrar</button>
+                    <button onclick="registrar()">Registrar</button>
 
                     <div class="links">
                         <span onclick="goLogin()">Volver</span>
@@ -68,65 +66,43 @@
                 </form>
             </div>
 
-            <!-- ================= INFO ================= -->
+            <!-- INFO -->
             <div class="flip-card-back" id="infoCard" style="display:none;">
 
-                <!-- BOTONES -->
                 <div class="scroll-buttons">
                     <button onclick="scrollInfo(-1)">◀</button>
                     <button onclick="scrollInfo(1)">▶</button>
                 </div>
 
-                <!-- TARJETAS -->
                 <div class="info-container" id="infoContainer">
 
-                    <!-- 1 -->
                     <div class="mini-card">
                         <h3>📘 Información</h3>
-                        <p>
-                        Este Campus Virtual es una plataforma moderna para gestionar cursos,
-                        tareas y calificaciones en línea.
-                        </p>
+                        <p>Plataforma moderna para gestión académica.</p>
                     </div>
 
-                    <!-- 2 -->
                     <div class="mini-card">
                         <h3>🎓 Estudiantes</h3>
-                        <p>
-                        Accede a cursos, entrega tareas y revisa tus notas en tiempo real.
-                        </p>
+                        <p>Accede a cursos y tareas.</p>
                     </div>
 
-                    <!-- 3 -->
                     <div class="mini-card">
                         <h3>👨‍🏫 Docentes</h3>
-                        <p>
-                        Crean cursos, tareas, cuestionarios y califican estudiantes.
-                        </p>
+                        <p>Crean cursos y califican.</p>
                     </div>
 
-                    <!-- 4 -->
                     <div class="mini-card">
-                        <h3>⚙️ Funcionalidades</h3>
+                        <h3>⚙️ Funciones</h3>
                         <ul>
                             <li>✔ Cursos</li>
                             <li>✔ Tareas</li>
-                            <li>✔ Calificaciones</li>
-                            <li>✔ Panel personalizado</li>
+                            <li>✔ Notas</li>
                         </ul>
-                    </div>
-
-                    <!-- 5 -->
-                    <div class="mini-card">
-                        <h3>👤 Sobre mí</h3>
-                        <p><strong>José Augusto Herrera Castillo</strong></p>
-                        <p>Desarrollador de aplicaciones modernas.</p>
                     </div>
 
                 </div>
 
                 <span class="toggle-text" onclick="goLogin()">Volver</span>
-
             </div>
 
         </div>
