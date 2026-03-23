@@ -133,3 +133,23 @@ function goInfo(){
     document.getElementById("registerCard").style.display = "none";
     document.getElementById("infoCard").style.display = "flex";
 }
+let index = 0;
+
+function scrollInfo(direction){
+    const container = document.getElementById("infoContainer");
+    const cards = document.querySelectorAll(".mini-card");
+
+    index += direction;
+
+    if(index < 0) index = cards.length - 1;
+    if(index >= cards.length) index = 0;
+
+    const width = cards[0].offsetWidth + 10;
+
+    container.style.transform = `translateX(-${index * width}px)`;
+}
+
+// 🔥 AUTO SCROLL (AQUI VA)
+setInterval(() => {
+    scrollInfo(1);
+}, 3000);
