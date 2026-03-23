@@ -2,26 +2,75 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="style.css">
+<title>Admin</title>
 </head>
 <body>
 
-<div class="container">
-    <div class="card">
-        <h2>Panel Docente</h2>
-        <p id="bienvenida"></p>
+<h2>ADMINISTRACIÓN</h2>
 
-        <button>Crear Curso</button>
-        <button>Crear Tarea</button>
-        <button>Calificar</button>
-        <button onclick="logout()">Salir</button>
-    </div>
-</div>
+<h3>Crear Docente</h3>
+<input id="docUser" placeholder="Usuario">
+<input id="docPass" placeholder="Contraseña">
+<button onclick="crearDocente()">Crear</button>
 
-<script src="script.js"></script>
+<h3>Crear Curso</h3>
+<input id="cursoNombre" placeholder="Nombre curso">
+<input id="cursoDocente" placeholder="Docente (usuario)">
+<button onclick="crearCurso()">Crear Curso</button>
+
+<hr>
+<h3>Cursos</h3>
+<div id="listaCursos"></div>
+
 <script>
-cargarUsuario();
-if(user.rol !== "docente") location.href="index.html";
+
+function crearDocente(){
+    let user = docUser.value;
+    let pass = docPass.value;
+
+    let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+
+    usuarios.push({user, pass, rol:"docente"});
+    localStorage.setItem("usuarios", JSON.stringify(usuarios));
+
+    alert("Docente creado");
+}
+
+function crearCurso(){
+    let nombre = cursoNombre.value;
+    let docente = cursoDocente.value;
+
+    let cursos = JSON.parse(localStorage.getItem("cursos")) || [];
+
+    cursos.push({
+        id: Date.now(),
+        nombre,
+        docente,
+        estudiantes: [],
+        tareas: [],
+        cuestionarios: []
+    });
+
+    localStorage.setItem("cursos", JSON.stringify(cursos));
+    mostrarCursos();
+}
+
+function mostrarCursos(){
+    let cursos = JSON.parse(localStorage.getItem("cursos")) || [];
+    let html = "";
+
+    cursos.forEach(c => {
+        html += `
+        <div>
+            <b>${c.nombre}</b> - Docente: ${c.docente}
+        </div>`;
+    });
+
+    listaCursos.innerHTML = html;
+}
+
+mostrarCursos();
+
 </script>
 
 </body>
