@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -17,7 +15,7 @@
     <div class="flip-card">
         <div class="flip-card-inner" id="flipInner">
 
-            <!-- LOGIN -->
+            <!-- 🔐 LOGIN -->
             <div class="flip-card-front">
                 <h2>Campus Virtual</h2>
 
@@ -25,12 +23,12 @@
 
                 <div class="input-box">
                     <input type="password" id="loginPass" placeholder="Contraseña">
-                    <span class="password-toggle" onclick="togglePass('loginPass', this)">
+                    <span class="password-toggle" onclick="togglePass('loginPass')">
                         <i class="fa fa-eye"></i>
                     </span>
                 </div>
 
-                <button onclick="login()">Ingresar</button>
+                <button type="button" onclick="login()">Ingresar</button>
 
                 <div class="links">
                     <span onclick="goRegister()">Registrarse</span>
@@ -38,20 +36,20 @@
                 </div>
             </div>
 
-            <!-- REGISTRO -->
+            <!-- 🧾 REGISTRO -->
             <div class="flip-card-back" id="registerCard">
                 <h2>Crear Cuenta</h2>
 
-                <input id="regUser" placeholder="Usuario">
+                <input type="text" id="regUser" placeholder="Usuario">
 
                 <div class="input-box">
                     <input type="password" id="regPass" placeholder="Contraseña">
-                    <span class="password-toggle" onclick="togglePass('regPass', this)">
+                    <span class="password-toggle" onclick="togglePass('regPass')">
                         <i class="fa fa-eye"></i>
                     </span>
                 </div>
 
-                <button onclick="registrar()">Registrar</button>
+                <button type="button" onclick="registrar()">Registrar</button>
 
                 <div class="links">
                     <span onclick="goLogin()">Volver</span>
@@ -59,34 +57,38 @@
                 </div>
             </div>
 
-            <!-- INFO -->
+            <!-- ℹ️ INFO -->
             <div class="flip-card-back" id="infoCard" style="display:none;">
 
                 <div class="scroll-buttons">
-                    <button onclick="scrollInfo(-1)">◀</button>
-                    <button onclick="scrollInfo(1)">▶</button>
+                    <button type="button" onclick="scrollInfo(-1)">◀</button>
+                    <button type="button" onclick="scrollInfo(1)">▶</button>
                 </div>
 
                 <div class="info-container" id="infoContainer">
 
                     <div class="mini-card">
                         <h3>📘 Información</h3>
-                        <p>Plataforma para cursos, tareas y calificaciones.</p>
+                        <p>Este Campus Virtual permite gestionar cursos, tareas y calificaciones de forma digital.</p>
                     </div>
 
                     <div class="mini-card">
                         <h3>🎓 Estudiantes</h3>
-                        <p>Accede a cursos y tareas.</p>
+                        <p>Accede a tus cursos, entrega tareas y revisa tus notas en tiempo real.</p>
                     </div>
 
                     <div class="mini-card">
                         <h3>👨‍🏫 Docentes</h3>
-                        <p>Gestionan cursos y evalúan.</p>
+                        <p>Gestiona cursos, crea tareas y evalúa el rendimiento de los estudiantes.</p>
                     </div>
 
                 </div>
 
-                <span class="toggle-text" onclick="goLogin()">Volver</span>
+                <div class="links">
+                    <span onclick="goLogin()">Volver</span>
+                    <span onclick="goRegister()">Registrarse</span>
+                </div>
+
             </div>
 
         </div>
