@@ -17,7 +17,7 @@
     <div class="flip-card">
         <div class="flip-card-inner" id="flipInner">
 
-            <!-- LOGIN -->
+            <!-- ================= LOGIN ================= -->
             <div class="flip-card-front">
                 <form onsubmit="return false;">
                     <h2>Campus Virtual</h2>
@@ -40,7 +40,7 @@
                 </form>
             </div>
 
-            <!-- REGISTRO -->
+            <!-- ================= REGISTRO ================= -->
             <div class="flip-card-back" id="registerCard">
                 <form onsubmit="return false;">
                     <h2>Crear Cuenta</h2>
@@ -54,10 +54,9 @@
                         </span>
                     </div>
 
+                    <!-- SOLO ESTUDIANTE -->
                     <select id="regRol">
-                        <option value="">Selecciona Rol</option>
                         <option value="estudiante">Estudiante</option>
-                        <option value="docente">Docente</option>
                     </select>
 
                     <button type="button" onclick="registrar()">Registrar</button>
@@ -69,7 +68,7 @@
                 </form>
             </div>
 
-            <!-- INFO -->
+            <!-- ================= INFO ================= -->
             <div class="flip-card-back" id="infoCard" style="display:none;">
 
                 <!-- BOTONES -->
@@ -81,34 +80,47 @@
                 <!-- TARJETAS -->
                 <div class="info-container" id="infoContainer">
 
+                    <!-- 1 -->
                     <div class="mini-card">
                         <h3>📘 Información</h3>
-                        <p>Plataforma moderna para gestión académica digital.</p>
+                        <p>
+                        Este Campus Virtual es una plataforma moderna para gestionar cursos,
+                        tareas y calificaciones en línea.
+                        </p>
                     </div>
 
+                    <!-- 2 -->
                     <div class="mini-card">
                         <h3>🎓 Estudiantes</h3>
-                        <p>Accede a cursos, tareas y calificaciones.</p>
+                        <p>
+                        Accede a cursos, entrega tareas y revisa tus notas en tiempo real.
+                        </p>
                     </div>
 
+                    <!-- 3 -->
                     <div class="mini-card">
                         <h3>👨‍🏫 Docentes</h3>
-                        <p>Gestiona cursos y evalúa estudiantes.</p>
+                        <p>
+                        Crean cursos, tareas, cuestionarios y califican estudiantes.
+                        </p>
                     </div>
 
+                    <!-- 4 -->
                     <div class="mini-card">
-                        <h3>⚙️ Funciones</h3>
+                        <h3>⚙️ Funcionalidades</h3>
                         <ul>
                             <li>✔ Cursos</li>
                             <li>✔ Tareas</li>
-                            <li>✔ Notas</li>
+                            <li>✔ Calificaciones</li>
+                            <li>✔ Panel personalizado</li>
                         </ul>
                     </div>
 
+                    <!-- 5 -->
                     <div class="mini-card">
                         <h3>👤 Sobre mí</h3>
-                        <p><strong>José Augusto</strong></p>
-                        <p>Desarrollador de apps modernas.</p>
+                        <p><strong>José Augusto Herrera Castillo</strong></p>
+                        <p>Desarrollador de aplicaciones modernas.</p>
                     </div>
 
                 </div>
