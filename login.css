@@ -1,4 +1,19 @@
+.info-container {
+    display: flex;
+    gap: 10px;
+    overflow: hidden;
+    width: 260px;
+    margin: auto;
+}
 
+.mini-card {
+    min-width: 260px;
+    background: rgba(0,0,0,0.6);
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+}
 body {
     display: flex;
     justify-content: center;
