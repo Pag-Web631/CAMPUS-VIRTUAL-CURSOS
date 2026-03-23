@@ -1,17 +1,8 @@
-// CAMBIOS DE PANTALLA
-function goRegister(){
-    document.getElementById("flipInner").style.transform = "rotateY(180deg)";
-    document.getElementById("registerCard").style.display = "flex";
-    document.getElementById("infoCard").style.display = "none";
-}
-
-function goLogin(){
-    document.getElementById("flipInner").style.transform = "rotateY(0deg)";
-}
-// USUARIOS BASE (SE CREA ADMIN AUTOMATICO)
+// CREAR USUARIOS BASE
 if(!localStorage.getItem("usuarios")){
     localStorage.setItem("usuarios", JSON.stringify([
-        { user: "admin", pass: "123", rol: "admin" }
+        { user: "admin", pass: "123", rol: "admin" },
+        { user: "profe", pass: "123", rol: "docente" }
     ]));
 }
 
@@ -30,6 +21,12 @@ function goInfo(){
     document.getElementById("flipInner").style.transform = "rotateY(180deg)";
     document.getElementById("registerCard").style.display = "none";
     document.getElementById("infoCard").style.display = "flex";
+}
+
+// SCROLL INFO
+function scrollInfo(dir){
+    document.getElementById("infoContainer")
+    .scrollBy({ left: dir * 200, behavior: "smooth" });
 }
 
 // REGISTRO (SOLO ESTUDIANTE)
@@ -55,7 +52,7 @@ function registrar(){
 
     localStorage.setItem("usuarios", JSON.stringify(usuarios));
 
-    alert("Cuenta creada como estudiante ✔");
+    alert("Registrado ✔");
 }
 
 // LOGIN
@@ -73,7 +70,6 @@ function login(){
 
     localStorage.setItem("session", JSON.stringify(encontrado));
 
-    // REDIRECCIÓN
     if(encontrado.rol === "admin"){
         location.href = "administracion.html";
     }
@@ -85,39 +81,8 @@ function login(){
     }
 }
 
-// TOGGLE PASSWORD
-function togglePass(id){
-    const input = document.getElementById(id);
-    input.type = input.type === "password" ? "text" : "password";
-}
-function goInfo(){
-    document.getElementById("flipInner").style.transform = "rotateY(180deg)";
-    document.getElementById("registerCard").style.display = "none";
-    document.getElementById("infoCard").style.display = "flex";
-}
-
-// SCROLL BOTONES ◀ ▶
-function scrollInfo(dir){
-    const container = document.getElementById("infoContainer");
-
-    container.scrollBy({
-        left: dir * 250,
-        behavior: "smooth"
-    });
-}
-
-// LOGIN
-function login(){
-    alert("Login funcionando ✔");
-}
-
-// REGISTRO
-function registrar(){
-    alert("Registro funcionando ✔");
-}
-
 // VER PASSWORD
-function togglePass(id, el){
+function togglePass(id){
     const input = document.getElementById(id);
     input.type = input.type === "password" ? "text" : "password";
 }
