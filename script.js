@@ -1,15 +1,15 @@
-// CREAR USUARIOS BASE
+// CREAR USUARIOS BASE (SOLO UNA VEZ)
 if(!localStorage.getItem("usuarios")){
     localStorage.setItem("usuarios", JSON.stringify([
-        { user: "admin", pass: "123", rol: "admin" },
-        { user: "profe", pass: "123", rol: "docente" }
+        { user: "profe", pass: "123", rol: "docente" },
+        { user: "admin", pass: "123", rol: "admin" }
     ]));
 }
 
 // CAMBIOS DE VISTA
 function goRegister(){
     document.getElementById("flipInner").style.transform = "rotateY(180deg)";
-    document.getElementById("registerCard").style.display = "flex";
+    document.getElementById("registerCard").style.display = "block";
     document.getElementById("infoCard").style.display = "none";
 }
 
@@ -20,7 +20,7 @@ function goLogin(){
 function goInfo(){
     document.getElementById("flipInner").style.transform = "rotateY(180deg)";
     document.getElementById("registerCard").style.display = "none";
-    document.getElementById("infoCard").style.display = "flex";
+    document.getElementById("infoCard").style.display = "block";
 }
 
 // SCROLL INFO
@@ -29,19 +29,21 @@ function scrollInfo(dir){
     .scrollBy({ left: dir * 200, behavior: "smooth" });
 }
 
-// REGISTRO (SOLO ESTUDIANTE)
+// REGISTRO (ESTUDIANTE)
 function registrar(){
     const user = document.getElementById("regUser").value;
     const pass = document.getElementById("regPass").value;
 
     if(!user || !pass){
-        return alert("Completa todo");
+        alert("Completa todo");
+        return;
     }
 
     let usuarios = JSON.parse(localStorage.getItem("usuarios"));
 
     if(usuarios.find(u => u.user === user)){
-        return alert("Usuario ya existe");
+        alert("Usuario ya existe");
+        return;
     }
 
     usuarios.push({
@@ -55,7 +57,7 @@ function registrar(){
     alert("Registrado ✔");
 }
 
-// LOGIN
+// LOGIN REAL 🔥
 function login(){
     const user = document.getElementById("loginUser").value;
     const pass = document.getElementById("loginPass").value;
@@ -65,19 +67,21 @@ function login(){
     const encontrado = usuarios.find(u => u.user === user && u.pass === pass);
 
     if(!encontrado){
-        return alert("Datos incorrectos");
+        alert("Datos incorrectos ❌");
+        return;
     }
 
     localStorage.setItem("session", JSON.stringify(encontrado));
 
-    if(encontrado.rol === "admin"){
-        location.href = "administracion.html";
-    }
-    else if(encontrado.rol === "docente"){
-        location.href = "docente.html";
-    }
-    else{
-        location.href = "estudiante.html";
+    // REDIRECCIÓN
+    if(encontrado.rol === "docente"){
+        window.location.href = "docente.html";
+    } 
+    else if(encontrado.rol === "admin"){
+        window.location.href = "administracion.html";
+    } 
+    else {
+        window.location.href = "estudiante.html";
     }
 }
 
