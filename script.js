@@ -16,8 +16,8 @@ init();
 
 // 🔐 LOGIN
 function login(){
-    const user = document.getElementById("loginUser").value.trim();
-    const pass = document.getElementById("loginPass").value.trim();
+    const user = document.getElementById("loginUser")?.value.trim();
+    const pass = document.getElementById("loginPass")?.value.trim();
 
     let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
 
@@ -44,14 +44,14 @@ function login(){
 
 // 🧾 REGISTRO (SOLO ESTUDIANTE)
 function registrar(){
-    const user = document.getElementById("regUser").value.trim();
-    const pass = document.getElementById("regPass").value.trim();
+    const user = document.getElementById("regUser")?.value.trim();
+    const pass = document.getElementById("regPass")?.value.trim();
 
     if(!user || !pass){
         return alert("Completa todo");
     }
 
-    let usuarios = JSON.parse(localStorage.getItem("usuarios"));
+    let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
 
     if(usuarios.some(u => u.user === user)){
         return alert("Usuario ya existe");
@@ -67,8 +67,8 @@ function registrar(){
 
 // 👑 ADMIN CREA DOCENTE
 function crearDocente(){
-    const user = document.getElementById("docUser").value.trim();
-    const pass = document.getElementById("docPass").value.trim();
+    const user = document.getElementById("docUser")?.value.trim();
+    const pass = document.getElementById("docPass")?.value.trim();
 
     if(!user || !pass){
         alert("Completa todos los campos ❌");
@@ -77,29 +77,23 @@ function crearDocente(){
 
     let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
 
-    // Verificar si ya existe
     if(usuarios.some(u => u.user === user)){
         alert("Ese usuario ya existe ❌");
         return;
     }
 
-    // 🔥 CREAR DOCENTE (rol fijo)
-    const nuevoDocente = {
-        user: user,
-        pass: pass,
-        rol: "docente"
-    };
-
-    usuarios.push(nuevoDocente);
+    usuarios.push({ user, pass, rol: "docente" });
 
     localStorage.setItem("usuarios", JSON.stringify(usuarios));
 
-    alert("Docente creado correctamente ✔");
+    alert("Docente creado ✔");
 
-    // limpiar campos
-    document.getElementById("docUser").value = "";
-    document.getElementById("docPass").value = "";
+    if(document.getElementById("docUser")){
+        document.getElementById("docUser").value = "";
+        document.getElementById("docPass").value = "";
+    }
 }
+
 
 // 🚪 LOGOUT
 function logout(){
@@ -111,33 +105,65 @@ function logout(){
 // 👁️ PASSWORD
 function togglePass(id){
     const input = document.getElementById(id);
+    if(!input) return;
+
     input.type = input.type === "password" ? "text" : "password";
 }
+
+
 // 🔄 IR A REGISTRO
 function goRegister(){
-    document.getElementById("flipInner").style.transform = "rotateY(180deg)";
-    document.getElementById("registerCard").style.display = "flex";
-    document.getElementById("infoCard").style.display = "none";
+    const flip = document.getElementById("flipInner");
+    const reg = document.getElementById("registerCard");
+    const info = document.getElementById("infoCard");
+
+    if(!flip) return;
+
+    flip.style.transform = "rotateY(180deg)";
+
+    if(reg) reg.style.display = "flex";
+    if(info) info.style.display = "none";
 }
+
 
 // 🔄 VOLVER A LOGIN
 function goLogin(){
-    document.getElementById("flipInner").style.transform = "rotateY(0deg)";
-    document.getElementById("registerCard").style.display = "flex";
-    document.getElementById("infoCard").style.display = "none";
+    const flip = document.getElementById("flipInner");
+    const reg = document.getElementById("registerCard");
+    const info = document.getElementById("infoCard");
+
+    if(!flip) return;
+
+    flip.style.transform = "rotateY(0deg)";
+
+    if(reg) reg.style.display = "flex";
+    if(info) info.style.display = "none";
 }
+
 
 // ℹ️ MOSTRAR INFO
 function goInfo(){
-    document.getElementById("flipInner").style.transform = "rotateY(180deg)";
-    document.getElementById("registerCard").style.display = "none";
-    document.getElementById("infoCard").style.display = "flex";
+    const flip = document.getElementById("flipInner");
+    const reg = document.getElementById("registerCard");
+    const info = document.getElementById("infoCard");
+
+    if(!flip) return;
+
+    flip.style.transform = "rotateY(180deg)";
+
+    if(reg) reg.style.display = "none";
+    if(info) info.style.display = "flex";
 }
+
+
+// 🎞️ CARRUSEL INFO
 let index = 0;
 
 function scrollInfo(direction){
     const container = document.getElementById("infoContainer");
     const cards = document.querySelectorAll(".mini-card");
+
+    if(!container || cards.length === 0) return;
 
     index += direction;
 
@@ -149,7 +175,14 @@ function scrollInfo(direction){
     container.style.transform = `translateX(-${index * width}px)`;
 }
 
-// 🔥 AUTO SCROLL (AQUI VA)
-setInterval(() => {
-    scrollInfo(1);
-}, 3000);
+
+// 🔥 AUTO SCROLL SEGURO
+document.addEventListener("DOMContentLoaded", () => {
+    const container = document.getElementById("infoContainer");
+
+    if(container){
+        setInterval(() => {
+            scrollInfo(1);
+        }, 3000);
+    }
+});
