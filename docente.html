@@ -7,15 +7,24 @@
 <body>
 
 <h2>Panel Docente</h2>
-
 <script>
 const session = JSON.parse(localStorage.getItem("session"));
 
-if(!session || session.rol !== "docente"){
-    alert("Acceso denegado");
+if(!session){
+    alert("Debes iniciar sesión");
     location.href = "index.html";
 }
+
+// 🔥 SOLO DOCENTE PUEDE ENTRAR
+if(session.rol !== "docente"){
+    alert("Acceso solo para docentes ❌");
+    location.href = "index.html";
+}
+
+// MOSTRAR NOMBRE
+document.write("<h3>Bienvenido docente: " + session.user + "</h3>");
 </script>
+
 
 </body>
 </html>
